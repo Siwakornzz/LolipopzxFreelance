@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../appstate/AuthProvider";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const profileDetail = () => {
   const { user } = useContext(AuthContext);
-
+  const route = useRouter();
   return (
     <div class="col-4 mt-5 text-center">
       <div class="">
@@ -22,14 +24,30 @@ const profileDetail = () => {
               <p> เกี่ยวกับ : </p>
               <p> ที่อยู่ : </p>
               <p> จังหวัด : </p>
-              <br />
+              <hr />
               <p>ข้อมูลติดต่อ</p>
-              <p>เบอร์</p>
-              <p>อีเมล์ : {user.email.toUpperCase()}</p>
-              <p>line</p>
+
+              <p>
+                <i class="bi bi-telephone-fill" style={{ color: "#333" }}></i>{" "}
+                เบอร์โทรศัพท์ :
+              </p>
+              <p>
+                <i class="bi bi-envelope-fill" style={{ color: "#333" }}></i>{" "}
+                อีเมล์ : {user.email.toUpperCase()}
+              </p>
+              <p>
+                <i class="bi bi-line" style={{ color: "#333" }}></i> LINE :
+              </p>
             </b>
           </div>
-          <button class="btn btn-secondary w-50 btn-sm mt-4 "> แก้ไขโปรไฟล์ </button>
+          {route.asPath != "/profile/editprofile" && (
+            <Link href="profile/editprofile">
+              <button class="btn btn-secondary w-50 btn-sm mt-4 ">
+                {" "}
+                <i class="bi bi-pencil-square"></i> แก้ไขโปรไฟล์{" "}
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </div>
