@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { QUERY_SUBCONTRACTS } from "../../apollo/queries";
+
 import DataTable from "react-data-table-component";
 import { useQuery } from "@apollo/client";
+import { QUERY_SUBCONTRACTS } from "../../../../apollo/queries";
 const TaskRequestTable = () => {
   const [subcontractData, setSubcontractData] = useState([]);
 

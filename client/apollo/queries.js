@@ -6,6 +6,15 @@ export const Me = gql`
     user {
       id
       username
+      firstname
+      lastname
+      email
+      tel
+      lineid
+      province
+      district
+      subdistrict
+      zipcode
       roles
       createdAt
 
@@ -50,6 +59,9 @@ export const Me = gql`
           id
         }
       }
+      task {
+        id
+      }
     }
   }
 `;
@@ -63,6 +75,12 @@ export const QUERY_USER = {
         firstname
         lastname
         email
+        tel
+        lineid
+        province
+        subdistrict
+        district
+        zipcode
         roles
         createdAt
   
@@ -106,6 +124,9 @@ export const QUERY_USER = {
           subcontractAcceptHirecontractId {
             id
           }
+        }
+        task{
+          id
         }
       }
     }

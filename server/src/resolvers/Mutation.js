@@ -64,6 +64,50 @@ export const Mutation = {
     return { user, jwt: token };
   },
 
+  updateduserprofile: async (parent, args, { userId }, info) => {
+    const {
+      id,
+      firstname,
+      lastname,
+      tel,
+      lineid,
+      district,
+      subdistrict,
+      province,
+      zipcode,
+    } = args;
+
+    if (!userId) throw new Error("User not logged in !!");
+
+    const user = await User.findById(userId);
+    if (user.roles !== "Admin") {
+      if (userId !== user.id) {
+        throw new Error("You are not Authorized to update this hirecontract");
+      }
+    }
+
+    const updateinfo = {
+      firstname: !!firstname ? firstname : user.firestname,
+      lastname: !!lastname ? lastname : user.lastname,
+      tel: !!tel ? tel : user.tel,
+      lineid: !!lineid ? lineid : user.lineid,
+      district: !!district ? district : user.district,
+      subdistrict: !!subdistrict ? subdistrict : user.subdistrict,
+      province: !!province ? province : user.province,
+      zipcode: !!zipcode ? zipcode : user.zipcode,
+    };
+
+    await User.findByIdAndUpdate(id, updateinfo);
+
+    const updatedUser = await User.findById(id).populate({
+      path: "Subcontract",
+      path: "Hirecontract",
+      path: "Task",
+    });
+
+    return updatedUser;
+  },
+
   requestresetpassword: async (parent, { email }, context, info) => {
     // find user in the database
     const user = await User.findOne({ email });

@@ -1,5 +1,6 @@
+import Router from "next/router";
 import React from "react";
-import TaskRequestTable from "./TaskRequestTable";
+import TaskRequestTable from "./TaskTable/TaskRequestTable";
 
 const TaskRequest = () => {
   return (
@@ -8,13 +9,16 @@ const TaskRequest = () => {
         <div class="mt-5">
           <h4>
             งานที่ลงประกาศ <i class="bi bi-megaphone-fill"></i>
-            <button class="btn btn-outline-secondary float-end w-25 ">
+            <button
+              class="btn btn-outline-secondary float-end w-25 "
+              onClick={() => Router.push("/hirecontracts/createhirecontract")}
+            >
               <i class="bi bi-folder-plus"></i> เพิ่มงานที่ลงประกาศ
             </button>
           </h4>
         </div>
         <div>
-          <TaskRequestTable/>
+          <TaskRequestTable />
         </div>
       </div>
     </>

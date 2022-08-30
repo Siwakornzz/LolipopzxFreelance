@@ -1,7 +1,8 @@
 import React from "react";
 import ProfileDetail from "./profileDetail";
-import TaskAccept from "./TaskAccept";
-import TaskRequest from "./TaskRequest";
+import AddTask from "./Task/AddTask";
+import TaskhasAssign from "./Task/TaskhasAssign";
+import TaskRequest from "./Task/TaskRequest";
 const ProfilePage = () => {
   return (
     <>
@@ -11,8 +12,12 @@ const ProfilePage = () => {
 
           <div class="col-8 mt-5 ">
             <div class="row">
-              <TaskAccept />
+              <AddTask />
+              <hr />
               <TaskRequest />
+              <hr />
+              <TaskhasAssign />
+              <hr />
             </div>
           </div>
         </div>

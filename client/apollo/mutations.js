@@ -30,12 +30,61 @@ export const SIGN_IN = gql`
       user {
         id
         username
+        firstname
+        lastname
         email
+        tel
+        lineid
+        province
+        district
+        subdistrict
+        zipcode
         roles
+        createdAt
+
         subcontracts {
           id
           name
+          username
+          email
+          skill
+          natureofwork
+          yearskill
+          tel
+          member
+          idcard
+          budget
+          lineid
+          province
+          district
+          subdistrict
+          zip
+          nameofbank
+          accountnumber
+          nameofaccount
+          promptpay
           status
+          createdAt
+          hirecontractWorkId {
+            id
+          }
+        }
+        hirecontracts {
+          id
+          condition
+          detail
+          typeofwork
+          budget
+          zone
+          duration
+          status
+          createdAt
+          subcontractAcceptHirecontractId {
+            id
+          }
+        }
+        task {
+          id
         }
       }
       jwt
@@ -59,6 +108,53 @@ export const RESETPASSWORD = gql`
   }
 `;
 
+export const UPDATE_USER = gql`
+  mutation UPDATE_USER(
+    $id: ID!
+    $firstname: String
+    $lastname: String
+    $lineid: String
+    $tel: String
+    $province: String
+    $district: String
+    $subdistrict: String
+    $zipcode: String
+  ) {
+    updateduserprofile(
+      id: $id
+      firstname: $firstname
+      lastname: $lastname
+      tel: $tel
+      lineid: $lineid
+      province: $province
+      district: $district
+      subdistrict: $subdistrict
+      zipcode: $zipcode
+    ) {
+      id
+      username
+      firstname
+      lastname
+      tel
+      email
+      lineid
+      province
+      district
+      subdistrict
+      zipcode
+
+      subcontracts {
+        id
+      }
+      hirecontracts {
+        id
+      }
+      task {
+        id
+      }
+    }
+  }
+`;
 // subcontracts
 export const CREATE_SUBCONTRACT = gql`
   mutation CREATE_SUBCONTRACT(

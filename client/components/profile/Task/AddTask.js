@@ -1,5 +1,6 @@
+import Router from "next/router";
 import React from "react";
-import TaskAcceptTable from "./TaskAcceptTable";
+import TaskAddTable from "./TaskTable/TaskAddTable";
 
 const TaskAccept = () => {
   return (
@@ -8,13 +9,16 @@ const TaskAccept = () => {
         <div class="mt-5">
           <h4>
             งานที่รับทำ <i class="bi bi-file-earmark-plus-fill"></i>
-            <button class="btn btn-outline-secondary float-end w-25 ">
+            <button
+              class="btn btn-outline-secondary float-end w-25 "
+              onClick={() => Router.push("/subcontracts/createsubcontract")}
+            >
               <i class="bi bi-folder-plus"></i> เพิ่มงานที่รับ
             </button>
           </h4>
         </div>
         <div>
-          <TaskAcceptTable />
+          <TaskAddTable />
         </div>
       </div>
     </>

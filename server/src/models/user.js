@@ -24,6 +24,29 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    tel: {
+      type: String,
+      trim: true,
+    },
+    lineid: {
+      type: String,
+    },
+    subdistrict: {
+      type: String,
+      trim: true,
+    },
+    district: {
+      type: String,
+      trim: true,
+    },
+    province: {
+      type: String,
+      trim: true,
+    },
+    zipcode: {
+      type: String,
+      trim: true,
+    },
     resetPasswordToken: {
       type: String,
     },
@@ -40,6 +63,12 @@ const UserSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Hirecontract",
+      },
+    ],
+    task: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Task",
       },
     ],
     roles: {

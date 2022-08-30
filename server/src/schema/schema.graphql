@@ -37,6 +37,18 @@ type Mutation {
   requestresetpassword(email: String!): Message!
   resetpassword(password: String!, token: String!): Message!
 
+  updateduserprofile(
+    id: ID!
+    firstname: String
+    lastname: String
+    tel: String
+    lineid: String
+    district: String
+    subdistrict: String
+    province: String
+    zipcode: String
+  ): User!
+
   createsubcontract(
     accountnumber: String!
     budget: Int!
@@ -115,9 +127,16 @@ type User {
   lastname: String!
   username: String!
   email: String!
+  tel: String
+  lineid: String
+  subdistrict: String
+  district: String
+  province: String
+  zipcode: String
   roles: String!
   subcontracts: [Subcontract]
   hirecontracts: [Hirecontract]
+  task: [Task]
   createdAt: Date!
 }
 
@@ -161,6 +180,13 @@ type Hirecontract {
   status: String!
   hirecontractCreatorId: User!
   subcontractAcceptHirecontractId: Subcontract
+  createdAt: Date!
+}
+
+type Task {
+  id: ID!
+  subcontract: Subcontract
+  hirecontract: Hirecontract
   createdAt: Date!
 }
 
