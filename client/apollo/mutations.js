@@ -44,44 +44,14 @@ export const SIGN_IN = gql`
 
         subcontracts {
           id
-          name
-          username
-          email
-          skill
-          natureofwork
-          yearskill
-          tel
-          member
-          idcard
-          budget
-          lineid
-          province
-          district
-          subdistrict
-          zip
-          nameofbank
-          accountnumber
-          nameofaccount
-          promptpay
           status
           createdAt
-          hirecontractWorkId {
-            id
-          }
         }
         hirecontracts {
           id
-          condition
-          detail
-          typeofwork
-          budget
-          zone
-          duration
+
           status
           createdAt
-          subcontractAcceptHirecontractId {
-            id
-          }
         }
         task {
           id
@@ -158,67 +128,28 @@ export const UPDATE_USER = gql`
 // subcontracts
 export const CREATE_SUBCONTRACT = gql`
   mutation CREATE_SUBCONTRACT(
-    $accountnumber: String!
-    $budget: Int!
-    $district: String!
-    $email: String!
-    $idcard: String!
-    $lineid: String!
-    $member: Int!
-    $nameofaccount: String!
-    $nameofbank: String!
-    $name: String!
-    $natureofwork: String!
-    $promptpay: String!
+    $topic: String!
+    $typeofwork: String!
+    $detail: String
+    $duration: Int!
+    $startbudget: Float!
     $province: String!
-    $skill: String!
-    $subdistrict: String!
-    $tel: String!
-    $username: String!
-    $yearskill: Int!
-    $zip: String!
   ) {
     createsubcontract(
-      accountnumber: $accountnumber
-      budget: $budget
-      district: $district
-      email: $email
-      idcard: $idcard
-      lineid: $lineid
-      member: $member
-      nameofaccount: $nameofaccount
-      nameofbank: $nameofbank
-      name: $name
-      natureofwork: $natureofwork
-      promptpay: $promptpay
+      topic: $topic
+      typeofwork: $typeofwork
+      detail: $detail
+      duration: $duration
+      startbudget: $startbudget
       province: $province
-      skill: $skill
-      subdistrict: $subdistrict
-      tel: $tel
-      username: $username
-      yearskill: $yearskill
-      zip: $zip
     ) {
       id
-      name
-      username
-      email
-      skill
-      natureofwork
-      yearskill
-      tel
-      member
-      idcard
-      budget
-      lineid
+      topic
+      typeofwork
+      detail
+      duration
+      startbudget
       province
-      district
-      subdistrict
-      zip
-      nameofbank
-      accountnumber
-      nameofaccount
-      promptpay
       status
       createdAt
       subcontractCreatorId {

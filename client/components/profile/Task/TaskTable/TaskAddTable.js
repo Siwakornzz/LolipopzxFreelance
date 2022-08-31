@@ -1,34 +1,30 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import { QUERY_SUBCONTRACTS } from "../../../../apollo/queries";
+import { Me } from "../../../../apollo/queries";
 import { useQuery } from "@apollo/client";
+import DataTableExtensions from "react-data-table-component-extensions";
 
 const TaskAddTable = () => {
   const [subcontractData, setSubcontractData] = useState([]);
 
-  const responseSubcontract = useQuery(QUERY_SUBCONTRACTS, {
-    onCompleted: (data) => {
-      setSubcontractData(data.subcontracts);
-    },
-  });
-  console.log(responseSubcontract?.data?.subcontracts);
-  console.log("sub", subcontractData);
-
   const columns = [
     {
-      name: "ทีมที่รับงาน",
-      selector: (row) => row.name,
+      name: "หัวข้อประกาศงาน",
+      selector: "topic",
       sortable: true,
+      center: true,
     },
     {
-      name: "ชื่อตัวแทนของทีมที่รับงาน",
-      selector: (row) => row.username,
+      name: "ประเภทของงาน",
+      selector: "typeofwork",
       sortable: true,
+      center: true,
     },
     {
-      name: "สถานะของทีมที่รับงาน",
-      selector: (row) => row.status,
+      name: "สถานะ",
+      selector: "status",
       sortable: true,
+      center: true,
     },
     {
       name: "เมนู",
@@ -37,17 +33,25 @@ const TaskAddTable = () => {
           ดูรายละเอียด
         </button>
       ),
+      center: true,
     },
   ];
+  const responseSubcontract = useQuery(Me, {
+    onCompleted: (data) => {
+      // console.log(data.user.subcontracts);
+      setSubcontractData(data.user.subcontracts);
+    },
+  });
+
   return (
-    <DataTable
-      columns={columns}
-      data={subcontractData}
-      pagination
-      // selectableRows
-      // selectableRowsHighlight
-      highlightOnHover
-    />
+    <DataTableExtensions columns={columns} data={subcontractData}>
+      <DataTable
+        pagination
+        // selectableRows
+        // selectableRowsHighlight
+        highlightOnHover
+      />
+    </DataTableExtensions>
   );
 };
 

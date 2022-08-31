@@ -5,11 +5,10 @@ import fetch from "isomorphic-unfetch";
 import cookie from "cookie";
 import { QUERY_USER } from "../apollo/queries";
 import "../styles/globals.css";
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "react-data-table-component-extensions/dist/index.css";
 import Layout from "../components/layout/Layout";
-
-
 
 function MyApp({ Component, pageProps, apollo, user }) {
   // console.log("User : ", user);
@@ -49,7 +48,8 @@ MyApp.getInitialProps = async ({ ctx, router }) => {
       router.pathname === "/admin" ||
       router.pathname === "/admin/matching" ||
       router.pathname === "/admin/managesubcontracts" ||
-      router.pathname === "/admin/managehirecontracts"
+      router.pathname === "/admin/managehirecontracts" ||
+      router.pathname === "/profile"
     ) {
       ctx.res.writeHead(302, { Location: "/" });
       ctx.res.end();

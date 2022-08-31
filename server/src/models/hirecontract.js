@@ -2,41 +2,23 @@ import mongoose from "mongoose";
 
 const HirecontractSchema = new mongoose.Schema(
   {
-    condition: {
+    topic: {
       type: String,
-      lowercase: true,
-      trim: true,
-      required: true,
-    },
-    detail: {
-      type: String,
-      required: true,
     },
     typeofwork: {
       type: String,
-      lowercase: true,
-      trim: true,
-      required: true,
     },
-    budget: {
-      type: Number,
-      required: true,
-    },
-    zone: {
+    detail: {
       type: String,
-      lowercase: true,
-      trim: true,
-      required: true,
     },
     duration: {
       type: Number,
-      required: true,
     },
-    startDate: {
-      type: Date,
+    startbudget: {
+      type: Number,
     },
-    endDate: {
-      type: Date,
+    province: {
+      type: String,
     },
     status: {
       type: String,
@@ -47,15 +29,11 @@ const HirecontractSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    subcontractAcceptHirecontractId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Subcontract",
-    },
+
     createdAt: {
       type: Date,
-      default: () => Date.now() 
+      default: () => Date.now(),
     },
- 
   },
   { versionKey: false }
 );

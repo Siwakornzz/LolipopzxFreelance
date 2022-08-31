@@ -28,9 +28,11 @@ const Signin = () => {
         });
         if (data.signin.user.roles === "Admin") {
           Router.push("/admin");
+        } else if (data.signin.user.roles === "User") {
+          // push user after logged in to profile page
+          Router.push("/profile");
         } else {
-          // push user after logged in to subcontracts page
-          Router.push("/subcontracts");
+          Router.push("/");
         }
       }
     },
@@ -68,11 +70,10 @@ const Signin = () => {
                 src="https://img.freepik.com/premium-vector/linear-vaporwave-background_23-2148884183.jpg?w=2000"
                 className="img-fluid rounded mx-auto d-block"
                 alt=""
-
               />
             </div>
 
-            <div className="col-md-7 col-lg-5 col-xl-5 offset-xl-1" >
+            <div className="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
               <div class="text-center mb-3">
                 <h3> เข้าสู่ระบบ </h3>
                 <label>สำหรับสมาชิกฟรีแลนซ์ / และผู้ว่าจ้าง</label>
@@ -87,7 +88,7 @@ const Signin = () => {
                 {/* <!-- Email input --> */}
                 <div className="form-outline mb-4">
                   <label className="form-label" for="form1Example13">
-                  <i class="bi bi-envelope-fill"></i> Email
+                    <i class="bi bi-envelope-fill"></i> Email
                   </label>
                   <input
                     type="email"
@@ -103,7 +104,7 @@ const Signin = () => {
                 {/* <!-- Password input --> */}
                 <div className="form-outline mb-4">
                   <label className="form-label" for="form1Example23">
-                  <i class="bi bi-lock-fill"></i> รหัสผ่าน
+                    <i class="bi bi-lock-fill"></i> รหัสผ่าน
                   </label>
                   <input
                     type="password"
@@ -133,10 +134,10 @@ const Signin = () => {
                   </div>
                   <a
                     href="/signin/requestresetpassword"
-                    style={{ cursor: "pointer" ,textDecoration: "none" }}
+                    style={{ cursor: "pointer", textDecoration: "none" }}
                     onClick={() => Router.push("/signin/requestresetpassword")}
                   >
-                   <i class="bi bi-key-fill"></i> ลืมรหัสผ่าน ?
+                    <i class="bi bi-key-fill"></i> ลืมรหัสผ่าน ?
                   </a>
                 </div>
 

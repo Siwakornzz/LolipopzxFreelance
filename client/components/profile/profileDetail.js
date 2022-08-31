@@ -48,7 +48,7 @@ const profileDetail = () => {
               </p>
               <p>
                 <i class="bi bi-line" style={{ color: "#333" }}></i> LINE :{" "}
-                {user.line}
+                {user.lineid}
               </p>
             </b>
           </div>

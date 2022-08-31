@@ -50,77 +50,63 @@ type Mutation {
   ): User!
 
   createsubcontract(
-    accountnumber: String!
-    budget: Int!
-    district: String!
-    email: String!
-    idcard: String!
-    lineid: String!
-    member: Int!
-    nameofaccount: String!
-    nameofbank: String!
-    name: String!
-    natureofwork: String!
-    promptpay: String!
-    province: String!
-    skill: String!
-    subdistrict: String!
-    tel: String!
-    username: String!
-    yearskill: Int!
-    zip: String!
-  ): Subcontract!
-
-  updatesubcontract(
-    id: ID!
-    accountnumber: String
-    budget: Int
-    district: String
-    email: String
-    idcard: String
-    lineid: String
-    member: Int
-    nameofaccount: String
-    nameofbank: String
-    name: String
-    natureofwork: String
-    promptpay: String
-    province: String
-    skill: String
-    subdistrict: String
-    tel: String
-    username: String
-    yearskill: Int
-    zip: String
-  ): Subcontract!
-
-  deletesubcontract(id: ID!): Subcontract!
-
-  createhirecontract(
-    condition: String!
-    detail: String!
+    topic: String!
     typeofwork: String!
-    budget: Float!
-    zone: String!
-    duration: Float!
-  ): Hirecontract!
-
-  updatehirecontract(
-    id: ID!
-    condition: String
     detail: String
-    typeofwork: String
-    budget: Float
-    zone: String
-    duration: Float
-  ): Hirecontract!
+    duration: Int!
+    startbudget: Float!
+    province: String!
+  ): Subcontract!
 
-  deletehirecontract(id: ID!): Hirecontract!
-  assignsubtohire(id: ID!, subcontractAcceptHirecontractId: ID!): Hirecontract!
-  subcontractdeniedwork(id: ID!): Hirecontract!
-  subcontractacceptwork(id: ID!): Hirecontract!
+    updatesubcontract(
+      id: ID!
+      accountnumber: String
+      budget: Int
+      district: String
+      email: String
+      idcard: String
+      lineid: String
+      member: Int
+      nameofaccount: String
+      nameofbank: String
+      name: String
+      natureofwork: String
+      promptpay: String
+      province: String
+      skill: String
+      subdistrict: String
+      tel: String
+      username: String
+      yearskill: Int
+      zip: String
+    ): Subcontract!
+
+    deletesubcontract(id: ID!): Subcontract!
+
+    createhirecontract(
+      condition: String!
+      detail: String!
+      typeofwork: String!
+      budget: Float!
+      zone: String!
+      duration: Float!
+    ): Hirecontract!
+
+    updatehirecontract(
+      id: ID!
+      condition: String
+      detail: String
+      typeofwork: String
+      budget: Float
+      zone: String
+      duration: Float
+    ): Hirecontract!
+
+    deletehirecontract(id: ID!): Hirecontract!
+    assignsubtohire(id: ID!, subcontractAcceptHirecontractId: ID!): Hirecontract!
+    subcontractdeniedwork(id: ID!): Hirecontract!
+    subcontractacceptwork(id: ID!): Hirecontract!
 }
-
 type User {
   id: ID!
   firstname: String!
@@ -142,44 +128,27 @@ type User {
 
 type Subcontract {
   id: ID!
-  accountnumber: String!
-  budget: Int!
-  district: String!
-  email: String!
-  idcard: String!
-  lineid: String!
-  member: Float!
-  nameofaccount: String!
-  nameofbank: String!
-  name: String!
-  natureofwork: String!
-  promptpay: String!
+  topic: String!
+  typeofwork: String!
+  detail: String
+  duration: Int!
+  startbudget: Float!
   province: String!
-  skill: String!
-  subdistrict: String!
-  tel: String!
-  username: String!
-  yearskill: Float!
-  zip: String!
   status: String!
-  hirecontractWorkId: [Hirecontract]
   subcontractCreatorId: User!
   createdAt: Date!
 }
 
 type Hirecontract {
   id: ID!
-  condition: String!
-  detail: String!
+  topic: String!
   typeofwork: String!
-  budget: Float!
-  zone: String!
-  duration: Float!
-  startDate: Date
-  endDate: Date
+  detail: String
+  duration: Int!
+  startbudget: Float!
+  province: String!
   status: String!
   hirecontractCreatorId: User!
-  subcontractAcceptHirecontractId: Subcontract
   createdAt: Date!
 }
 

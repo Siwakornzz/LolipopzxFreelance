@@ -1,32 +1,93 @@
-import React from "react";
-
+import React, { useState } from "react";
+import Router from "next/router";
+import Swal from "sweetalert2";
+import { useMutation } from "@apollo/react-hooks";
+import { QUERY_SUBCONTRACTS } from "../../apollo/queries";
+import { CREATE_SUBCONTRACT } from "../../apollo/mutations";
 const FormSubcontract = () => {
+  const [subcontractData, setSubcontractData] = useState({
+    topic: "",
+    typeofwork: "",
+    detail: "",
+    duration: 0,
+    startbudget: 0,
+    province: "",
+  });
+
+  console.log(subcontractData);
+  const [createSubcontract, { loading, error }] = useMutation(
+    CREATE_SUBCONTRACT,
+    {
+      variables: {
+        ...subcontractData,
+        startbudget: +subcontractData.startbudget,
+        duration: +subcontractData.duration,
+      },
+      refetchQueries: [{ query: QUERY_SUBCONTRACTS }],
+    }
+  );
+
+  const handleChange = (e) => {
+    setSubcontractData({
+      ...subcontractData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const result = await createSubcontract();
+      console.log(result);
+      Swal.fire({
+        icon: "success",
+        title: "LOLIPOPZ",
+        text: "สร้าง SUBCONTRACT สำเร็จ ",
+      });
+
+      Router.reload(window.location.pathname);
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "LOLIPOPZ",
+        text: error.graphQLErrors[0]?.message,
+      });
+    }
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       {/* headerdetail */}
-      <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">
+      <div className="mb-3">
+        <label for="topic" className="form-label">
           หัวข้อประกาศงาน
           <span style={{ color: "red" }}> *</span>
         </label>
         <input
           type="text"
-          class="form-control"
-          id="exampleFormControlInput1"
+          name="topic"
+          className="form-control"
+          id="topic"
           placeholder="หัวข้อประกาศงาน"
           required
+          defaultValue={subcontractData.topic}
+          onChange={handleChange}
         />
       </div>
       {/* typeofwork */}
-      <div class="mb-3">
-        <label for="exampleFormControlInput2" class="form-label">
+      <div className="mb-3">
+        <label for="typeofwork" className="form-label">
           ประเภทของงานที่รับทำ
           <span style={{ color: "red" }}> *</span>
         </label>
         <select
-          class="form-select form-select-sm"
+          className="form-select form-select-sm"
           aria-label=".form-select-sm example"
-          id="exampleFormControlInput2"
+          id="typeofwork"
+          name="typeofwork"
+          defaultValue={subcontractData.typeofwork}
+          onChange={handleChange}
           required
         >
           <option value="">--- ประเภทของงาน ---</option>
@@ -43,58 +104,70 @@ const FormSubcontract = () => {
         </select>
       </div>
       {/* detail */}
-      <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">
+      <div className="mb-3">
+        <label for="detail" className="form-label">
           รายละเอียดงาน
         </label>
         <textarea
-          class="form-control"
-          id="exampleFormControlTextarea1"
+          className="form-control"
+          id="detail"
+          name="detail"
           rows="3"
           placeholder="รายละเอียดงาน"
+          defaultValue={subcontractData.detail}
+          onChange={handleChange}
         ></textarea>
       </div>
 
       {/* ระยะเวลาในการทำงาน */}
-      <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">
+      <div className="mb-3">
+        <label for="duration" className="form-label">
           ระยะเวลาในการทำงาน
           <span style={{ color: "red" }}> *</span>
         </label>
         <input
           type="text"
-          class="form-control"
-          id="exampleFormControlInput1"
+          className="form-control"
+          id="duration"
+          name="duration"
           placeholder="เช่น 7-14 วัน"
+          defaultValue={subcontractData.duration}
+          onChange={handleChange}
           required
         />
       </div>
       {/* งบประมาณเริ่มต้น */}
-      <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">
+      <div className="mb-3">
+        <label for="startbudget" className="form-label">
           ราคาเริ่มต้น/บาท
           <span style={{ color: "red" }}> *</span>
         </label>
         <input
           type="text"
-          class="form-control"
-          id="exampleFormControlInput1"
+          className="form-control"
+          id="startbudget"
+          name="startbudget"
           placeholder="0.00"
+          defaultValue={subcontractData.startbudget}
+          onChange={handleChange}
           required
         />
       </div>
 
       {/* จังหวัด */}
-      <div class="mb-3">
-        <label for="exampleFormControlInput2" class="form-label">
+      <div className="mb-3">
+        <label for="province" className="form-label">
           จังหวัด
           <span style={{ color: "red" }}> *</span>
         </label>
         <select
-          class="form-select form-select-sm"
+          className="form-select form-select-sm"
           aria-label=".form-select-sm example"
-          id="exampleFormControlInput2"
+          id="province"
+          name="province"
           required
+          defaultValue={subcontractData.province}
+          onChange={handleChange}
         >
           <option value="" selected>
             --------- เลือกจังหวัด ---------
@@ -180,10 +253,13 @@ const FormSubcontract = () => {
         </select>
       </div>
       {/* button */}
-      <div class="text-end">
-        <button type="submit" class="btn btn-secondary w-25 text-center mt-3">
+      <div className="text-end">
+        <button
+          type="submit"
+          className="btn btn-secondary w-25 text-center mt-3"
+        >
           {" "}
-          <i class="bi bi-send-fill"></i> ส่งข้อมูล
+          <i className="bi bi-send-fill"></i> ส่งข้อมูล
         </button>
       </div>
     </form>
