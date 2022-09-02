@@ -241,28 +241,35 @@ export const DELETE_SUBCONTRACT = gql`
 
 export const CREATE_HIRECONTRACT = gql`
   mutation CREATE_HIRECONTRACT(
-    $condition: String!
+    $topic: String!
     $detail: String!
     $typeofwork: String!
     $budget: Float!
-    $zone: String!
-    $duration: Float!
+    $province: String!
+    $duration: Int!
   ) {
     createhirecontract(
-      condition: $condition
+      topic: $topic
       detail: $detail
       typeofwork: $typeofwork
       budget: $budget
-      zone: $zone
+      province: $province
       duration: $duration
     ) {
       id
-      condition
+      topic
       detail
       typeofwork
       budget
-      zone
+      province
       duration
+      status
+      createdAt
+      hirecontractCreatorId {
+        id
+        username
+        email
+      }
     }
   }
 `;

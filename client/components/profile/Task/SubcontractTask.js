@@ -1,8 +1,8 @@
 import Router from "next/router";
 import React from "react";
-import TaskAddTable from "./TaskTable/TaskAddTable";
+import TaskSubcontractTable from "./TaskTable/TaskSubcontractTable";
 
-const TaskAccept = () => {
+const SubcontractTask = () => {
   return (
     <>
       <div class="card-body ms-5">
@@ -18,11 +18,11 @@ const TaskAccept = () => {
           </h4>
         </div>
         <div>
-          <TaskAddTable />
+          <TaskSubcontractTable />
         </div>
       </div>
     </>
   );
 };
 
-export default TaskAccept;
+export default SubcontractTask;

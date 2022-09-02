@@ -1,8 +1,8 @@
 import Router from "next/router";
 import React from "react";
-import TaskRequestTable from "./TaskTable/TaskRequestTable";
+import TaskHirecontractTable from "./TaskTable/TaskHirecontractTable";
 
-const TaskRequest = () => {
+const HirecontractTask = () => {
   return (
     <>
       <div class="card-body ms-5">
@@ -18,11 +18,11 @@ const TaskRequest = () => {
           </h4>
         </div>
         <div>
-          <TaskRequestTable />
+          <TaskHirecontractTable />
         </div>
       </div>
     </>
   );
 };
 
-export default TaskRequest;
+export default HirecontractTask;

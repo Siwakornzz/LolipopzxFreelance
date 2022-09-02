@@ -145,7 +145,7 @@ export const Query = {
     Subcontract.find({
       $and: [
         { status: "ตรวจสอบแล้ว" },
-        { natureofwork: { $regex: "webdevelopment" } },
+        { natureofwork: { $regex: "web development" } },
       ],
     })
       .populate({

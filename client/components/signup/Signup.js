@@ -75,7 +75,7 @@ const Signup = () => {
           </div>
           <div className="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
             <div class="text-center mb-3">
-              <h3> เข้าสู่ระบบ </h3>
+              <h3> สมัครสมาชิก </h3>
               <label>สำหรับสมาชิกฟรีแลนซ์ / และผู้ว่าจ้าง</label>
             </div>
             <form onSubmit={handleSubmit}>

@@ -1,5 +1,4 @@
 import React from "react";
-import TaskAddTable from "./TaskTable/TaskAddTable";
 
 const TaskhasAssign = () => {
   return (
@@ -10,9 +9,7 @@ const TaskhasAssign = () => {
             งานที่จ้างเข้ามา <i class="bi bi-box-arrow-in-down-left"></i>
           </h4>
         </div>
-        <div>
-          <TaskAddTable />
-        </div>
+        <div></div>
       </div>
     </>
   );

@@ -14,7 +14,7 @@ const HirecontractSchema = new mongoose.Schema(
     duration: {
       type: Number,
     },
-    startbudget: {
+    budget: {
       type: Number,
     },
     province: {

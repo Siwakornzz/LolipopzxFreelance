@@ -5,6 +5,7 @@ import sgMail from "@sendgrid/mail";
 import Subcontract from "../models/subcontract";
 import Hirecontract from "../models/hirecontract";
 import User from "../models/User";
+import Task from "../models/task";
 
 export const Mutation = {
   // User
@@ -42,10 +43,15 @@ export const Mutation = {
     const { email, password } = args;
 
     // check email is in the database ?
-    const user = await User.findOne({ email }).populate({
-      path: "subcontracts",
-      populate: { path: "subcontractCreatorId" },
-    });
+    const user = await User.findOne({ email })
+      .populate({
+        path: "subcontracts",
+        populate: { path: "subcontractCreatorId" },
+      })
+      .populate({
+        path: "hirecontracts",
+        populate: { path: "hirecontractCreatorId" },
+      });
 
     if (!user) {
       throw new Error("ไม่พบข้อมูลผู้ใช้งาน โปรดลงทะเบียน !");
@@ -99,11 +105,16 @@ export const Mutation = {
 
     await User.findByIdAndUpdate(id, updateinfo);
 
-    const updatedUser = await User.findById(id).populate({
-      path: "Subcontract",
-      path: "Hirecontract",
-      path: "Task",
-    });
+    const updatedUser = await User.findById(id)
+      .populate({
+        path: "subcontracts",
+      })
+      .populate({
+        path: "hirecontracts",
+      })
+      .populate({
+        path: "task",
+      });
 
     return updatedUser;
   },
@@ -177,7 +188,6 @@ export const Mutation = {
   },
 
   createsubcontract: async (parent, args, { userId }, info) => {
-
     // check  is user loggedin ?
     if (!userId) {
       throw new Error("ยังไม่ได้เข้าสู่ระบบ โปรดเข้าสู่ระบบ !");
@@ -203,317 +213,313 @@ export const Mutation = {
 
     return newSubcontract;
   },
-}
 
-//   updatesubcontract: async (parent, args, { userId }, info) => {
-//     // destructure
-//     const {
-//       id,
-//       promptpay,
-//       nameofaccount,
-//       accountnumber,
-//       nameofbank,
-//       zip,
-//       subdistrict,
-//       district,
-//       province,
-//       lineid,
-//       budget,
-//       idcard,
-//       member,
-//       tel,
-//       email,
-//       yearskill,
-//       natureofwork,
-//       skill,
-//       username,
-//       name,
-//     } = args;
-//     console.log(id);
-//     // check if user loggedIn
-//     if (!userId) {
-//       throw new Error("User not logged in");
-//     }
-//     const subcontract = await Subcontract.findById(id);
+  updatesubcontract: async (parent, args, { userId }, info) => {
+    // destructure
+    const {
+      id,
+      promptpay,
+      nameofaccount,
+      accountnumber,
+      nameofbank,
+      zip,
+      subdistrict,
+      district,
+      province,
+      lineid,
+      budget,
+      idcard,
+      member,
+      tel,
+      email,
+      yearskill,
+      natureofwork,
+      skill,
+      username,
+      name,
+    } = args;
+    console.log(id);
+    // check if user loggedIn
+    if (!userId) {
+      throw new Error("User not logged in");
+    }
+    const subcontract = await Subcontract.findById(id);
 
-//     // check if user is the owner of the subcontract or admin
-//     // const userId = "62cc9a5ec9bd1e07307ede3b";
-//     const user = await User.findById(userId);
+    // check if user is the owner of the subcontract or admin
+    // const userId = "62cc9a5ec9bd1e07307ede3b";
+    const user = await User.findById(userId);
 
-//     if (user.roles !== "Admin") {
-//       if (userId !== subcontract.subcontractCreatorId.toString()) {
-//         throw new Error("You are not Authorized to update this subcontract");
-//       }
-//     }
+    if (user.roles !== "Admin") {
+      if (userId !== subcontract.subcontractCreatorId.toString()) {
+        throw new Error("You are not Authorized to update this subcontract");
+      }
+    }
 
-//     // Form update information
-//     const updateinfo = {
-//       name: !!name ? name : subcontract.name,
-//       username: !!username ? username : subcontract.username,
-//       skill: !!skill ? skill : subcontract.skill,
-//       yearskill: !!yearskill ? yearskill : subcontract.yearskill,
-//       email: !!email ? email : subcontract.email,
-//       tel: !!tel ? tel : subcontract.tel,
-//       natureofwork: !!natureofwork ? natureofwork : subcontract.natureofwork,
-//       member: !!member ? member : subcontract.member,
-//       idcard: !!idcard ? idcard : subcontract.idcard,
-//       budget: !!budget ? budget : subcontract.budget,
-//       lineid: !!lineid ? lineid : subcontract.lineid,
-//       province: !!province ? province : subcontract.province,
-//       district: !!district ? district : subcontract.district,
-//       subdistrict: !!subdistrict ? subdistrict : subcontract.subdistrict,
-//       zip: !!zip ? zip : subcontract.zip,
-//       promptpay: !!promptpay ? promptpay : subcontract.promptpay,
-//       nameofaccount: !!nameofaccount
-//         ? nameofaccount
-//         : subcontract.nameofaccount,
-//       accountnumber: !!accountnumber
-//         ? accountnumber
-//         : subcontract.accountnumber,
-//       nameofbank: !!nameofbank ? nameofbank : subcontract.nameofbank,
-//     };
+    // Form update information
+    const updateinfo = {
+      name: !!name ? name : subcontract.name,
+      username: !!username ? username : subcontract.username,
+      skill: !!skill ? skill : subcontract.skill,
+      yearskill: !!yearskill ? yearskill : subcontract.yearskill,
+      email: !!email ? email : subcontract.email,
+      tel: !!tel ? tel : subcontract.tel,
+      natureofwork: !!natureofwork ? natureofwork : subcontract.natureofwork,
+      member: !!member ? member : subcontract.member,
+      idcard: !!idcard ? idcard : subcontract.idcard,
+      budget: !!budget ? budget : subcontract.budget,
+      lineid: !!lineid ? lineid : subcontract.lineid,
+      province: !!province ? province : subcontract.province,
+      district: !!district ? district : subcontract.district,
+      subdistrict: !!subdistrict ? subdistrict : subcontract.subdistrict,
+      zip: !!zip ? zip : subcontract.zip,
+      promptpay: !!promptpay ? promptpay : subcontract.promptpay,
+      nameofaccount: !!nameofaccount
+        ? nameofaccount
+        : subcontract.nameofaccount,
+      accountnumber: !!accountnumber
+        ? accountnumber
+        : subcontract.accountnumber,
+      nameofbank: !!nameofbank ? nameofbank : subcontract.nameofbank,
+    };
 
-//     // update subcontract in the database
-//     await Subcontract.findByIdAndUpdate(id, updateinfo);
+    // update subcontract in the database
+    await Subcontract.findByIdAndUpdate(id, updateinfo);
 
-//     // find  the updated subcontract
-//     const updatedsubcontract = await Subcontract.findById(id).populate({
-//       path: "user",
-//     });
-//     return updatedsubcontract;
-//   },
+    // find  the updated subcontract
+    const updatedsubcontract = await Subcontract.findById(id).populate({
+      path: "user",
+    });
+    return updatedsubcontract;
+  },
 
-//   deletesubcontract: async (parent, args, { userId }, info) => {
-//     const { id } = args;
+  deletesubcontract: async (parent, args, { userId }, info) => {
+    const { id } = args;
 
-//     // find subcontract from given id
-//     const subcontract = await Subcontract.findById(id);
-//     const subcontractCreatorId = subcontract.subcontractCreatorId;
+    // find subcontract from given id
+    const subcontract = await Subcontract.findById(id);
+    const subcontractCreatorId = subcontract.subcontractCreatorId;
 
-//     // check if user loggedIn
-//     if (!userId) {
-//       throw new Error("User not logged in");
-//     }
-//     //  find user id from request  -> find user
-//     // const userId = "62cc9a5ec9bd1e07307ede3b";
+    // check if user loggedIn
+    if (!userId) {
+      throw new Error("User not logged in");
+    }
+    //  find user id from request  -> find user
+    // const userId = "62cc9a5ec9bd1e07307ede3b";
 
-//     const user = await User.findById(userId);
-//     // check ownership of the subcontract or admin
-//     if (user.roles !== "Admin") {
-//       if (userId !== subcontract.subcontractCreatorId.toString()) {
-//         throw new Error("You are not Authorized to update this subcontract");
-//       }
-//     }
-//     // delete subcontract
-//     const deleteSubcontract = await Subcontract.findByIdAndRemove(id);
-//     // remove subcontractId from users
-//     const updatedusersubcontracts = user.subcontracts.filter(
-//       (subcontractsId) =>
-//         subcontractsId.toString() !== deleteSubcontract.id.toString()
-//     );
-//     await User.findByIdAndUpdate(subcontractCreatorId, {
-//       subcontracts: updatedusersubcontracts,
-//     });
-//     return deleteSubcontract;
-//   },
+    const user = await User.findById(userId);
+    // check ownership of the subcontract or admin
+    if (user.roles !== "Admin") {
+      if (userId !== subcontract.subcontractCreatorId.toString()) {
+        throw new Error("You are not Authorized to update this subcontract");
+      }
+    }
+    // delete subcontract
+    const deleteSubcontract = await Subcontract.findByIdAndRemove(id);
+    // remove subcontractId from users
+    const updatedusersubcontracts = user.subcontracts.filter(
+      (subcontractsId) =>
+        subcontractsId.toString() !== deleteSubcontract.id.toString()
+    );
+    await User.findByIdAndUpdate(subcontractCreatorId, {
+      subcontracts: updatedusersubcontracts,
+    });
+    return deleteSubcontract;
+  },
 
-//   // hirecontracts
+  // hirecontracts
 
-//   createhirecontract: async (parent, args, { userId }, info) => {
-//     // const userId = "62cc9a5ec9bd1e07307ede3b";
-//     console.log(userId);
+  createhirecontract: async (parent, args, { userId }, info) => {
+    // check  is user loggedin ?
+    if (!userId) {
+      throw new Error("ยังไม่ได้เข้าสู่ระบบ โปรดเข้าสู่ระบบ !");
+    }
 
-//     // check  is user loggedin ?
-//     if (!userId) {
-//       throw new Error("User not logged in please login !");
-//     }
+    const hirecontract = await Hirecontract.create({
+      ...args,
+      hirecontractCreatorId: userId,
+    });
+    const user = await User.findById(userId);
 
-//     const hirecontract = await Hirecontract.create({
-//       ...args,
-//       hirecontractCreatorId: userId,
-//     });
-//     const user = await User.findById(userId);
+    if (!user.hirecontracts) {
+      user.hirecontracts = [hirecontract];
+    } else {
+      user.hirecontracts.push(hirecontract);
+    }
 
-//     if (!user.hirecontracts) {
-//       user.hirecontracts = [hirecontract];
-//     } else {
-//       user.hirecontracts.push(hirecontract);
-//     }
+    await user.save();
+    const newHirecontract = await Hirecontract.findById(
+      hirecontract.id
+    ).populate({
+      path: "hirecontractCreatorId",
+      populate: { path: "hirecontracts" },
+    });
 
-//     await user.save();
-//     const newHirecontract = await Hirecontract.findById(
-//       hirecontract.id
-//     ).populate({
-//       path: "hirecontractCreatorId",
-//       populate: { path: "hirecontracts" },
-//     });
+    return newHirecontract;
+  },
 
-//     return newHirecontract;
-//   },
+  updatehirecontract: async (parent, args, { userId }, info) => {
+    const { id, condition, detail, typeofwork, budget, zone, duration } = args;
+    console.log(id);
+    // check if user loggedIn
+    if (!userId) {
+      throw new Error("User not logged in");
+    }
+    const user = await User.findById(userId);
+    const hirecontract = await Hirecontract.findById(id);
 
-//   updatehirecontract: async (parent, args, { userId }, info) => {
-//     const { id, condition, detail, typeofwork, budget, zone, duration } = args;
-//     console.log(id);
-//     // check if user loggedIn
-//     if (!userId) {
-//       throw new Error("User not logged in");
-//     }
-//     const user = await User.findById(userId);
-//     const hirecontract = await Hirecontract.findById(id);
+    // check if user is the owner of the subcontract
+    // const userId = "62cc9a5ec9bd1e07307ede3b";
 
-//     // check if user is the owner of the subcontract
-//     // const userId = "62cc9a5ec9bd1e07307ede3b";
+    if (user.roles !== "Admin") {
+      if (userId !== hirecontract.hirecontractCreatorId.toString()) {
+        throw new Error("You are not Authorized to update this hirecontract");
+      }
+    }
 
-//     if (user.roles !== "Admin") {
-//       if (userId !== hirecontract.hirecontractCreatorId.toString()) {
-//         throw new Error("You are not Authorized to update this hirecontract");
-//       }
-//     }
+    // Form update information
+    const updateinfo = {
+      condition: !!condition ? condition : hirecontract.condition,
+      detail: !!detail ? detail : hirecontract.detail,
+      typeofwork: !!typeofwork ? typeofwork : hirecontract.typeofwork,
+      budget: !!budget ? budget : hirecontract.budget,
+      zone: !!zone ? zone : hirecontract.zone,
+      duration: !!duration ? duration : hirecontract.duration,
+    };
 
-//     // Form update information
-//     const updateinfo = {
-//       condition: !!condition ? condition : hirecontract.condition,
-//       detail: !!detail ? detail : hirecontract.detail,
-//       typeofwork: !!typeofwork ? typeofwork : hirecontract.typeofwork,
-//       budget: !!budget ? budget : hirecontract.budget,
-//       zone: !!zone ? zone : hirecontract.zone,
-//       duration: !!duration ? duration : hirecontract.duration,
-//     };
+    // update subcontract in the database
+    await Hirecontract.findByIdAndUpdate(id, updateinfo);
 
-//     // update subcontract in the database
-//     await Hirecontract.findByIdAndUpdate(id, updateinfo);
+    // find  the updated subcontract
+    const updatedhirecontract = await Hirecontract.findById(id).populate({
+      path: "user",
+    });
+    return updatedhirecontract;
+  },
 
-//     // find  the updated subcontract
-//     const updatedhirecontract = await Hirecontract.findById(id).populate({
-//       path: "user",
-//     });
-//     return updatedhirecontract;
-//   },
+  deletehirecontract: async (parent, args, { userId }, info) => {
+    const { id } = args;
 
-//   deletehirecontract: async (parent, args, { userId }, info) => {
-//     const { id } = args;
+    // find subcontract from given id
+    const hirecontract = await Hirecontract.findById(id);
+    const hirecontractCreatorId = hirecontract.hirecontractCreatorId;
+    // check if user loggedIn
+    if (!userId) {
+      throw new Error("User not logged in");
+    }
+    //  find user id from request  -> find user
+    // const userId = "62cc9a5ec9bd1e07307ede3b";
 
-//     // find subcontract from given id
-//     const hirecontract = await Hirecontract.findById(id);
-//     const hirecontractCreatorId = hirecontract.hirecontractCreatorId;
-//     // check if user loggedIn
-//     if (!userId) {
-//       throw new Error("User not logged in");
-//     }
-//     //  find user id from request  -> find user
-//     // const userId = "62cc9a5ec9bd1e07307ede3b";
+    const user = await User.findById(userId);
 
-//     const user = await User.findById(userId);
+    // check ownership of the subcontract
+    if (user.roles !== "Admin") {
+      if (userId !== hirecontract.hirecontractCreatorId.toString()) {
+        throw new Error("Not authorized to delete this hirecontract");
+      }
+    }
 
-//     // check ownership of the subcontract
-//     if (user.roles !== "Admin") {
-//       if (userId !== hirecontract.hirecontractCreatorId.toString()) {
-//         throw new Error("Not authorized to delete this hirecontract");
-//       }
-//     }
+    // delete subcontract
+    const deleteHirecontract = await Hirecontract.findByIdAndRemove(id);
 
-//     // delete subcontract
-//     const deleteHirecontract = await Hirecontract.findByIdAndRemove(id);
+    // remove subcontractId from users
+    const updateuserhirecontract = user.hirecontracts.filter(
+      (hirecontractsId) =>
+        hirecontractsId.toString() !== deleteHirecontract.id.toString()
+    );
+    await User.findByIdAndUpdate(hirecontractCreatorId, {
+      hirecontracts: updateuserhirecontract,
+    });
+    return deleteHirecontract;
+  },
 
-//     // remove subcontractId from users
-//     const updateuserhirecontract = user.hirecontracts.filter(
-//       (hirecontractsId) =>
-//         hirecontractsId.toString() !== deleteHirecontract.id.toString()
-//     );
-//     await User.findByIdAndUpdate(hirecontractCreatorId, {
-//       hirecontracts: updateuserhirecontract,
-//     });
-//     return deleteHirecontract;
-//   },
+  // matching
 
-//   // matching
+  // assign subcontractCreatorId to hirecontract collection
 
-//   // assign subcontractCreatorId to hirecontract collection
+  assignsubtohire: async (parent, args, { userId }, info) => {
+    const id = args.id;
+    const subcontractAcceptHirecontractId =
+      args.subcontractAcceptHirecontractId;
 
-//   assignsubtohire: async (parent, args, { userId }, info) => {
-//     const id = args.id;
-//     const subcontractAcceptHirecontractId =
-//       args.subcontractAcceptHirecontractId;
+    console.log(id, subcontractAcceptHirecontractId);
+    if (!userId) throw new Error("You Not Authorized !");
 
-//     console.log(id, subcontractAcceptHirecontractId);
-//     if (!userId) throw new Error("You Not Authorized !");
+    const user = await User.findById(userId);
+    const hirecontract = await Hirecontract.findById(id);
 
-//     const user = await User.findById(userId);
-//     const hirecontract = await Hirecontract.findById(id);
+    if (user.roles !== "Admin") throw new Error("You Not Authorized !");
 
-//     if (user.roles !== "Admin") throw new Error("You Not Authorized !");
+    if (!hirecontract.subcontractAcceptHirecontractId) {
+      hirecontract.subcontractAcceptHirecontractId =
+        subcontractAcceptHirecontractId;
+    } else {
+      hirecontract.subcontractAcceptHirecontractId =
+        subcontractAcceptHirecontractId;
+    }
 
-//     if (!hirecontract.subcontractAcceptHirecontractId) {
-//       hirecontract.subcontractAcceptHirecontractId =
-//         subcontractAcceptHirecontractId;
-//     } else {
-//       hirecontract.subcontractAcceptHirecontractId =
-//         subcontractAcceptHirecontractId;
-//     }
+    const subcontract = await Subcontract.findById(
+      subcontractAcceptHirecontractId
+    );
 
-//     const subcontract = await Subcontract.findById(
-//       subcontractAcceptHirecontractId
-//     );
+    if (!subcontract.hirecontractWorkId) {
+      subcontract.hirecontractWorkId = [];
+    }
+    subcontract.hirecontractWorkId.push(id);
+    hirecontract.status = "กำลังรอการตอบรับจากผู้รับเหมาช่วง";
 
-//     if (!subcontract.hirecontractWorkId) {
-//       subcontract.hirecontractWorkId = [];
-//     }
-//     subcontract.hirecontractWorkId.push(id);
-//     hirecontract.status = "กำลังรอการตอบรับจากผู้รับเหมาช่วง";
+    await hirecontract.save();
+    await subcontract.save();
 
-//     await hirecontract.save();
-//     await subcontract.save();
+    const assignhirecontract = await Hirecontract.findById(id)
+      .populate({
+        path: "hirecontractCreatorId",
+        populate: { path: "hirecontracts" },
+      })
+      .populate({
+        path: "subcontractAcceptHirecontractId",
+        populate: { path: "subcontracts" },
+      });
+    return assignhirecontract;
+  },
 
-//     const assignhirecontract = await Hirecontract.findById(id)
-//       .populate({
-//         path: "hirecontractCreatorId",
-//         populate: { path: "hirecontracts" },
-//       })
-//       .populate({
-//         path: "subcontractAcceptHirecontractId",
-//         populate: { path: "subcontracts" },
-//       });
-//     return assignhirecontract;
-//   },
+  subcontractacceptwork: async (parent, args, context, info) => {
+    const id = args.id;
 
-//   subcontractacceptwork: async (parent, args, context, info) => {
-//     const id = args.id;
+    const hirecontract = await Hirecontract.findById(id);
 
-//     const hirecontract = await Hirecontract.findById(id);
+    hirecontract.status = "ผู้รับเหมาช่วงยืนยันรับงานแล้วกำลังทำงาน";
 
-//     hirecontract.status = "ผู้รับเหมาช่วงยืนยันรับงานแล้วกำลังทำงาน";
+    await hirecontract.save();
 
-//     await hirecontract.save();
+    const assignStatus = await Hirecontract.findById(id)
+      .populate({
+        path: "hirecontractCreatorId",
+        populate: { path: "hirecontracts" },
+      })
+      .populate({
+        path: "subcontractAcceptHirecontractId",
+        populate: { path: "subcontracts" },
+      });
+    return assignStatus;
+  },
 
-//     const assignStatus = await Hirecontract.findById(id)
-//       .populate({
-//         path: "hirecontractCreatorId",
-//         populate: { path: "hirecontracts" },
-//       })
-//       .populate({
-//         path: "subcontractAcceptHirecontractId",
-//         populate: { path: "subcontracts" },
-//       });
-//     return assignStatus;
-//   },
+  subcontractdeniedwork: async (parent, args, context, info) => {
+    const id = args.id;
+    const hirecontract = await Hirecontract.findById(id);
 
-//   subcontractdeniedwork: async (parent, args, context, info) => {
-//     const id = args.id;
-//     const hirecontract = await Hirecontract.findById(id);
+    hirecontract.status = "ผู้รับเหมาช่วงปฎิเสธการรับงาน";
 
-//     hirecontract.status = "ผู้รับเหมาช่วงปฎิเสธการรับงาน";
+    await hirecontract.save();
 
-//     await hirecontract.save();
-
-//     const assignStatus = await Hirecontract.findById(id)
-//       .populate({
-//         path: "hirecontractCreatorId",
-//         populate: { path: "hirecontracts" },
-//       })
-//       .populate({
-//         path: "subcontractAcceptHirecontractId",
-//         populate: { path: "subcontracts" },
-//       });
-//     return assignStatus;
-//   },
-// };
+    const assignStatus = await Hirecontract.findById(id)
+      .populate({
+        path: "hirecontractCreatorId",
+        populate: { path: "hirecontracts" },
+      })
+      .populate({
+        path: "subcontractAcceptHirecontractId",
+        populate: { path: "subcontracts" },
+      });
+    return assignStatus;
+  },
+};

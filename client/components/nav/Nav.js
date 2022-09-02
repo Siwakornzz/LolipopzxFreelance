@@ -14,195 +14,207 @@ const Nav = () => {
   const { user, signout } = useContext(AuthContext);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark p-3">
-      <div className="container-fluid">
-        <Link href="/">
-          <a className="navbar-brand">LOLIPOPZ</a>
-        </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+    <>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+        <div className="container-fluid">
+          <Link href="/">
+            <a className="navbar-brand">LOLIPOPZ</a>
+          </Link>
 
-        <div className=" collapse navbar-collapse" id="navbarNavDropdown">
-          <ul className="navbar-nav ms-auto ">
-            {!user && (
-              <>
-                <Link href="/signin">
-                  <li className="nav-item">
-                    <div
-                      className="nav-link mx-2"
-                      style={{ cursor: "pointer" }}
-                    >
-                      <button class="btn btn-dark">
-                        <i class="bi bi-person-fill"></i> เข้าสู่ระบบ
-                      </button>
-                    </div>
-                  </li>
-                </Link>
-                <Link href="/signup">
-                  <li className="nav-item">
-                    <div
-                      className="nav-link mx-2"
-                      style={{ cursor: "pointer" }}
-                    >
-                      <button class="btn btn-dark">
-                        <i class="bi bi-person-plus-fill"></i> สมัครสมาชิก{" "}
-                      </button>
-                    </div>
-                  </li>
-                </Link>
-              </>
-            )}
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
-            {user && (
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link mx-2 dropdown-toggle"
-                  id="navbarDropdownMenuLink"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <i className="bi bi-person-circle"></i> {user.username}
-                </a>
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="navbarDropdownMenuLink"
-                >
-                  {user && user?.roles === "Admin" && (
-                    <>
-                      {/* ADMIN */}
-                      <div className="dropdown-content">
-                        <a style={{ display: "block", cursor: "context-menu" }}>
-                          &nbsp; &nbsp;{" "}
-                          <i className="bi bi-person-workspace"></i>
-                          &nbsp; ADMIN
-                        </a>
+          <div className=" collapse navbar-collapse" id="navbarNavDropdown">
+            <ul className="navbar-nav ms-auto ">
+              {!user && (
+                <>
+                  <Link href="/signin">
+                    <li className="nav-item">
+                      <div
+                        className="nav-link mx-2"
+                        style={{ cursor: "pointer" }}
+                      >
+                        <button class="btn btn-dark">
+                          <i class="bi bi-person-fill"></i> เข้าสู่ระบบ
+                        </button>
                       </div>
-                      <hr className="dropdown-divider" />
-
-                      <Link href="/admin">
-                        <li style={{ cursor: "pointer" }}>
-                          <a className="dropdown-item"> DASHBOARD</a>
-                        </li>
-                      </Link>
-
-                      <Link href="/admin/matching">
-                        <li style={{ cursor: "pointer" }}>
-                          <a className="dropdown-item"> Matching</a>
-                        </li>
-                      </Link>
-
-                      <Link href="/admin/managehirecontracts">
-                        <li style={{ cursor: "pointer" }}>
-                          <a className="dropdown-item"> Managehirecontracts</a>
-                        </li>
-                      </Link>
-
-                      <Link href="/admin/managesubcontracts">
-                        <li style={{ cursor: "pointer" }}>
-                          <a className="dropdown-item"> Managesubcontracts</a>
-                        </li>
-                      </Link>
-
-                      <hr className="dropdown-divider" />
-                    </>
-                  )}
-
-                  {/* USER */}
-                  {user && user?.roles !== "Admin" && (
-                    <>
-                      <div className="dropdown-content">
-                        <a style={{ display: "block", cursor: "context-menu" }}>
-                          &nbsp; &nbsp; <i className="bi bi-person"></i>
-                          &nbsp; USER
-                        </a>
+                    </li>
+                  </Link>
+                  <Link href="/signup">
+                    <li className="nav-item">
+                      <div
+                        className="nav-link mx-2"
+                        style={{ cursor: "pointer" }}
+                      >
+                        <button class="btn btn-dark">
+                          <i class="bi bi-person-plus-fill"></i> สมัครสมาชิก{" "}
+                        </button>
                       </div>
-                      <hr className="dropdown-divider" />
+                    </li>
+                  </Link>
+                </>
+              )}
 
-                      <Link href="/profile">
-                        <li style={{ cursor: "pointer" }}>
-                          <a className="dropdown-item"> บัญชีของฉัน</a>
-                        </li>
-                      </Link>
-
-                      <Link href="/subcontracts">
-                        <li style={{ cursor: "pointer" }}>
-                          <a className="dropdown-item">ผู้รับเหมาช่วง</a>
-                        </li>
-                      </Link>
-
-                      <Link href="/hirecontracts">
-                        <li style={{ cursor: "pointer" }}>
-                          <a className="dropdown-item">ผู้ว่าจ้าง</a>
-                        </li>
-                      </Link>
-
-                      <Link href="/managesubcontract">
-                        <li style={{ cursor: "pointer" }}>
-                          <a className="dropdown-item">
-                            จัดการข้อมูลผู้รับเหมาช่วง
+              {user && (
+                <li className="nav-item dropdown">
+                  <a
+                    className="nav-link mx-2 dropdown-toggle"
+                    id="navbarDropdownMenuLink"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <i className="bi bi-person-circle"></i> {user.username}
+                  </a>
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="navbarDropdownMenuLink"
+                  >
+                    {user && user?.roles === "Admin" && (
+                      <>
+                        {/* ADMIN */}
+                        <div className="dropdown-content">
+                          <a
+                            style={{ display: "block", cursor: "context-menu" }}
+                          >
+                            &nbsp; &nbsp;{" "}
+                            <i className="bi bi-person-workspace"></i>
+                            &nbsp; ADMIN
                           </a>
-                        </li>
-                      </Link>
+                        </div>
+                        <hr className="dropdown-divider" />
 
-                      <Link href="/managehirecontract">
-                        <li style={{ cursor: "pointer" }}>
-                          <a className="dropdown-item">
-                            จัดการข้อมูลผู้ว่าจ้าง
+                        <Link href="/admin">
+                          <li style={{ cursor: "pointer" }}>
+                            <a className="dropdown-item"> DASHBOARD</a>
+                          </li>
+                        </Link>
+
+                        <Link href="/admin/matching">
+                          <li style={{ cursor: "pointer" }}>
+                            <a className="dropdown-item"> Matching</a>
+                          </li>
+                        </Link>
+
+                        <Link href="/admin/managehirecontracts">
+                          <li style={{ cursor: "pointer" }}>
+                            <a className="dropdown-item">
+                              {" "}
+                              Managehirecontracts
+                            </a>
+                          </li>
+                        </Link>
+
+                        <Link href="/admin/managesubcontracts">
+                          <li style={{ cursor: "pointer" }}>
+                            <a className="dropdown-item"> Managesubcontracts</a>
+                          </li>
+                        </Link>
+
+                        <hr className="dropdown-divider" />
+                      </>
+                    )}
+
+                    {/* USER */}
+                    {user && user?.roles !== "Admin" && (
+                      <>
+                        <div className="dropdown-content">
+                          <a
+                            style={{ display: "block", cursor: "context-menu" }}
+                          >
+                            &nbsp; &nbsp; <i className="bi bi-person"></i>
+                            &nbsp; USER
                           </a>
-                        </li>
-                      </Link>
+                        </div>
+                        <hr className="dropdown-divider" />
 
-                      <hr className="dropdown-divider" />
+                        <Link href="/profile">
+                          <li style={{ cursor: "pointer" }}>
+                            <a className="dropdown-item"> บัญชีของฉัน</a>
+                          </li>
+                        </Link>
 
-                      <div className="dropdown-content">
-                        <a style={{ display: "block", cursor: "context-menu" }}>
-                          &nbsp; &nbsp; <i className="bi bi-person"></i>
-                          &nbsp; TASK
-                        </a>
-                      </div>
+                        <Link href="/subcontracts">
+                          <li style={{ cursor: "pointer" }}>
+                            <a className="dropdown-item">ผู้รับเหมาช่วง</a>
+                          </li>
+                        </Link>
 
-                      <hr className="dropdown-divider" />
-                      <Link href="/task">
-                        <li style={{ cursor: "pointer" }}>
-                          <a className="dropdown-item"> รายการงานที่จ้างมา</a>
-                        </li>
-                      </Link>
+                        <Link href="/hirecontracts">
+                          <li style={{ cursor: "pointer" }}>
+                            <a className="dropdown-item">ผู้ว่าจ้าง</a>
+                          </li>
+                        </Link>
 
-                      <Link href="/task/hirecontractAccept">
-                        <li style={{ cursor: "pointer" }}>
-                          <a className="dropdown-item"> รายการงานที่ทำอยู่</a>
-                        </li>
-                      </Link>
-                    </>
-                  )}
-                  <hr className="dropdown-divider" />
+                        <Link href="/managesubcontract">
+                          <li style={{ cursor: "pointer" }}>
+                            <a className="dropdown-item">
+                              จัดการข้อมูลผู้รับเหมาช่วง
+                            </a>
+                          </li>
+                        </Link>
 
-                  <li style={{ cursor: "pointer" }}>
-                    <a
-                      className="dropdown-item"
-                      style={{ cursor: "pointer" }}
-                      onClick={signout}
-                    >
-                      <i className="bi bi-box-arrow-right"></i> ออกจากระบบ
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            )}
-          </ul>
+                        <Link href="/managehirecontract">
+                          <li style={{ cursor: "pointer" }}>
+                            <a className="dropdown-item">
+                              จัดการข้อมูลผู้ว่าจ้าง
+                            </a>
+                          </li>
+                        </Link>
+
+                        <hr className="dropdown-divider" />
+
+                        <div className="dropdown-content">
+                          <a
+                            style={{ display: "block", cursor: "context-menu" }}
+                          >
+                            &nbsp; &nbsp; <i className="bi bi-person"></i>
+                            &nbsp; TASK
+                          </a>
+                        </div>
+
+                        <hr className="dropdown-divider" />
+                        <Link href="/task">
+                          <li style={{ cursor: "pointer" }}>
+                            <a className="dropdown-item"> รายการงานที่จ้างมา</a>
+                          </li>
+                        </Link>
+
+                        <Link href="/task/hirecontractAccept">
+                          <li style={{ cursor: "pointer" }}>
+                            <a className="dropdown-item"> รายการงานที่ทำอยู่</a>
+                          </li>
+                        </Link>
+                      </>
+                    )}
+                    <hr className="dropdown-divider" />
+
+                    <li style={{ cursor: "pointer" }}>
+                      <a
+                        className="dropdown-item"
+                        style={{ cursor: "pointer" }}
+                        onClick={signout}
+                      >
+                        <i className="bi bi-box-arrow-right"></i> ออกจากระบบ
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              )}
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 };
 

@@ -30,6 +30,11 @@ export const Me = gql`
       }
       hirecontracts {
         id
+        topic
+        typeofwork
+        detail
+        duration
+        budget
         status
         createdAt
       }
@@ -108,8 +113,14 @@ export const QUERY_SUBCONTRACTS = gql`
   query {
     subcontracts {
       id
-      status
-      createdAt
+        topic
+        typeofwork
+        detail
+        duration
+        startbudget
+        province
+        status
+        createdAt
       subcontractCreatorId {
         id
         username
@@ -188,6 +199,12 @@ export const QUERY_HIRECONTRACTS = gql`
   query {
     hirecontracts {
       id
+      topic
+      detail
+      typeofwork
+      budget
+      Province
+      duration
       status
       createdAt
       hirecontractCreatorId {

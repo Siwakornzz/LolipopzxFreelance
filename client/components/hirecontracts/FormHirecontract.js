@@ -1,32 +1,80 @@
-import React from "react";
+import { useMutation } from "@apollo/client";
+import React, { useState } from "react";
+import { CREATE_HIRECONTRACT } from "../../apollo/mutations";
+import { QUERY_HIRECONTRACTS } from "../../apollo/queries";
+import Router from "next/router";
+import Swal from "sweetalert2";
 
 const FormHirecontract = () => {
+  const [hirecontractData, setHirecontractData] = useState({});
+  console.log(hirecontractData);
+
+  const [createHirecontract, { loading, error }] = useMutation(
+    CREATE_HIRECONTRACT,
+    {
+      variables: {
+        ...hirecontractData,
+        budget: +hirecontractData.budget,
+        duration: +hirecontractData.duration,
+      },
+      refetchQueries: [{ query: QUERY_HIRECONTRACTS }],
+    }
+  );
+
+  const handleChange = (e) => {
+    setHirecontractData({
+      ...hirecontractData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const result = await createHirecontract();
+      console.log(result);
+      Swal.fire({
+        icon: "success",
+        title: "LOLIPOPZ",
+        text: "สร้างคำร้องขอการจ้างงานสำเร็จ",
+      });
+      Router.reload(window.location.pathname);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       {/* headerdetail */}
-      <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">
+      <div className="mb-3">
+        <label for="topic" className="form-label">
           หัวข้อประกาศงาน
           <span style={{ color: "red" }}> *</span>
         </label>
         <input
           type="text"
-          class="form-control"
-          id="exampleFormControlInput1"
+          className="form-control"
+          id="topic"
+          name="topic"
+          defaultValue={hirecontractData.topic}
+          onChange={handleChange}
           placeholder="หัวข้อประกาศงาน"
           required
         />
       </div>
       {/* typeofwork */}
-      <div class="mb-3">
-        <label for="exampleFormControlInput2" class="form-label">
+      <div className="mb-3">
+        <label for="typeofwork" className="form-label">
           ประเภทของงานที่จ้าง
           <span style={{ color: "red" }}> *</span>
         </label>
         <select
-          class="form-select form-select-sm"
+          className="form-select form-select-sm"
           aria-label=".form-select-sm example"
-          id="exampleFormControlInput2"
+          id="typeofwork"
+          name="typeofwork"
+          defaultValue={hirecontractData.typeofwork}
+          onChange={handleChange}
           required
         >
           <option value="">--- ประเภทของงาน ---</option>
@@ -43,57 +91,69 @@ const FormHirecontract = () => {
         </select>
       </div>
       {/* detail */}
-      <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">
+      <div className="mb-3">
+        <label for="detail" className="form-label">
           รายละเอียดงาน
         </label>
         <textarea
-          class="form-control"
-          id="exampleFormControlTextarea1"
+          className="form-control"
+          id="detail"
+          name="detail"
+          defaultValue={hirecontractData.detail}
+          onChange={handleChange}
           rows="3"
           placeholder="รายละเอียดงาน"
         ></textarea>
       </div>
 
       {/* ระยะเวลาในการทำงาน */}
-      <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">
+      <div className="mb-3">
+        <label for="duration" className="form-label">
           ระยะเวลาในการทำงาน
           <span style={{ color: "red" }}> *</span>
         </label>
         <input
           type="text"
-          class="form-control"
-          id="exampleFormControlInput1"
+          className="form-control"
+          id="duration"
+          name="duration"
+          defaultValue={hirecontractData.duration}
+          onChange={handleChange}
           placeholder="เช่น 7-14 วัน"
           required
         />
       </div>
       {/* งบประมาณเริ่มต้น */}
-      <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">
-          งบประมาณเริ่มต้น
+      <div className="mb-3">
+        <label for="budget" className="form-label">
+          งบประมาณ
           <span style={{ color: "red" }}> *</span>
         </label>
         <input
           type="text"
-          class="form-control"
-          id="exampleFormControlInput1"
+          className="form-control"
+          id="budget"
+          name="budget"
+          defaultValue={hirecontractData.budget}
+          onChange={handleChange}
           placeholder="0.00"
           required
         />
       </div>
 
       {/* จังหวัด */}
-      <div class="mb-3">
-        <label for="exampleFormControlInput2" class="form-label">
+      <div className="mb-3">
+        <label for="province" className="form-label">
           จังหวัด
           <span style={{ color: "red" }}> *</span>
         </label>
         <select
-          class="form-select form-select-sm"
+          className="form-select form-select-sm"
           aria-label=".form-select-sm example"
-          id="exampleFormControlInput2"
+          id="province"
+          name="province"
+          defaultValue={hirecontractData.province}
+          onChange={handleChange}
           required
         >
           <option value="" selected>
@@ -180,10 +240,13 @@ const FormHirecontract = () => {
         </select>
       </div>
       {/* button */}
-      <div class="text-end">
-        <button type="submit" class="btn btn-secondary w-25 text-center mt-3">
+      <div className="text-end">
+        <button
+          type="submit"
+          className="btn btn-secondary w-25 text-center mt-3"
+        >
           {" "}
-          <i class="bi bi-send-fill"></i> ส่งข้อมูล
+          <i className="bi bi-send-fill"></i> ส่งข้อมูล
         </button>
       </div>
     </form>

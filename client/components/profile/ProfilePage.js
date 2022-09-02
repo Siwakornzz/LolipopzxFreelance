@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../appstate/AuthProvider";
 import ProfileDetail from "./profileDetail";
-import AddTask from "./Task/AddTask";
+import SubcontractTask from "./Task/SubcontractTask";
 import TaskhasAssign from "./Task/TaskhasAssign";
-import TaskRequest from "./Task/TaskRequest";
+import HirecontractTask from "./Task/HirecontractTask";
 const ProfilePage = () => {
   const { user } = useContext(AuthContext);
   return (
@@ -15,9 +15,9 @@ const ProfilePage = () => {
 
             <div class="col-8 mt-5 ">
               <div class="row">
-                <AddTask />
+                <SubcontractTask />
                 <hr />
-                <TaskRequest />
+                <HirecontractTask />
                 <hr />
                 <TaskhasAssign />
                 <hr />

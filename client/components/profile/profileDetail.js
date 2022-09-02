@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useQuery } from "@apollo/react-hooks";
-import { Me } from "../../apollo/queries";
+
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { AuthContext } from "../../appstate/AuthProvider";
@@ -14,10 +13,15 @@ const profileDetail = () => {
       <div class="">
         <div class="card-body">
           <img
-            src="https://i.pinimg.com/originals/32/43/a2/3243a2a367d17bc748e61b5060185225.gif"
+            src="https://i.pinimg.com/originals/8b/31/30/8b3130a92309488aa89d9fe4effc7a3e.gif"
             class="rounded-circle"
             alt="Avatar"
-            style={{ width: "200px", height: "200px", objectFit: "cover" }}
+            style={{
+              width: "200px",
+              height: "200px",
+              objectFit: "cover",
+              border: "3px #333 solid",
+            }}
           />
 
           <h4 class="mt-3">{user.username}</h4>
@@ -52,7 +56,7 @@ const profileDetail = () => {
               </p>
             </b>
           </div>
-          {route.asPath != "/profile/editprofile" && (
+          {route.asPath == "/profile" && (
             <Link href="profile/editprofile">
               <button class="btn btn-secondary w-50 btn-sm mt-4 ">
                 {" "}

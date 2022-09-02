@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DataTable from "react-data-table-component";
-import { Me } from "../../../../apollo/queries";
 import { useQuery } from "@apollo/client";
+import { Me } from "../../../../apollo/queries";
 import DataTableExtensions from "react-data-table-component-extensions";
 
-const TaskAddTable = () => {
-  const [subcontractData, setSubcontractData] = useState([]);
+const TaskRequestTable = () => {
+  const [hirecontractData, setHirecontractData] = useState([]);
 
+  console.log(hirecontractData);
   const columns = [
+    
     {
       name: "หัวข้อประกาศงาน",
       selector: "topic",
@@ -22,7 +24,13 @@ const TaskAddTable = () => {
     },
     {
       name: "สถานะ",
-      selector: "status",
+      cell: (row) => (
+        <>
+          {row.status === "WAITING" && (
+            <span class="badge text-bg-warning"> {row.status}</span>
+          )}
+        </>
+      ),
       sortable: true,
       center: true,
     },
@@ -36,15 +44,17 @@ const TaskAddTable = () => {
       center: true,
     },
   ];
-  const responseSubcontract = useQuery(Me, {
+
+  const responseHirecontract = useQuery(Me, {
     onCompleted: (data) => {
-      // console.log(data.user.subcontracts);
-      setSubcontractData(data.user.subcontracts);
+      if (data) {
+        setHirecontractData(data.user.hirecontracts);
+      }
     },
   });
 
   return (
-    <DataTableExtensions columns={columns} data={subcontractData}>
+    <DataTableExtensions columns={columns} data={hirecontractData}>
       <DataTable
         pagination
         // selectableRows
@@ -55,4 +65,4 @@ const TaskAddTable = () => {
   );
 };
 
-export default TaskAddTable;
+export default TaskRequestTable;

@@ -59,7 +59,7 @@ const ProfileFormDetail = () => {
 
   return (
     // <></>
-    <form className="row g-3 ms-3 me-3 mt-1 mb-4">
+    <form className="row g-3 ms-3 me-3 mt-1 mb-4" onSubmit={handleSubmit}>
       {/* ชื่อจริง */}
       <div className="col-md-6">
         <label htmlFor="firstname" className="form-label">
@@ -258,11 +258,7 @@ const ProfileFormDetail = () => {
       </div>
 
       <div className="col-12 text-center mt-5">
-        <button
-          className="btn btn-secondary w-50 "
-          type="submit"
-          onClick={handleSubmit}
-        >
+        <button className="btn btn-secondary w-50 " type="submit">
           <i className="bi bi-pencil-square"></i> บันทึกข้อมูล
         </button>
       </div>
