@@ -87,6 +87,12 @@ export const QUERY_SUBCONTRACT = gql`
   query QUERY_SUBCONTRACT($id: ID!) {
     subcontract(id: $id) {
       id
+      topic
+      typeofwork
+      detail
+      duration
+      startbudget
+      province
       status
       createdAt
       subcontractCreatorId {
@@ -113,14 +119,14 @@ export const QUERY_SUBCONTRACTS = gql`
   query {
     subcontracts {
       id
-        topic
-        typeofwork
-        detail
-        duration
-        startbudget
-        province
-        status
-        createdAt
+      topic
+      typeofwork
+      detail
+      duration
+      startbudget
+      province
+      status
+      createdAt
       subcontractCreatorId {
         id
         username
