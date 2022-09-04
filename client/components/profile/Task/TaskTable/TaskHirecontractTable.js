@@ -3,13 +3,11 @@ import DataTable from "react-data-table-component";
 import { useQuery } from "@apollo/client";
 import { Me } from "../../../../apollo/queries";
 import DataTableExtensions from "react-data-table-component-extensions";
-
+import Link from "next/link";
 const TaskRequestTable = () => {
   const [hirecontractData, setHirecontractData] = useState([]);
 
-  console.log(hirecontractData);
   const columns = [
-    
     {
       name: "หัวข้อประกาศงาน",
       selector: "topic",
@@ -37,9 +35,13 @@ const TaskRequestTable = () => {
     {
       name: "เมนู",
       cell: (row) => (
-        <button class="btn btn-secondary btn-sm" onClick={() => alert(row.id)}>
-          ดูรายละเอียด
-        </button>
+        <Link
+          key={row.id}
+          href="/hirecontracts/[hirecontractId]"
+          as={`/hirecontracts/${row.id}`}
+        >
+          <button class="btn btn-secondary btn-sm">ดูรายละเอียด</button>
+        </Link>
       ),
       center: true,
     },

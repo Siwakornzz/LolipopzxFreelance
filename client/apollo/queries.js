@@ -99,6 +99,8 @@ export const QUERY_SUBCONTRACT = gql`
         id
         username
         email
+        tel
+        lineid
       }
     }
   }
@@ -209,7 +211,7 @@ export const QUERY_HIRECONTRACTS = gql`
       detail
       typeofwork
       budget
-      Province
+      province
       duration
       status
       createdAt
