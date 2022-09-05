@@ -2,12 +2,16 @@ import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { Me } from "../../apollo/queries";
 import Router from "next/router";
-import HirecontractItem from "./HirecontractItem";
+import TaskHirecontractTable from "../profile/Task/TaskTable/TaskHirecontractTable";
 
 const Managehirecontracts = () => {
-  const { data } = useQuery(Me, { fetchPolicy: "no-cache" });
-
-  console.log(data);
+  const { data, loading, error } = useQuery(Me, { fetchPolicy: "no-cache" });
+  if (loading) {
+    return <p> Loading... </p>;
+  }
+  if (error) {
+    return <p>Something went wrong</p>;
+  }
   return (
     <>
       <div className="card">
@@ -24,26 +28,11 @@ const Managehirecontracts = () => {
           <i class="bi bi-plus-circle-fill"></i> สร้างคำร้องขอการจ้างงาน
         </button>
       </div>
-
-      {/* Body */}
-
-        <div class="row row-cols-1 row-cols-md-3 g-4  ">
-          {data &&
-            data.user &&
-            data.user.hirecontracts.length > 0 &&
-            data.user.hirecontracts.map((hirecontract, index) => (
-              <div class="col">
-                <div class="card mx-auto" style={{ width: "30rem" }}>
-                  <HirecontractItem
-                    key={hirecontract.id}
-                    hirecontract={hirecontract}
-                    num={index + 1}
-                  />
-                </div>
-              </div>
-            ))}
+      <div class="container">
+        <div class="row">
+          <TaskHirecontractTable />
         </div>
-
+      </div>
     </>
   );
 };

@@ -35,13 +35,20 @@ const TaskRequestTable = () => {
     {
       name: "เมนู",
       cell: (row) => (
-        <Link
-          key={row.id}
-          href="/hirecontracts/[hirecontractId]"
-          as={`/hirecontracts/${row.id}`}
-        >
-          <button class="btn btn-secondary btn-sm">ดูรายละเอียด</button>
-        </Link>
+        <>
+          <div class="col">
+            <Link
+              key={row.id}
+              href="/hirecontracts/[hirecontractId]"
+              as={`/hirecontracts/${row.id}`}
+            >
+              <button class="btn btn-secondary btn-sm">ดูรายละเอียด</button>
+            </Link>
+          </div>
+          <div class="col">
+            <button class="btn btn-primary btn-sm w-100 ms-2"> จัดการ </button>
+          </div>
+        </>
       ),
       center: true,
     },

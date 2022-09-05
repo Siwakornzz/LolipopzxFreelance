@@ -2,14 +2,13 @@ import React from "react";
 
 import CarouselSubcontract from "./CarouselSubcontract";
 import SubcontractsTable from "./TableSubcontract/SubcontractsTable";
-import Category from "../category/Category";
 
 const Subcontracts = () => {
   return (
     <>
       <CarouselSubcontract />
       <div class="container">
-        <div class="row">
+        <div class="row g-3">
           <SubcontractsTable />
         </div>
       </div>

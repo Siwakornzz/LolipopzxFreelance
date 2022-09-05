@@ -1,18 +1,18 @@
-import moment from "moment/moment";
-import React from "react";
+import moment from 'moment';
+import React from 'react'
 
-const SubcontractDetail = (subcontract) => {
-  console.log(subcontract);
+const HirecontractDetail = (hirecontract) => {
+    console.log(hirecontract);
   return (
     <>
       {/* headerdetail */}
       <div className="mb-3">
-        <h3> {subcontract.subcontract.subcontract.topic}</h3>
+        <h3> {hirecontract.hirecontract.hirecontract.topic}</h3>
       </div>
 
       <div class="text-end">
         <span class="badge text-bg-primary ">
-          {subcontract.subcontract.subcontract.typeofwork}
+          {hirecontract.hirecontract.hirecontract.typeofwork}
         </span>
       </div>
 
@@ -23,7 +23,7 @@ const SubcontractDetail = (subcontract) => {
         </label>
         <pre style={{ fontFamily: "Athiti, sans-serif" }}>
           {" "}
-          {subcontract.subcontract.subcontract.detail}
+          {hirecontract.hirecontract.hirecontract.detail}
         </pre>
       </div>
 
@@ -37,7 +37,7 @@ const SubcontractDetail = (subcontract) => {
           <i class="bi bi-calendar-check-fill"></i> ระยะเวลาในการทำงาน (วัน)
         </label>
         <pre class="ms-4" style={{ fontFamily: "Athiti, sans-serif" }}>
-          {subcontract.subcontract.subcontract.duration} วัน
+          {hirecontract.hirecontract.hirecontract.duration} วัน
         </pre>
       </div>
 
@@ -53,7 +53,7 @@ const SubcontractDetail = (subcontract) => {
         <pre class="ms-4" style={{ fontFamily: "Athiti, sans-serif" }}>
           {" "}
           {Number(
-            subcontract.subcontract.subcontract.startbudget
+            hirecontract.hirecontract.hirecontract.budget
           ).toLocaleString("en")}{" "}
           บาท
         </pre>
@@ -69,13 +69,12 @@ const SubcontractDetail = (subcontract) => {
           <i class="bi bi-house-fill"></i> จังหวัด
         </label>
         <pre class="ms-4" style={{ fontFamily: "Athiti, sans-serif" }}>
-          {subcontract.subcontract.subcontract.province}
+          {hirecontract.hirecontract.hirecontract.province}
         </pre>
-
-        <footer class="text-center" style={{backgroundColor:"#333", color:"#fff",borderRadius:"10px"}}> สร้างเมื่อ :  {moment(subcontract.subcontract.subcontract.createdAt).locale("th").format("LLLL")}</footer>
+        <footer class="text-center" style={{backgroundColor:"#333", color:"#fff",borderRadius:"10px"}}> สร้างเมื่อ : {moment(hirecontract.hirecontract.hirecontract.createdAt).locale("th").format("LLLL")}</footer>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default SubcontractDetail;
+export default HirecontractDetail

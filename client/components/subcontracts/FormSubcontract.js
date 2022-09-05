@@ -9,8 +9,8 @@ const FormSubcontract = () => {
     topic: "",
     typeofwork: "",
     detail: "",
-    duration: 0,
-    startbudget: 0,
+    duration: undefined,
+    startbudget: undefined,
     province: "",
   });
 
@@ -122,7 +122,7 @@ const FormSubcontract = () => {
       {/* ระยะเวลาในการทำงาน */}
       <div className="mb-3">
         <label for="duration" className="form-label">
-          ระยะเวลาในการทำงาน
+          ระยะเวลาในการทำงาน ( วัน )
           <span style={{ color: "red" }}> *</span>
         </label>
         <input
