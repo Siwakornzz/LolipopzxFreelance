@@ -46,7 +46,16 @@ const TaskRequestTable = () => {
             </Link>
           </div>
           <div class="col">
-            <button class="btn btn-primary btn-sm w-100 ms-2"> จัดการ </button>
+            <Link
+              key={row.id}
+              href="/managehirecontract/managehirecontractItem"
+              as={`/managehirecontract/${row.id}`}
+            >
+              <button class="btn btn-primary btn-sm w-100 ms-2">
+                {" "}
+                จัดการ{" "}
+              </button>
+            </Link>
           </div>
         </>
       ),

@@ -216,28 +216,8 @@ export const Mutation = {
 
   updatesubcontract: async (parent, args, { userId }, info) => {
     // destructure
-    const {
-      id,
-      promptpay,
-      nameofaccount,
-      accountnumber,
-      nameofbank,
-      zip,
-      subdistrict,
-      district,
-      province,
-      lineid,
-      budget,
-      idcard,
-      member,
-      tel,
-      email,
-      yearskill,
-      natureofwork,
-      skill,
-      username,
-      name,
-    } = args;
+    const { id, topic, typeofwork, detail, duration, startbudget, province } =
+      args;
     console.log(id);
     // check if user loggedIn
     if (!userId) {
@@ -257,29 +237,12 @@ export const Mutation = {
 
     // Form update information
     const updateinfo = {
-      name: !!name ? name : subcontract.name,
-      username: !!username ? username : subcontract.username,
-      skill: !!skill ? skill : subcontract.skill,
-      yearskill: !!yearskill ? yearskill : subcontract.yearskill,
-      email: !!email ? email : subcontract.email,
-      tel: !!tel ? tel : subcontract.tel,
-      natureofwork: !!natureofwork ? natureofwork : subcontract.natureofwork,
-      member: !!member ? member : subcontract.member,
-      idcard: !!idcard ? idcard : subcontract.idcard,
-      budget: !!budget ? budget : subcontract.budget,
-      lineid: !!lineid ? lineid : subcontract.lineid,
+      topic: !!topic ? topic : subcontract.topic,
+      typeofwork: !!typeofwork ? typeofwork : subcontract.typeofwork,
+      detail: !!detail ? detail : subcontract.detail,
+      duration: !!duration ? duration : subcontract.duration,
+      startbudget: !!startbudget ? startbudget : subcontract.startbudget,
       province: !!province ? province : subcontract.province,
-      district: !!district ? district : subcontract.district,
-      subdistrict: !!subdistrict ? subdistrict : subcontract.subdistrict,
-      zip: !!zip ? zip : subcontract.zip,
-      promptpay: !!promptpay ? promptpay : subcontract.promptpay,
-      nameofaccount: !!nameofaccount
-        ? nameofaccount
-        : subcontract.nameofaccount,
-      accountnumber: !!accountnumber
-        ? accountnumber
-        : subcontract.accountnumber,
-      nameofbank: !!nameofbank ? nameofbank : subcontract.nameofbank,
     };
 
     // update subcontract in the database
@@ -287,8 +250,10 @@ export const Mutation = {
 
     // find  the updated subcontract
     const updatedsubcontract = await Subcontract.findById(id).populate({
-      path: "user",
+      path: "subcontractCreatorId",
+      populate: { path: "subcontracts" },
     });
+
     return updatedsubcontract;
   },
 
@@ -358,7 +323,7 @@ export const Mutation = {
   },
 
   updatehirecontract: async (parent, args, { userId }, info) => {
-    const { id, condition, detail, typeofwork, budget, zone, duration } = args;
+    const { id, topic, detail, typeofwork, budget, province, duration } = args;
     console.log(id);
     // check if user loggedIn
     if (!userId) {
@@ -378,11 +343,11 @@ export const Mutation = {
 
     // Form update information
     const updateinfo = {
-      condition: !!condition ? condition : hirecontract.condition,
+      topic: !!topic ? topic : hirecontract.topic,
       detail: !!detail ? detail : hirecontract.detail,
       typeofwork: !!typeofwork ? typeofwork : hirecontract.typeofwork,
       budget: !!budget ? budget : hirecontract.budget,
-      zone: !!zone ? zone : hirecontract.zone,
+      province: !!province ? province : hirecontract.province,
       duration: !!duration ? duration : hirecontract.duration,
     };
 
@@ -391,7 +356,8 @@ export const Mutation = {
 
     // find  the updated subcontract
     const updatedhirecontract = await Hirecontract.findById(id).populate({
-      path: "user",
+      path: "hirecontractCreatorId",
+      populate: { path: "hirecontracts" },
     });
     return updatedhirecontract;
   },

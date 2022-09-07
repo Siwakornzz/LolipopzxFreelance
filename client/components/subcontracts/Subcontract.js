@@ -7,7 +7,6 @@ import ProfileSubcontract from "./subcontractdetail/ProfileSubcontract";
 import SubcontractDetail from "./subcontractdetail/SubcontractDetail";
 
 const Subcontract = () => {
-  const { user } = useContext(AuthContext);
   const route = useRouter();
   const { data, loading, error } = useQuery(QUERY_SUBCONTRACT, {
     variables: { id: route.query.subcontractId },

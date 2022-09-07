@@ -8,24 +8,26 @@ const ProfilePage = () => {
   const { user } = useContext(AuthContext);
   return (
     <>
-      {user && (
-        <div class="container">
-          <div class="row">
-            <ProfileDetail />
+      <div class="container">
+        <div class="row">
+          {user && (
+            <>
+              <ProfileDetail />
 
-            <div class="col-8 mt-5 ">
-              <div class="row">
-                <SubcontractTask />
-                <hr />
-                <HirecontractTask />
-                <hr />
-                <TaskhasAssign />
-                <hr />
+              <div class="col-8 mt-5 ">
+                <div class="row">
+                  <SubcontractTask />
+                  <hr />
+                  <HirecontractTask />
+                  <hr />
+                  <TaskhasAssign />
+                  <hr />
+                </div>
               </div>
-            </div>
-          </div>
+            </>
+          )}
         </div>
-      )}
+      </div>
     </>
   );
 };

@@ -176,12 +176,19 @@ export const QUERY_HIRECONTRACT = gql`
   query QUERY_HIRECONTRACT($id: ID!) {
     hirecontract(id: $id) {
       id
+      topic
+      detail
+      typeofwork
+      budget
+      duration
+      province
       status
       createdAt
       hirecontractCreatorId {
         id
         username
         email
+        lineid
       }
     }
   }

@@ -163,70 +163,35 @@ export const CREATE_SUBCONTRACT = gql`
 export const UPDATE_SUBCONTRACT = gql`
   mutation UPDATE_SUBCONTRACT(
     $id: ID!
-    $accountnumber: String
-    $budget: Int!
-    $district: String
-    $email: String
-    $idcard: String
-    $lineid: String
-    $member: Int
-    $nameofaccount: String
-    $nameofbank: String
-    $name: String
-    $natureofwork: String
-    $promptpay: String
-    $province: String
-    $skill: String
-    $subdistrict: String
-    $tel: String
-    $username: String
-    $yearskill: Int
-    $zip: String
+    $topic: String!
+    $typeofwork: String!
+    $detail: String
+    $duration: Int!
+    $startbudget: Float!
+    $province: String!
   ) {
     updatesubcontract(
       id: $id
-      accountnumber: $accountnumber
-      budget: $budget
-      district: $district
-      email: $email
-      idcard: $idcard
-      lineid: $lineid
-      member: $member
-      nameofaccount: $nameofaccount
-      nameofbank: $nameofbank
-      name: $name
-      natureofwork: $natureofwork
-      promptpay: $promptpay
+      topic: $topic
+      typeofwork: $typeofwork
+      detail: $detail
+      duration: $duration
+      startbudget: $startbudget
       province: $province
-      skill: $skill
-      subdistrict: $subdistrict
-      tel: $tel
-      username: $username
-      yearskill: $yearskill
-      zip: $zip
     ) {
       id
-      name
-      username
-      email
-      skill
-      natureofwork
-      yearskill
-      tel
-      member
-      idcard
-      budget
-      lineid
+      topic
+      typeofwork
+      detail
+      duration
+      startbudget
       province
-      district
-      subdistrict
-      zip
-      nameofbank
-      accountnumber
-      nameofaccount
-      promptpay
       status
       createdAt
+      subcontractCreatorId {
+        id
+        username
+      }
     }
   }
 `;
@@ -277,29 +242,36 @@ export const CREATE_HIRECONTRACT = gql`
 export const UPDATE_HIRECONTRACT = gql`
   mutation UPDATE_HIRECONTRACT(
     $id: ID!
-    $condition: String
-    $detail: String
-    $typeofwork: String
-    $budget: Float
-    $zone: String
-    $duration: Float
+    $topic: String!
+    $detail: String!
+    $typeofwork: String!
+    $budget: Float!
+    $province: String!
+    $duration: Int!
   ) {
     updatehirecontract(
       id: $id
-      condition: $condition
+      topic: $topic
       detail: $detail
       typeofwork: $typeofwork
       budget: $budget
-      zone: $zone
+      province: $province
       duration: $duration
     ) {
       id
-      condition
+      topic
       detail
       typeofwork
       budget
-      zone
+      province
       duration
+      status
+      createdAt
+      hirecontractCreatorId {
+        id
+        username
+        email
+      }
     }
   }
 `;

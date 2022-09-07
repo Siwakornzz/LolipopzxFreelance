@@ -1,6 +1,7 @@
 import React from "react";
 import Hirecontract from "./Hirecontract";
 import Subcontract from "./Subcontract";
+import User from "./User";
 
 const DashboardForm = () => {
   return (
@@ -16,6 +17,15 @@ const DashboardForm = () => {
           </div>
           <div class="col">
             <Hirecontract />
+          </div>
+        </div>
+
+        <div class="row mt-1 ms-1 me-1 mb-1">
+          <div class="col ">
+            <User/>
+          </div>
+          <div class="col">
+
           </div>
         </div>
       </div>

@@ -34,7 +34,7 @@ type Mutation {
     email: String!
     password: String!
   ): User
-  
+
   requestresetpassword(email: String!): Message!
   resetpassword(password: String!, token: String!): Message!
 
@@ -61,25 +61,12 @@ type Mutation {
 
   updatesubcontract(
     id: ID!
-    accountnumber: String
-    budget: Int
-    district: String
-    email: String
-    idcard: String
-    lineid: String
-    member: Int
-    nameofaccount: String
-    nameofbank: String
-    name: String
-    natureofwork: String
-    promptpay: String
-    province: String
-    skill: String
-    subdistrict: String
-    tel: String
-    username: String
-    yearskill: Int
-    zip: String
+    topic: String!
+    typeofwork: String!
+    detail: String
+    duration: Int!
+    startbudget: Float!
+    province: String!
   ): Subcontract!
 
   deletesubcontract(id: ID!): Subcontract!
@@ -95,12 +82,12 @@ type Mutation {
 
   updatehirecontract(
     id: ID!
-    condition: String
-    detail: String
-    typeofwork: String
-    budget: Float
-    zone: String
-    duration: Float
+    topic: String!
+    detail: String!
+    typeofwork: String!
+    budget: Float!
+    province: String!
+    duration: Int!
   ): Hirecontract!
 
   deletehirecontract(id: ID!): Hirecontract!

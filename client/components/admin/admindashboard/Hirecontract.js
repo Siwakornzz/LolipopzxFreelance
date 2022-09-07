@@ -1,5 +1,8 @@
 import React from "react";
+import HirecontractAccept from "./card/HirecontractAccept";
 import HirecontractAll from "./card/HirecontractAll";
+import HirecontractDenied from "./card/HirecontractDenied";
+import HirecontractWaiting from "./card/HirecontractWaiting";
 
 const Hirecontract = () => {
   return (
@@ -14,17 +17,20 @@ const Hirecontract = () => {
               <HirecontractAll />
             </div>
             <div class="col-md-3">
-         
+              <HirecontractWaiting />
             </div>
             <div class="col-md-3">
-
+              <HirecontractAccept />
             </div>
             <div class="col-md-3">
-             
+              <HirecontractDenied />
             </div>
           </div>
-          <div class="text-center">
-           
+          <div class="text-center mt-5">
+            <button class="btn btn-primary w-50 mb-3 mt-3">
+              {" "}
+              จัดการประกาศจ้างงาน
+            </button>
           </div>
         </div>
       </div>
