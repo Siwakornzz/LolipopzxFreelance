@@ -135,10 +135,7 @@ export const Query = {
 
   subcontractswebdevelopment: (parent, args, context, info) =>
     Subcontract.find({
-      $and: [
-        { status: "ตรวจสอบแล้ว" },
-        { natureofwork: { $regex: "web development" } },
-      ],
+      $and: [{ status: "APPROVE" }, { typeofwork: "Web Development" }],
     })
       .populate({
         path: "subcontractCreatorId",
@@ -152,10 +149,7 @@ export const Query = {
 
   subcontractswordpress: (parent, args, context, info) =>
     Subcontract.find({
-      $and: [
-        { status: "ตรวจสอบแล้ว" },
-        { natureofwork: { $regex: "wordpress" } },
-      ],
+      $and: [{ status: "ตรวจสอบแล้ว" }, { typeofwork: "Wordpress" }],
     })
       .populate({
         path: "subcontractCreatorId",
