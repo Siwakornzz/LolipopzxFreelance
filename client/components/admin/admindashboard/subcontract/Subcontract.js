@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import SubcontractAccept from "../card/subcontract/SubcontractAccept";
 import SubcontractAll from "../card/subcontract/SubcontractAll";
@@ -26,7 +27,14 @@ const Subcontract = () => {
               <SubcontractDenied />
             </div>
           </div>
-         
+          <div class="text-center">
+            <Link href="/admin/managesubcontract">
+              <button class="btn btn-primary w-50  mb-3 mt-4 text-center">
+                {" "}
+                ประกาศรับงาน{" "}
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

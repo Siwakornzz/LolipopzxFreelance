@@ -1,6 +1,9 @@
 import React from "react";
-import Link from 'next/link'
+import Link from "next/link";
+import { QUERY_HIRECONTRACTSWAITING } from "../../../../../apollo/queries";
+import { useQuery } from "@apollo/client";
 const HirecontractWaiting = () => {
+  const { data } = useQuery(QUERY_HIRECONTRACTSWAITING, {});
   return (
     <div
       class="card text-bg-light mb-3 ms-2 mt-2 me-2 "
@@ -9,10 +12,10 @@ const HirecontractWaiting = () => {
       <div class="card-header">
         <i class="bi bi-people-fill"></i>
         <br />
-        ที่กำลังรอการตอบรับ <i class="bi bi-file-plus-fill"></i>
+        ที่กำลังรอการจับคู่งาน <i class="bi bi-file-plus-fill"></i>
       </div>
       <div class="card-body">
-        <div class="card-text">20 งาน</div>
+        <div class="card-text">{data?.hirecontractswaiting.length} งาน</div>
       </div>
       <div class="card-footer">
         <Link href="admin/matching">

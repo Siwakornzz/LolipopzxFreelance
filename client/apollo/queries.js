@@ -403,3 +403,33 @@ export const QUERY_HIRECONTRACTSWAITING = gql`
     }
   }
 `;
+
+export const QUERY_HIRECONTRACTSAPPROVED = gql`
+  query {
+    hirecontractsapproved {
+      id
+      status
+      createdAt
+      hirecontractCreatorId {
+        id
+        username
+        email
+      }
+    }
+  }
+`;
+
+export const QUERY_HIRECONTRACTSDENIED = gql`
+  query {
+    hirecontractsdenied {
+      id
+      status
+      createdAt
+      hirecontractCreatorId {
+        id
+        username
+        email
+      }
+    }
+  }
+`;

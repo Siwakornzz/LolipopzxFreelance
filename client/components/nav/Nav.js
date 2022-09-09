@@ -105,7 +105,7 @@ const Nav = () => {
                           </li>
                         </Link>
 
-                        <Link href="/admin/managehirecontracts">
+                        <Link href="/admin/managehirecontract">
                           <li style={{ cursor: "pointer" }}>
                             <a className="dropdown-item">
                               {" "}
@@ -114,7 +114,7 @@ const Nav = () => {
                           </li>
                         </Link>
 
-                        <Link href="/admin/managesubcontracts">
+                        <Link href="/admin/managesubcontract">
                           <li style={{ cursor: "pointer" }}>
                             <a className="dropdown-item"> Managesubcontracts</a>
                           </li>

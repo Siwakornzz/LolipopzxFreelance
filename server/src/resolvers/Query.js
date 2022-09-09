@@ -210,8 +210,8 @@ export const Query = {
       }
     ),
 
-  hirecontractsapprove: (parent, args, context, info) =>
-    Hirecontract.find({ status: "APPROVE" })
+  hirecontractsapproved: (parent, args, context, info) =>
+    Hirecontract.find({ status: "ผู้รับเหมาช่วงยืนยันการทำงาน" })
       .populate({
         path: "hirecontractCreatorId",
         populate: { path: "hirecontracts" },
@@ -222,7 +222,7 @@ export const Query = {
       }),
 
   hirecontractsdenied: (parent, args, context, info) =>
-    Hirecontract.find({ status: "DENIED" })
+    Hirecontract.find({ status: "ผู้รับเหมาช่วงปฎิเสธการทำงาน" })
       .populate({
         path: "hirecontractCreatorId",
         populate: { path: "hirecontracts" },

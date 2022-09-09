@@ -18,7 +18,7 @@ type Query {
   hirecontracts: [Hirecontract]
   hirecontractswaiting: [Hirecontract]
   hirecontractswaitingassign: [Hirecontract]
-  hirecontractsapprove: [Hirecontract]
+  hirecontractsapproved: [Hirecontract]
   hirecontractsdenied: [Hirecontract]
   hirecontractspendingcancel: [Hirecontract]
   hirecontractssubcontractpendingcancel: [Hirecontract]

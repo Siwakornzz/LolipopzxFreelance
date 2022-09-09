@@ -1,6 +1,9 @@
+import { useQuery } from "@apollo/client";
 import React from "react";
+import { QUERY_HIRECONTRACTS } from "../../../../../apollo/queries";
 
 const HirecontractAll = () => {
+  const { data } = useQuery(QUERY_HIRECONTRACTS, {});
   return (
     <div
       class="card text-bg-light mb-3 ms-2 mt-2 me-2 "
@@ -12,7 +15,7 @@ const HirecontractAll = () => {
         งานที่ลงประกาศ<i class="bi bi-file-plus-fill"></i>
       </div>
       <div class="card-body">
-        <div class="card-text">20 งาน</div>
+        <div class="card-text">{data?.hirecontracts.length} งาน</div>
       </div>
     </div>
   );
