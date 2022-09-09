@@ -1,35 +1,46 @@
+import { useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import DataTable from "react-data-table-component";
-import { useQuery } from "@apollo/client";
 import { Me } from "../../../../apollo/queries";
 import DataTableExtensions from "react-data-table-component-extensions";
 import Link from "next/link";
-const TaskRequestTable = () => {
+
+const TaskJobRequestTable = () => {
   const [hirecontractData, setHirecontractData] = useState([]);
+  console.log(hirecontractData);
 
   const columns = [
     {
-      name: "หัวข้อประกาศงาน",
-      selector: "topic",
+      name: "หัวข้อประกาศงานที่จ้างมา",
+      selector: "hirecontract.topic",
       sortable: true,
       center: true,
     },
     {
       name: "ประเภทของงาน",
-      selector: "typeofwork",
+      selector: "hirecontract.typeofwork",
+      sortable: true,
+      center: true,
+    },
+    {
+      name: "งบประมาณที่จ้าง",
+      selector: "hirecontract.budget",
       sortable: true,
       center: true,
     },
     {
       name: "สถานะ",
-      selector: "status",
+      selector: "hirecontract.status",
       cell: (row) => (
         <>
-          {row.status === "WAITING" && (
-            <span class="badge text-bg-warning"> {row.status}</span>
+          {row.hirecontract.status === "WAITING" && (
+            <span class="badge text-bg-warning">
+              {" "}
+              {row.hirecontract.status}
+            </span>
           )}
-          {row.status === "กำลังรอการตอบรับจากผู้รับเหมาช่วง" && (
-            <span class="badge text-bg-info"> {row.status}</span>
+          {row.hirecontract.status === "กำลังรอการตอบรับจากผู้รับเหมาช่วง" && (
+            <span class="badge text-bg-info"> {row.hirecontract.status}</span>
           )}
         </>
       ),
@@ -42,18 +53,18 @@ const TaskRequestTable = () => {
         <>
           <div class="col">
             <Link
-              key={row.id}
+              key={row.hirecontract.id}
               href="/hirecontracts/[hirecontractId]"
-              as={`/hirecontracts/${row.id}`}
+              as={`/hirecontracts/${row.hirecontract.id}`}
             >
               <button class="btn btn-secondary btn-sm">ดูรายละเอียด</button>
             </Link>
           </div>
           <div class="col">
             <Link
-              key={row.id}
+              key={row.hirecontract.id}
               href="/managehirecontract/managehirecontractItem"
-              as={`/managehirecontract/${row.id}`}
+              as={`/managehirecontract/${row.hirecontract.id}`}
             >
               <button class="btn btn-primary btn-sm w-100 ms-2">
                 {" "}
@@ -70,7 +81,7 @@ const TaskRequestTable = () => {
   const responseHirecontract = useQuery(Me, {
     onCompleted: (data) => {
       if (data) {
-        setHirecontractData(data.user.hirecontracts);
+        setHirecontractData(data.user.task);
       }
     },
   });
@@ -87,4 +98,4 @@ const TaskRequestTable = () => {
   );
 };
 
-export default TaskRequestTable;
+export default TaskJobRequestTable;

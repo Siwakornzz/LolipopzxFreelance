@@ -51,6 +51,11 @@ export const Mutation = {
       .populate({
         path: "hirecontracts",
         populate: { path: "hirecontractCreatorId" },
+      })
+      .populate({
+        path: "task",
+        options: { sort: { createdAt: "asc" } },
+        populate: [{ path: "subcontract" }, { path: "hirecontract" }],
       });
 
     if (!user) {
@@ -404,48 +409,37 @@ export const Mutation = {
 
   assignsubtohire: async (parent, args, { userId }, info) => {
     const id = args.id;
-    const subcontractAcceptHirecontractId =
-      args.subcontractAcceptHirecontractId;
+    const subcontractCreatorId = args.subcontractCreatorId;
+    const subcontractId = args.subcontractAcceptHirecontractId;
 
-    console.log(id, subcontractAcceptHirecontractId);
     if (!userId) throw new Error("You Not Authorized !");
 
     const user = await User.findById(userId);
-    const hirecontract = await Hirecontract.findById(id);
 
     if (user.roles !== "Admin") throw new Error("You Not Authorized !");
 
-    if (!hirecontract.subcontractAcceptHirecontractId) {
-      hirecontract.subcontractAcceptHirecontractId =
-        subcontractAcceptHirecontractId;
-    } else {
-      hirecontract.subcontractAcceptHirecontractId =
-        subcontractAcceptHirecontractId;
-    }
+    const hirecontract = await Hirecontract.findById(id);
 
-    const subcontract = await Subcontract.findById(
-      subcontractAcceptHirecontractId
-    );
+    const newTask = await Task.create({
+      subcontract: subcontractId,
+      hirecontract: id,
+      subcontractCreatorId: subcontractCreatorId,
+    });
 
-    if (!subcontract.hirecontractWorkId) {
-      subcontract.hirecontractWorkId = [];
-    }
-    subcontract.hirecontractWorkId.push(id);
     hirecontract.status = "กำลังรอการตอบรับจากผู้รับเหมาช่วง";
 
     await hirecontract.save();
-    await subcontract.save();
 
-    const assignhirecontract = await Hirecontract.findById(id)
-      .populate({
-        path: "hirecontractCreatorId",
-        populate: { path: "hirecontracts" },
-      })
-      .populate({
-        path: "subcontractAcceptHirecontractId",
-        populate: { path: "subcontracts" },
-      });
-    return assignhirecontract;
+    const subcontractCreator = await User.findById(subcontractCreatorId);
+    if (!subcontractCreator.task) {
+      subcontractCreator.task = [newTask];
+    } else {
+      subcontractCreator.task.push(newTask);
+    }
+
+    await subcontractCreator.save();
+
+    return newTask;
   },
 
   subcontractacceptwork: async (parent, args, context, info) => {

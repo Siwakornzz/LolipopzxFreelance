@@ -1,8 +1,8 @@
 import React from "react";
-import HirecontractAccept from "./card/HirecontractAccept";
-import HirecontractAll from "./card/HirecontractAll";
-import HirecontractDenied from "./card/HirecontractDenied";
-import HirecontractWaiting from "./card/HirecontractWaiting";
+import HirecontractAccept from "../card/hirecontract/HirecontractAccept";
+import HirecontractAll from "../card/hirecontract/HirecontractAll";
+import HirecontractDenied from "../card/hirecontract/HirecontractDenied";
+import HirecontractWaiting from "../card/hirecontract/HirecontractWaiting";
 
 const Hirecontract = () => {
   return (

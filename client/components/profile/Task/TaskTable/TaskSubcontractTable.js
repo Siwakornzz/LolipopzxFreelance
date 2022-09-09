@@ -22,10 +22,15 @@ const TaskAddTable = () => {
     },
     {
       name: "สถานะ",
+      selector: "status",
       cell: (row) => (
         <>
           {row.status === "WAITING" && (
             <span class="badge text-bg-warning"> {row.status}</span>
+          )}
+
+          {row.status === "APPROVE" && (
+            <span class="badge text-bg-success"> {row.status}</span>
           )}
         </>
       ),
@@ -47,12 +52,15 @@ const TaskAddTable = () => {
           </div>
 
           <div class="col">
-          <Link
+            <Link
               key={row.id}
               href="/managesubcontract/subcontractItemId"
               as={`/managesubcontract/${row.id}`}
             >
-            <button class="btn btn-primary btn-sm w-100 ms-2"> จัดการ </button>
+              <button class="btn btn-primary btn-sm w-100 ms-2">
+                {" "}
+                จัดการ{" "}
+              </button>
             </Link>
           </div>
         </>

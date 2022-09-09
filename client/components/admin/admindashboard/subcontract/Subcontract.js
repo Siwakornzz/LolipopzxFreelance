@@ -1,8 +1,8 @@
 import React from "react";
-import SubcontractAccept from "./card/SubcontractAccept";
-import SubcontractAll from "./card/SubcontractAll";
-import SubcontractDenied from "./card/SubcontractDenied";
-import SubcontractCard from "./card/SubcontractWaitingApproveCard";
+import SubcontractAccept from "../card/subcontract/SubcontractAccept";
+import SubcontractAll from "../card/subcontract/SubcontractAll";
+import SubcontractDenied from "../card/subcontract/SubcontractDenied";
+import SubcontractCard from "../card/subcontract/SubcontractWaitingApproveCard";
 
 const Subcontract = () => {
   return (
@@ -26,12 +26,7 @@ const Subcontract = () => {
               <SubcontractDenied />
             </div>
           </div>
-          <div class="text-center">
-            <button class="btn btn-primary w-50 mb-3">
-              {" "}
-              จัดการประกาศรับงาน
-            </button>
-          </div>
+         
         </div>
       </div>
     </div>

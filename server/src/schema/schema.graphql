@@ -23,6 +23,13 @@ type Query {
   hirecontractspendingcancel: [Hirecontract]
   hirecontractssubcontractpendingcancel: [Hirecontract]
   adminapprovehirecontractscancel: [Hirecontract]
+
+  requestmatching(
+    id: ID!
+    typeofwork: String!
+    budget: Float!
+    province: String!
+  ): [Subcontract]
 }
 
 type Mutation {
@@ -91,7 +98,11 @@ type Mutation {
   ): Hirecontract!
 
   deletehirecontract(id: ID!): Hirecontract!
-  assignsubtohire(id: ID!, subcontractAcceptHirecontractId: ID!): Hirecontract!
+  assignsubtohire(
+    id: ID!
+    subcontractAcceptHirecontractId: ID!
+    subcontractCreatorId: ID!
+  ): Task!
   subcontractdeniedwork(id: ID!): Hirecontract!
   subcontractacceptwork(id: ID!): Hirecontract!
 }

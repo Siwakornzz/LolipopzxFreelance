@@ -1,156 +1,55 @@
-import  Router, { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import { useMutation } from "@apollo/react-hooks";
 import { useQuery } from "@apollo/react-hooks";
 import React, { useState } from "react";
 import {
   QUERY_HIRECONTRACT,
   QUERY_HIRECONTRACTSWAITING,
+  QUERY_REQUESTMATCHING,
   QUERY_SUBCONTRACTS,
 } from "../../../apollo/queries";
 import Swal from "sweetalert2";
 import { ASSIGN_HIRECONTRACT } from "../../../apollo/mutations";
+import Link from "next/link";
 
 const Requestmatching = () => {
   const route = useRouter();
+  const [hirecontract, setHirecontract] = useState([]);
   const [datamatching, setDatamatching] = useState([]);
 
   const { data, loading, error } = useQuery(QUERY_HIRECONTRACT, {
     variables: { id: route.query.matchingId },
-  });
-  const hirecontractId = route.query.matchingId;
-  const subcontractsData = useQuery(QUERY_SUBCONTRACTS, {
-    onCompleted: (data, loading, error) => {
-      if (!data) {
-        return Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "No Subcontract Found Try Again Later !",
-        });
-      }
-      if (error) {
-        return Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-        });
-      }
-      if (loading) {
-        return <p>Loading...</p>;
-      }
+    onCompleted: (data) => {
+      setHirecontract(data.hirecontract);
     },
   });
 
-  // TODO matching Data
-  const matchings = async () => {
-    var matchingss = [];
-    var tmpchecktypeofwork;
-    var tmpcheckskill;
-    console.log("sub", subcontractsData.data.subcontracts);
-    console.log("hire", data.hirecontract);
-    // console.log(subcontractsData.data.subcontracts.length)
+  const { requestmatchings } = useQuery(QUERY_REQUESTMATCHING, {
+    variables: {
+      id: hirecontract.id,
+      province: hirecontract.province,
+      budget: +hirecontract.budget,
+      typeofwork: hirecontract.typeofwork,
+    },
+    onCompleted: (data) => {
+      setDatamatching(data.requestmatching);
+    },
+  });
 
-    if ((await subcontractsData.data.subcontracts.length) >= 1) {
-      for (let i = 0; i < subcontractsData.data.subcontracts.length; i++) {
-        var subcontractId = subcontractsData.data.subcontracts[i];
-        let tmpsubcontractskill =
-          subcontractsData?.data?.subcontracts[i].skill.split(",");
+  console.log("hcon", hirecontract);
+  console.log("dm", datamatching);
+  const hirecontractId = route.query.matchingId;
 
-        let tmpsubcontractnatureofwork =
-          subcontractsData?.data?.subcontracts[i].natureofwork.split(",");
-
-        let tmphirecontracttypeofwork =
-          data?.hirecontract.typeofwork.split(",");
-
-        let tmphirecontractcondition = data?.hirecontract.condition.split(",");
-
-        console.log(
-          "sub split",
-          tmpsubcontractnatureofwork,
-          tmphirecontracttypeofwork
-        );
-        console.log(
-          "hire split",
-          tmphirecontracttypeofwork,
-          tmphirecontractcondition
-        );
-        // check budget
-        if (
-          data.hirecontract.budget >=
-          subcontractsData.data.subcontracts[i].budget
-        ) {
-          // check province
-          if (
-            data.hirecontract.zone ===
-            subcontractsData.data.subcontracts[i].province
-          ) {
-            // check typeofwork
-            tmpchecktypeofwork = 0;
-            for (let j = 0; j < tmphirecontracttypeofwork.length; j++) {
-              for (let k = 0; k < tmpsubcontractnatureofwork.length; k++) {
-                if (
-                  tmphirecontracttypeofwork[j] === tmpsubcontractnatureofwork[k]
-                ) {
-                  tmpchecktypeofwork = tmpchecktypeofwork + 1;
-                }
-              }
-              console.log("tmpchecktype", tmpchecktypeofwork);
-            }
-
-            // check if subcontractnatureofwork > 0
-            tmpcheckskill = 0;
-            if (tmpchecktypeofwork >= 1) {
-              for (let l = 0; l < tmphirecontractcondition.length; l++) {
-                for (let m = 0; m < tmpsubcontractskill.length; m++) {
-                  console.log(
-                    "tmphirecontractcondition",
-                    tmphirecontractcondition
-                  );
-                  console.log("tmpsubcontractskill", tmpsubcontractskill);
-                  if (tmphirecontractcondition[l] === tmpsubcontractskill[m]) {
-                    tmpcheckskill = tmpcheckskill + 1;
-                  }
-                }
-              }
-             console.log('subcreatorId',subcontractId.subcontractCreatorId.id)
-             console.log('hirecreatorId',data.hirecontract.hirecontractCreatorId.id)
-              if (tmpcheckskill >= 1) {
-                if (subcontractId.subcontractCreatorId.id !== data.hirecontract.hirecontractCreatorId.id)
-                {
-                  matchingss.push(subcontractId);
-                }
-              }
-            }
-            console.log(tmpcheckskill);
-          }
-        }
-      }
-      if (matchingss.length <= 0) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "No matching contract found !!!",
-        });
-      }
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "No Subcontract Found Try Again Later !",
-      });
-    }
-    console.log(matchingss);
-    setDatamatching(matchingss);
-  };
   // console.log(data);
-  const handleSelect = async (id) => {
+  const handleSelect = async (id, subcontractCreatorID) => {
     try {
       await assign({
         variables: {
           id: hirecontractId,
           subcontractAcceptHirecontractId: id,
+          subcontractCreatorId: subcontractCreatorID,
         },
-      }).then(() => Router.push('/admin/matching'));
-      
+      }).then(() => Router.push("/admin/matching"));
     } catch (error) {
       console.log(error);
     }
@@ -162,21 +61,21 @@ const Requestmatching = () => {
         Swal.fire({
           icon: "success",
           title: "LOLIPOPZ",
-          text: "ASSIGN WORK TO SUBCONTRACTS SUCCESS",
+          text: "เพิ่มงานให้กับผู้รับงานที่เลือกสำเร็จ ",
         });
       }
       if (loading) {
         Swal.fire({
           icon: "info",
           title: "LOLIPOPZ",
-          text: "ASSIGNING WORK TO SUBCONTRACTS",
+          text: "กำลังเพิ่มงานให้กับผู้รับงาน",
         });
       }
       if (error) {
         Swal.fire({
           icon: "error",
           title: "LOLIPOPZ",
-          text: "Something Wrogn Try Again Later",
+          text: "เกิดข้อผิดพลาดโปรดลองใหม่อีกครั้งในภายหลัง !",
         });
       }
     },
@@ -199,12 +98,19 @@ const Requestmatching = () => {
               <div class="card-header text-center">
                 HIRECONTRACT REQUESTMATCHING
               </div>
-              <div class="card-body ">
+              <div class="card-body  text-start">
                 <p>
                   {" "}
-                  <span style={{ color: "red" }}> ID : </span>{" "}
-                  {data?.hirecontract.id}
+                  <span style={{ color: "red" }}> หัวข้อประกาศงาน : </span>{" "}
+                  {data?.hirecontract.topic}
                 </p>
+
+                <p>
+                  {" "}
+                  <span style={{ color: "red" }}> ประเภทของงาน : </span>{" "}
+                  {data?.hirecontract.typeofwork}
+                </p>
+
                 <p>
                   {" "}
                   <span style={{ color: "red" }}>
@@ -213,15 +119,17 @@ const Requestmatching = () => {
                   </span>{" "}
                   {data?.hirecontract.detail}
                 </p>
+
                 <p>
                   {" "}
                   <span style={{ color: "red" }}> งบประมาณ : </span>
                   {data?.hirecontract.budget} บาท
                 </p>
-                <button class="btn btn-outline-info" onClick={matchings}>
-                  {" "}
-                  Matching{" "}
-                </button>
+
+                <p>
+                  <span style={{ color: "red" }}> จังหวัด : </span>
+                  {data?.hirecontract.province}
+                </p>
               </div>
             </div>
           </div>
@@ -230,22 +138,49 @@ const Requestmatching = () => {
             <div class="card">
               <div class="card-header"> SUBCONTRACT LIST :)</div>
               <div class="card-body">
+                {datamatching.length <= 0 && (
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="container">
+                        <div class="text-center">
+                          <h5>
+                            {" "}
+                            ไม่พบผู้ประกาศงานที่รับงาน
+                            โปรดลองใหม่อีกครั้งในภายหลัง !{" "}
+                          </h5>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
                 {datamatching?.map((v) => (
                   <>
                     <div class="card mt-1 ">
                       <div class="card-header">SUBCONTRACTNAME : {v.name}</div>
                       <div class="card-body"></div>
                       <p>SUBCONTRACT ID : {v.id} </p>
-                      <p> ประสบการณ์ในการทำงาน : {v.yearskill} ปี</p>
-                      <p>งบประมาณ : {v.budget} บาท </p>
+                      <p> ประเภทของงานที่รับทำ : {v.typeofwork} </p>
+                      <p>งบประมาณ : {v.startbudget} บาท </p>
 
                       <button
                         class="btn btn-outline-primary w-50 m-auto p-auto  mb-2  "
-                        onClick={async () => await handleSelect(v.id)}
+                        onClick={async () =>
+                          await handleSelect(v.id, v.subcontractCreatorId.id)
+                        }
                       >
                         {" "}
-                        SELECT{" "}
+                        เลือกผู้รับงาน{" "}
                       </button>
+
+                      <Link
+                        key={v.id}
+                        href="/subcontracts/[subcontractId]"
+                        as={`/subcontracts/${v.id}`}
+                      >
+                        <button class="btn btn-outline-primary w-50 m-auto p-auto  mb-2 ">
+                          ดูรายละเอียดเพิ่มเติม
+                        </button>
+                      </Link>
                     </div>
                     <hr />
                   </>

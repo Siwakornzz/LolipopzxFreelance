@@ -1,5 +1,5 @@
 import React from "react";
-
+import Link from 'next/link'
 const HirecontractWaiting = () => {
   return (
     <div
@@ -15,10 +15,12 @@ const HirecontractWaiting = () => {
         <div class="card-text">20 งาน</div>
       </div>
       <div class="card-footer">
-        <button class="btn btn-primary btn-sm">
-          {" "}
-          จัดการจับคู่ให้กับประกาศ
-        </button>
+        <Link href="admin/matching">
+          <button class="btn btn-primary btn-sm">
+            {" "}
+            จัดการจับคู่ให้กับประกาศ
+          </button>
+        </Link>
       </div>
     </div>
   );

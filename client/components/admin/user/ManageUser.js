@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import UserTable from "./table/UserTable";
 
 const ManageUser = () => {
   return (
-   <p> manageuser component :) </p>
-  )
-}
+    <>
+      <UserTable />
+    </>
+  );
+};
 
-export default ManageUser
+export default ManageUser;

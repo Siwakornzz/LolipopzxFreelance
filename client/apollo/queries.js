@@ -40,6 +40,61 @@ export const Me = gql`
       }
       task {
         id
+        subcontract {
+          id
+          topic
+        }
+        hirecontract {
+          id
+          topic
+          typeofwork
+          budget
+          status
+        }
+      }
+    }
+  }
+`;
+
+export const QUERY_USERS = gql`
+  query QUERY_USERS {
+    users {
+      id
+      username
+      firstname
+      lastname
+      email
+      tel
+      lineid
+      province
+      district
+      subdistrict
+      zipcode
+      roles
+      createdAt
+      subcontracts {
+        id
+        topic
+        typeofwork
+        detail
+        duration
+        startbudget
+        province
+        status
+        createdAt
+      }
+      hirecontracts {
+        id
+        topic
+        typeofwork
+        detail
+        duration
+        budget
+        status
+        createdAt
+      }
+      task {
+        id
       }
     }
   }
@@ -75,6 +130,12 @@ export const QUERY_USER = {
         }
         task{
           id
+          subcontract{
+            id
+          }
+          hirecontract{
+            id
+          }
         }
       }
     }
@@ -86,6 +147,39 @@ export const QUERY_USER = {
 export const QUERY_SUBCONTRACT = gql`
   query QUERY_SUBCONTRACT($id: ID!) {
     subcontract(id: $id) {
+      id
+      topic
+      typeofwork
+      detail
+      duration
+      startbudget
+      province
+      status
+      createdAt
+      subcontractCreatorId {
+        id
+        username
+        email
+        tel
+        lineid
+      }
+    }
+  }
+`;
+
+export const QUERY_REQUESTMATCHING = gql`
+  query QUERY_REQUESTMATCHING(
+    $id: ID!
+    $typeofwork: String!
+    $budget: Float!
+    $province: String!
+  ) {
+    requestmatching(
+      id: $id
+      typeofwork: $typeofwork
+      budget: $budget
+      province: $province
+    ) {
       id
       topic
       typeofwork
@@ -120,6 +214,69 @@ export const QUERY_SUBCONTRACTHASASSIGN = gql`
 export const QUERY_SUBCONTRACTS = gql`
   query {
     subcontracts {
+      id
+      topic
+      typeofwork
+      detail
+      duration
+      startbudget
+      province
+      status
+      createdAt
+      subcontractCreatorId {
+        id
+        username
+        email
+      }
+    }
+  }
+`;
+
+export const QUERTY_SUBCONTRACTSWAITING = gql`
+  query {
+    subcontractswaiting {
+      id
+      topic
+      typeofwork
+      detail
+      duration
+      startbudget
+      province
+      status
+      createdAt
+      subcontractCreatorId {
+        id
+        username
+        email
+      }
+    }
+  }
+`;
+
+export const QUERY_SUBCONTRACTSACCEPT = gql`
+  query {
+    subcontractsapprove {
+      id
+      topic
+      typeofwork
+      detail
+      duration
+      startbudget
+      province
+      status
+      createdAt
+      subcontractCreatorId {
+        id
+        username
+        email
+      }
+    }
+  }
+`;
+
+export const QUERY_SUBCONTRACTSDENIED = gql`
+  query {
+    subcontractsdenied {
       id
       topic
       typeofwork

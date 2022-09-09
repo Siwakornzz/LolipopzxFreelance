@@ -37,7 +37,7 @@ MyApp.getInitialProps = async ({ ctx, router }) => {
   const cookies = headers && cookie.parse(headers.cookie || "");
 
   const token = cookies && cookies.jwt;
-  console.log(token);
+  console.log('token',token);
 
   if (!token) {
     if (
@@ -74,7 +74,6 @@ MyApp.getInitialProps = async ({ ctx, router }) => {
     },
     body: JSON.stringify(QUERY_USER),
   });
-
   if (response.ok) {
     const result = await response.json();
     console.log(result);

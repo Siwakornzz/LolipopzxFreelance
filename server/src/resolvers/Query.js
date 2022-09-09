@@ -23,12 +23,9 @@ export const Query = {
         populate: { path: "hirecontractCreatorId" },
       })
       .populate({
-        path: "subcontracts",
-        populate: { path: "hirecontractWorkId" },
-      })
-      .populate({
-        path: "hirecontracts",
-        populate: { path: "subcontractAcceptHirecontractId" },
+        path: "task",
+        options: { sort: { createdAt: "asc" } },
+        populate: [{ path: "subcontract" }, { path: "hirecontract" }],
       });
   },
 
@@ -43,15 +40,26 @@ export const Query = {
         path: "hirecontracts",
         options: { sort: { createdAt: "asc" } },
         populate: { path: "hirecontractCreatorId" },
+      })
+      .populate({
+        path: "task",
+        options: { sort: { createdAt: "asc" } },
+        populate: [{ path: "subcontract" }, { path: "hirecontract" }],
       }),
-
   // Subcontract
   subcontract: (parent, args, context, info) =>
-    Subcontract.findById(args.id)
+    Subcontract.findById(args.id).populate({
+      path: "subcontractCreatorId",
+      populate: { path: "subcontracts" },
+    }),
+
+  subcontracts: (parent, args, context, info) =>
+    Subcontract.find({})
       .populate({
         path: "subcontractCreatorId",
         populate: { path: "subcontracts" },
       })
+      .sort({ createdAt: "asc" })
       .populate({
         path: "hirecontractWorkId",
         populate: { path: "hirecontracts" },
@@ -69,32 +77,16 @@ export const Query = {
       })
       .sort({ createdAt: "asc" }),
 
-  subcontracts: (parent, args, context, info) =>
-    Subcontract.find({})
-      .populate({
-        path: "subcontractCreatorId",
-        populate: { path: "subcontracts" },
-      })
-      .sort({ createdAt: "asc" })
-      .populate({
-        path: "hirecontractWorkId",
-        populate: { path: "hirecontracts" },
-      }),
-
   subcontractswaiting: (parent, args, context, info) =>
     Subcontract.find({ status: "WAITING" })
       .populate({
         path: "subcontractCreatorId",
         populate: { path: "subcontracts" },
       })
-      .sort({ createdAt: "asc" })
-      .populate({
-        path: "hirecontractWorkId",
-        populate: { path: "hirecontracts" },
-      }),
+      .sort({ createdAt: "asc" }),
 
   subcontractsapprove: (parent, args, context, info) =>
-    Subcontract.find({ status: "ยืนยันแล้ว" })
+    Subcontract.find({ status: "APPROVE" })
       .populate({
         path: "subcontractCreatorId",
         populate: { path: "subcontracts" },
@@ -106,7 +98,7 @@ export const Query = {
       }),
 
   subcontractsdenied: (parent, args, context, info) =>
-    Subcontract.find({ status: "ปฎิเสธ" })
+    Subcontract.find({ status: "DENIED" })
       .populate({
         path: "subcontractCreatorId",
         populate: { path: "subcontracts" },
@@ -194,8 +186,8 @@ export const Query = {
         populate: { path: "subcontracts" },
       })
       .populate({
-        path:"subcontractCreatorId",
-        populate:{path:"users"}
+        path: "subcontractCreatorId",
+        populate: { path: "users" },
       })
       .sort({ createdAt: "desc" }),
 
@@ -272,4 +264,20 @@ export const Query = {
         path: "subcontractAcceptHirecontractId",
         populate: { path: "subcontracts" },
       }),
+
+  // matching
+
+  requestmatching: (parent, args, context, info) => {
+    return Subcontract.find({
+      $and: [
+        { status: "APPROVE" },
+        { typeofwork: args.typeofwork },
+        { province: args.province },
+        { startbudget: { $lte: args.budget } },
+      ],
+    }).populate({
+      path: "subcontractCreatorId",
+      populate: { path: "users" },
+    });
+  },
 };

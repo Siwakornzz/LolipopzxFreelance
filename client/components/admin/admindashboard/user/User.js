@@ -1,6 +1,9 @@
 import React from "react";
-import Link from 'next/link'
+import Link from "next/link";
+import { QUERY_USERS } from "../../../../apollo/queries";
+import { useQuery } from "@apollo/client";
 const User = () => {
+  const { data } = useQuery(QUERY_USERS, {});
   return (
     <div class="col">
       <div class="mt-3 container">
@@ -16,7 +19,7 @@ const User = () => {
                 style={{ objectFit: "cover", border: "2px solid #333" }}
               />
 
-              <p class="mt-3"> ผู้ใช้งานทั้งหมด 30 คน </p>
+              <p class="mt-3"> ผู้ใช้งานทั้งหมด {data?.users.length} คน </p>
               <div class="text-center">
                 <Link href="/admin/manageuser">
                   <button class="btn btn-primary w-50 mb-3">

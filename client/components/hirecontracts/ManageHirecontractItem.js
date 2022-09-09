@@ -276,7 +276,7 @@ const ManageHirecontractItem = () => {
                 className="btn btn-secondary w-25 text-center mt-3"
               >
                 {" "}
-                <i className="bi bi-send-fill"></i> ส่งข้อมูล
+                <i className="bi bi-send-fill"></i> แก้ไขข้อมูล
               </button>
             </div>
           </form>

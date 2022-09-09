@@ -49,7 +49,6 @@ export const SIGN_IN = gql`
         }
         hirecontracts {
           id
-
           status
           createdAt
         }
@@ -288,10 +287,12 @@ export const ASSIGN_HIRECONTRACT = gql`
   mutation ASSIGN_HIRECONTRACT(
     $id: ID!
     $subcontractAcceptHirecontractId: ID!
+    $subcontractCreatorId: ID!
   ) {
     assignsubtohire(
       id: $id
       subcontractAcceptHirecontractId: $subcontractAcceptHirecontractId
+      subcontractCreatorId: $subcontractCreatorId
     ) {
       id
     }

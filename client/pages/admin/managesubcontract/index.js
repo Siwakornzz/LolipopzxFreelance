@@ -1,5 +1,5 @@
 import React from "react";
-import Managesubcontracts from "../../components/admin/managesubcontracts";
+import Managesubcontracts from "../../../components/admin/managesubcontracts";
 
 const managesubcontracts = () => {
   return (

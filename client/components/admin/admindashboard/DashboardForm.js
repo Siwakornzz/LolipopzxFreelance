@@ -1,7 +1,7 @@
 import React from "react";
-import Hirecontract from "./Hirecontract";
-import Subcontract from "./Subcontract";
-import User from "./User";
+import Subcontract from "./subcontract/Subcontract";
+import Hirecontract from "./hirecontract/Hirecontract";
+import User from "./user/User";
 
 const DashboardForm = () => {
   return (
@@ -12,20 +12,24 @@ const DashboardForm = () => {
         </div>
 
         <div class="row mt-1 ms-1 me-1 mb-1">
-          <div class="col ">
-            <Subcontract />
+          <div class="col-md-3 ">
+            <User />
           </div>
           <div class="col">
-            <Hirecontract />
+            <Subcontract />
           </div>
         </div>
 
         <div class="row mt-1 ms-1 me-1 mb-1">
-          <div class="col ">
-            <User/>
-          </div>
-          <div class="col">
+          <div class="col "></div>
+          <div class="col"> </div>
+        </div>
 
+        <div class="row mt-1 ms-1 me-1 mb-1">
+          <div class="col-md-3 "></div>
+          <div class="col">
+            {" "}
+            <Hirecontract />
           </div>
         </div>
       </div>
