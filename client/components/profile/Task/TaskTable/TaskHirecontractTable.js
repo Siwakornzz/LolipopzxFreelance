@@ -31,6 +31,9 @@ const TaskRequestTable = () => {
           {row.status === "กำลังรอการตอบรับจากผู้รับเหมาช่วง" && (
             <span class="badge text-bg-info"> {row.status}</span>
           )}
+          {row.status === "ผู้รับเหมาช่วงปฎิเสธการรับงาน" && (
+            <span class="badge text-bg-danger"> {row.status}</span>
+          )}
         </>
       ),
       sortable: true,

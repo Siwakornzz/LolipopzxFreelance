@@ -42,6 +42,9 @@ const TaskJobRequestTable = () => {
           {row.hirecontract.status === "กำลังรอการตอบรับจากผู้รับเหมาช่วง" && (
             <span class="badge text-bg-info"> {row.hirecontract.status}</span>
           )}
+          {row.hirecontract.status === "ผู้รับเหมาช่วงปฎิเสธการรับงาน" && (
+            <span class="badge text-bg-danger"> {row.hirecontract.status}</span>
+          )}
         </>
       ),
       sortable: true,
@@ -60,7 +63,6 @@ const TaskJobRequestTable = () => {
               <button class="btn btn-secondary btn-sm">ดูรายละเอียด</button>
             </Link>
           </div>
-        
         </>
       ),
       center: true,
@@ -76,14 +78,16 @@ const TaskJobRequestTable = () => {
   });
 
   return (
-    <DataTableExtensions columns={columns} data={hirecontractData}>
-      <DataTable
-        pagination
-        // selectableRows
-        // selectableRowsHighlight
-        highlightOnHover
-      />
-    </DataTableExtensions>
+    <>
+      <DataTableExtensions columns={columns} data={hirecontractData}>
+        <DataTable
+          pagination
+          // selectableRows
+          // selectableRowsHighlight
+          highlightOnHover
+        />
+      </DataTableExtensions>
+    </>
   );
 };
 

@@ -104,6 +104,10 @@ const HirecontractHasAssign = () => {
           {row.hirecontract.status === "กำลังรอการตอบรับจากผู้รับเหมาช่วง" && (
             <span class="badge text-bg-info"> {row.hirecontract.status}</span>
           )}
+
+          {row.hirecontract.status === "ผู้รับเหมาช่วงปฎิเสธการรับงาน" && (
+            <span class="badge text-bg-danger"> {row.hirecontract.status}</span>
+          )}
         </>
       ),
       sortable: true,
