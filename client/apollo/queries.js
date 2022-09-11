@@ -393,6 +393,8 @@ export const QUERY_HIRECONTRACTSWAITING = gql`
   query {
     hirecontractswaiting {
       id
+      typeofwork
+      budget
       status
       createdAt
       hirecontractCreatorId {

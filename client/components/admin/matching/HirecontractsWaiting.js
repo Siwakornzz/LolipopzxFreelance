@@ -59,7 +59,7 @@ const HirecontractsWaiting = () => {
                         <div class="card-header">id : {v.id}</div>
                         <div class="card-body"></div>
                         <p> ประเภทของงาน : {v.typeofwork} </p>
-                        <p> เงื่อนไขภาษาที่ต้องการ : {v.condition} </p>
+                        <p> งบประมาณ : {v.budget} บาท </p>
                         <p> สถานะ : {v.status} </p>
                         <div class="card-footer mt-2 text-center">
                           <small class="text-muted">

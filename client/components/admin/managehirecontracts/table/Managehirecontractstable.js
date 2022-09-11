@@ -4,6 +4,7 @@ import Link from "next/link";
 import DataTable from "react-data-table-component";
 import { useQuery } from "@apollo/client";
 import { QUERY_HIRECONTRACTS } from "../../../../apollo/queries";
+import moment from "moment";
 
 const Managehirecontractstable = () => {
   const [hirecontractData, setHirecontractData] = useState([]);
@@ -13,6 +14,8 @@ const Managehirecontractstable = () => {
       setHirecontractData(data.hirecontracts);
     },
   });
+
+  console.log(data);
 
   const columns = [
     {
@@ -24,6 +27,33 @@ const Managehirecontractstable = () => {
     {
       name: "ประเภทของงาน",
       selector: "typeofwork",
+      sortable: true,
+      center: true,
+    },
+    {
+      name: "รายละเอียดงาน",
+      selector: "detail",
+      sortable: true,
+      center: true,
+    },
+    {
+      name: "งบประมาณในการจ้าง / บาท",
+      selector: "budget",
+      cell: (row) => <>{Number(row.budget).toLocaleString("en")}</>,
+      sortable: true,
+      center: true,
+    },
+    {
+      name: "ระยะเวลาในการทำงาน / วัน",
+      selector: "duration",
+      cell: (row) => <>{Number(row.duration).toLocaleString("en")}</>,
+      sortable: true,
+      center: true,
+    },
+    {
+      name: "ผู้สร้างคำร้อง",
+      selector: "hirecontractCratorId".username,
+      cell: (row) => <>{row.hirecontractCreatorId.username}</>,
       sortable: true,
       center: true,
     },
@@ -47,10 +77,18 @@ const Managehirecontractstable = () => {
       center: true,
     },
     {
+      name: "สร้างเมื่อ",
+      selector: "createdAt",
+      cell: (row) => <>{moment(row.createdAt).locale("th").format("LLLL")}</>,
+
+      sortable: true,
+      center: true,
+    },
+    {
       name: "เมนู",
       cell: (row) => (
         <>
-          <div class="col">
+          <div class="text-center">
             <Link
               key={row.id}
               href="/hirecontracts/[hirecontractId]"

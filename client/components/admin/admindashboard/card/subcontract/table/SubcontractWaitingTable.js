@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import DataTable from "react-data-table-component";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import DataTableExtensions from "react-data-table-component-extensions";
 import Link from "next/link";
 import { QUERTY_SUBCONTRACTSWAITING } from "../../../../../../apollo/queries";
 import moment from "moment";
 import Swal from "sweetalert2";
+import {
+  ADMIN_ACCEPTSUBCONTRACT,
+  ADMIN_DENIEDSUBCONTRACT,
+} from "../../../../../../apollo/mutations";
 
 const SubcontractWaitingTable = () => {
   const [subcontractData, setSubcontractData] = useState([]);
@@ -16,7 +20,83 @@ const SubcontractWaitingTable = () => {
     },
   });
 
-  console.log(data);
+  const handleAccept = async (id) => {
+    Swal.fire({
+      title: "LOLIPOPZ",
+      text: "คุณจะอนุมัติใช่หรือไม่ ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "ใช่",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await accept({
+            variables: {
+              id: id,
+            },
+          })
+            .then(() => {
+              Swal.fire("LOLIPOPZ", "อนุมัติคำร้อง สำเร็จ !", "success");
+            })
+            .then(() => Router.push("/admin/managesubcontractWaiting"));
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    });
+  };
+
+  const handleDenied = async (id) => {
+    Swal.fire({
+      title: "LOLIPOPZ",
+      text: "คุณจะปฎิเสธการอนุมัติใช่หรือไม่ ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "ใช่",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await deniedHirecontract({
+            variables: {
+              id: id,
+            },
+          })
+            .then(() => {
+              Swal.fire(
+                "LOLIPOPZ",
+                "ปฎิเสธคำร้องขอการอนุมัติ สำเร็จ !",
+                "success"
+              );
+            })
+            .then(() => Router.push("/admin/managesubcontractWaiting"));
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    });
+  };
+
+  const [accept] = useMutation(ADMIN_ACCEPTSUBCONTRACT, {
+    onCompleted: (data, loading, error) => {
+      if (data) {
+        console.log(data);
+      }
+    },
+    refetchQueries: [{ query: QUERTY_SUBCONTRACTSWAITING }],
+  });
+  const [deniedHirecontract] = useMutation(ADMIN_DENIEDSUBCONTRACT, {
+    onCompleted: (data, loading, error) => {
+      if (data) {
+        console.log(data);
+      }
+    },
+    refetchQueries: [{ query: QUERTY_SUBCONTRACTSWAITING }],
+  });
+
   const columns = [
     {
       name: "หัวข้อประกาศงาน",
@@ -92,13 +172,7 @@ const SubcontractWaitingTable = () => {
             <div className="col-md-4">
               <button
                 className="btn btn-primary btn-sm w-100 "
-                onClick={() =>
-                  Swal.fire({
-                    title: "LOLIPOPZ",
-                    text: "อนุมัติ " + row.id + " เรียบร้อย",
-                    icon: "success",
-                  })
-                }
+                onClick={async () => await handleAccept(row.id)}
               >
                 อนุมัติ
               </button>
@@ -107,13 +181,7 @@ const SubcontractWaitingTable = () => {
             <div className="col-md-4">
               <button
                 className="btn btn-danger btn-sm w-100"
-                onClick={() =>
-                  Swal.fire({
-                    title: "LOLIPOPZ",
-                    text: "ปฎิเสธ " + row.id + " เรียบร้อย",
-                    icon: "error",
-                  })
-                }
+                onClick={async () => await handleDenied(row.id)}
               >
                 {" "}
                 ปฎิเสธ{" "}

@@ -312,3 +312,19 @@ export const SUBCONTRACT_DENIEDTHIRECONTRACT = gql`
     }
   }
 `;
+
+export const ADMIN_ACCEPTSUBCONTRACT = gql`
+  mutation ADMIN_ACCEPTSUBCONTRACT($id: ID!) {
+    adminacceptsubcontract(id: $id) {
+      id
+    }
+  }
+`;
+
+export const ADMIN_DENIEDSUBCONTRACT = gql`
+  mutation ADMIN_DENIEDSUBCONTRACT($id: ID!) {
+    admindeniedsubcontract(id: $id) {
+      id
+    }
+  }
+`;

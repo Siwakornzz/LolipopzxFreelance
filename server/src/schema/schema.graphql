@@ -10,6 +10,7 @@ type Query {
   subcontractsapprove: [Subcontract]
   subcontractsdenied: [Subcontract]
   subcontractspendingcancel: [Subcontract]
+
   adminapprovesubcontractspendingcancel: [Subcontract]
   subcontractswebdevelopment: [Subcontract]
   subcontractswordpress: [Subcontract]
@@ -78,6 +79,9 @@ type Mutation {
 
   deletesubcontract(id: ID!): Subcontract!
 
+  adminacceptsubcontract(id: ID!): Subcontract!
+  admindeniedsubcontract(id: ID!): Subcontract!
+
   createhirecontract(
     topic: String!
     detail: String!
@@ -98,6 +102,7 @@ type Mutation {
   ): Hirecontract!
 
   deletehirecontract(id: ID!): Hirecontract!
+
   assignsubtohire(
     id: ID!
     subcontractAcceptHirecontractId: ID!

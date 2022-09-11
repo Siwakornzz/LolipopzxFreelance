@@ -15,8 +15,6 @@ const ManagesubcontractsItem = () => {
     },
   });
 
-  console.log(subcontractData);
-
   const columns = [
     {
       name: "หัวข้อประกาศงาน",
@@ -76,6 +74,10 @@ const ManagesubcontractsItem = () => {
           {row.status === "APPROVE" && (
             <span class="badge text-bg-success"> {row.status}</span>
           )}
+
+          {row.status === "DENIED" && (
+            <span class="badge text-bg-danger"> {row.status}</span>
+          )}
         </>
       ),
       sortable: true,
@@ -93,7 +95,7 @@ const ManagesubcontractsItem = () => {
       name: "เมนู",
       cell: (row) => (
         <>
-          <div class="col">
+          <div class="text-center">
             <Link
               key={row.id}
               href="/subcontracts/[subcontractId]"
