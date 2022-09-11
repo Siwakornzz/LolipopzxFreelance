@@ -51,7 +51,7 @@ const TaskJobRequestTable = () => {
       name: "เมนู",
       cell: (row) => (
         <>
-          <div class="col">
+          <div class="col text-center">
             <Link
               key={row.hirecontract.id}
               href="/hirecontracts/[hirecontractId]"
@@ -60,18 +60,7 @@ const TaskJobRequestTable = () => {
               <button class="btn btn-secondary btn-sm">ดูรายละเอียด</button>
             </Link>
           </div>
-          <div class="col">
-            <Link
-              key={row.hirecontract.id}
-              href="/managehirecontract/managehirecontractItem"
-              as={`/managehirecontract/${row.hirecontract.id}`}
-            >
-              <button class="btn btn-primary btn-sm w-100 ms-2">
-                {" "}
-                จัดการ{" "}
-              </button>
-            </Link>
-          </div>
+        
         </>
       ),
       center: true,

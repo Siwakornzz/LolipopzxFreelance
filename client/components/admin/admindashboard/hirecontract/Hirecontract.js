@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import HirecontractAccept from "../card/hirecontract/HirecontractAccept";
 import HirecontractAll from "../card/hirecontract/HirecontractAll";
@@ -26,11 +27,14 @@ const Hirecontract = () => {
               <HirecontractDenied />
             </div>
           </div>
+
           <div class="text-center mt-5">
-            <button class="btn btn-primary w-50 mb-3 mt-3">
-              {" "}
-              จัดการประกาศจ้างงาน
-            </button>
+            <Link href="/admin/managehirecontract">
+              <button class="btn btn-primary w-50 mb-3 mt-3">
+                {" "}
+                ประกาศจ้างงาน
+              </button>
+            </Link>
           </div>
         </div>
       </div>

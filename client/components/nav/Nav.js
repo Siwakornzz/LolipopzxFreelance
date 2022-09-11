@@ -189,7 +189,7 @@ const Nav = () => {
                           </li>
                         </Link>
 
-                        <Link href="/task/hirecontractAccept">
+                        <Link href="/task/taskaccept">
                           <li style={{ cursor: "pointer" }}>
                             <a className="dropdown-item"> รายการงานที่ทำอยู่</a>
                           </li>

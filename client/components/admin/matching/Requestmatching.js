@@ -11,6 +11,7 @@ import {
 import Swal from "sweetalert2";
 import { ASSIGN_HIRECONTRACT } from "../../../apollo/mutations";
 import Link from "next/link";
+import moment from "moment";
 
 const Requestmatching = () => {
   const route = useRouter();
@@ -96,7 +97,7 @@ const Requestmatching = () => {
           <div class="col-md-6">
             <div class="card ">
               <div class="card-header text-center">
-                HIRECONTRACT REQUESTMATCHING
+                คำร้องขอการจ้างงาน
               </div>
               <div class="card-body  text-start">
                 <p>
@@ -130,13 +131,21 @@ const Requestmatching = () => {
                   <span style={{ color: "red" }}> จังหวัด : </span>
                   {data?.hirecontract.province}
                 </p>
+                <div class="card-footer text-center">
+                  <small style={{ color: "red" }}> ผู้ร้องขอ : </small>
+                  {data?.hirecontract.hirecontractCreatorId.username}
+                  <br />
+                  <small style={{ color: "red" }}> สร้างคำร้องเมื่อ : </small>
+                  {moment(data?.hirecontract.createdAt).locale("th").format("LLLL")}
+                
+                </div>
               </div>
             </div>
           </div>
 
           <div class="col-md-6 ">
             <div class="card">
-              <div class="card-header"> SUBCONTRACT LIST :)</div>
+              <div class="card-header"> รายการข้อมูลผู้รับเหมาช่วงที่ตรงตามงานที่จ้าง </div>
               <div class="card-body">
                 {datamatching.length <= 0 && (
                   <div class="card">
