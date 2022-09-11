@@ -24,11 +24,9 @@ const profileDetail = () => {
             }}
           />
 
-          <h4 class="mt-3">{user.username}</h4>
-          <div class="text-start ms-5">
+          <h4 class="mt-3 mb-3">{user.username}</h4>
+          <div class="text-start ms-5 ">
             <b>
-              <p> ทีม : </p>
-              <p> เกี่ยวกับ : </p>
               <p>
                 {" "}
                 ที่อยู่ :{" "}

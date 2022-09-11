@@ -6,12 +6,12 @@ import {
   QUERY_HIRECONTRACT,
   QUERY_HIRECONTRACTSWAITING,
   QUERY_REQUESTMATCHING,
-  QUERY_SUBCONTRACTS,
 } from "../../../apollo/queries";
 import Swal from "sweetalert2";
-import { ASSIGN_HIRECONTRACT } from "../../../apollo/mutations";
+
 import Link from "next/link";
 import moment from "moment";
+import { ASSIGN_HIRECONTRACT } from "../../../apollo/mutations";
 
 const Requestmatching = () => {
   const route = useRouter();
@@ -96,9 +96,7 @@ const Requestmatching = () => {
         <div class="row">
           <div class="col-md-6">
             <div class="card ">
-              <div class="card-header text-center">
-                คำร้องขอการจ้างงาน
-              </div>
+              <div class="card-header text-center">คำร้องขอการจ้างงาน</div>
               <div class="card-body  text-start">
                 <p>
                   {" "}
@@ -136,8 +134,9 @@ const Requestmatching = () => {
                   {data?.hirecontract.hirecontractCreatorId.username}
                   <br />
                   <small style={{ color: "red" }}> สร้างคำร้องเมื่อ : </small>
-                  {moment(data?.hirecontract.createdAt).locale("th").format("LLLL")}
-                
+                  {moment(data?.hirecontract.createdAt)
+                    .locale("th")
+                    .format("LLLL")}
                 </div>
               </div>
             </div>
@@ -145,7 +144,10 @@ const Requestmatching = () => {
 
           <div class="col-md-6 ">
             <div class="card">
-              <div class="card-header"> รายการข้อมูลผู้รับเหมาช่วงที่ตรงตามงานที่จ้าง </div>
+              <div class="card-header">
+                {" "}
+                รายการข้อมูลผู้รับเหมาช่วงที่ตรงตามงานที่จ้าง{" "}
+              </div>
               <div class="card-body">
                 {datamatching.length <= 0 && (
                   <div class="card">
@@ -162,35 +164,50 @@ const Requestmatching = () => {
                     </div>
                   </div>
                 )}
+
                 {datamatching?.map((v) => (
                   <>
-                    <div class="card mt-1 ">
-                      <div class="card-header">SUBCONTRACTNAME : {v.name}</div>
-                      <div class="card-body"></div>
-                      <p>SUBCONTRACT ID : {v.id} </p>
-                      <p> ประเภทของงานที่รับทำ : {v.typeofwork} </p>
-                      <p>งบประมาณ : {v.startbudget} บาท </p>
+                    {v.subcontractCreatorId.id !==
+                    hirecontract.hirecontractCreatorId.id ? (
+                      <div class="card mt-1 ">
+                        <div class="card-header">
+                          SUBCONTRACTNAME : {v.name}
+                        </div>
+                        <div class="card-body"></div>
+                        <p>SUBCONTRACT ID : {v.id} </p>
+                        <p> ประเภทของงานที่รับทำ : {v.typeofwork} </p>
+                        <p>งบประมาณ : {v.startbudget} บาท </p>
 
-                      <button
-                        class="btn btn-outline-primary w-50 m-auto p-auto  mb-2  "
-                        onClick={async () =>
-                          await handleSelect(v.id, v.subcontractCreatorId.id)
-                        }
-                      >
-                        {" "}
-                        เลือกผู้รับงาน{" "}
-                      </button>
-
-                      <Link
-                        key={v.id}
-                        href="/subcontracts/[subcontractId]"
-                        as={`/subcontracts/${v.id}`}
-                      >
-                        <button class="btn btn-outline-primary w-50 m-auto p-auto  mb-2 ">
-                          ดูรายละเอียดเพิ่มเติม
+                        <button
+                          class="btn btn-outline-primary w-50 m-auto p-auto  mb-2  "
+                          onClick={async () =>
+                            await handleSelect(v.id, v.subcontractCreatorId.id)
+                          }
+                        >
+                          {" "}
+                          เลือกผู้รับงาน{" "}
                         </button>
-                      </Link>
-                    </div>
+
+                        <Link
+                          key={v.id}
+                          href="/subcontracts/[subcontractId]"
+                          as={`/subcontracts/${v.id}`}
+                        >
+                          <button class="btn btn-outline-primary w-50 m-auto p-auto  mb-2 ">
+                            ดูรายละเอียดเพิ่มเติม
+                          </button>
+                        </Link>
+                      </div>
+                    ) : (
+                      <>
+                        <h5>
+                          {" "}
+                          ไม่พบผู้ประกาศงานที่รับงาน
+                          โปรดลองใหม่อีกครั้งในภายหลัง !{" "}
+                        </h5>
+                      </>
+                    )}
+
                     <hr />
                   </>
                 ))}
