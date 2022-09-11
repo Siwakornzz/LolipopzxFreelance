@@ -1,13 +1,76 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import DataTable from "react-data-table-component";
 import { Me } from "../../apollo/queries";
 import DataTableExtensions from "react-data-table-component-extensions";
 import Link from "next/link";
+import {
+  SUBCONTRACT_ACCEPTHIRECONTRACT,
+  SUBCONTRACT_DENIEDTHIRECONTRACT,
+} from "../../apollo/mutations";
+import Swal from "sweetalert2";
 
 const HirecontractHasAssign = () => {
   const [hirecontractData, setHirecontractData] = useState([]);
-  console.log(hirecontractData);
+  const handleAcceptwork = async (id) => {
+    Swal.fire({
+      title: "LOLIPOPZ",
+      text: "คุณจะรับงานใช่หรือไม่ ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "ใช่",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await acceptHirecontract({
+            variables: {
+              id: id,
+            },
+          })
+            .then(() => {
+              Swal.fire("LOLIPOPZ", "รับคำร้องการจ้าง สำเร็จ !", "success");
+            })
+            .then(() => Router.push("/task"));
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    });
+  };
+
+  const handleDeniedwork = async (id) => {
+    Swal.fire({
+      title: "LOLIPOPZ",
+      text: "คุณจะปฎิเสธงานใช่หรือไม่ ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "ใช่",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await deniedHirecontract({
+            variables: {
+              id: id,
+            },
+          })
+            .then(() => {
+              Swal.fire("LOLIPOPZ", "ปฎิเสธคำร้องการจ้าง สำเร็จ !", "success");
+            })
+            .then(() => Router.push("/task"));
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    });
+  };
+
+  const [acceptHirecontract] = useMutation(SUBCONTRACT_ACCEPTHIRECONTRACT, {});
+  const [deniedHirecontract] = useMutation(SUBCONTRACT_DENIEDTHIRECONTRACT, {});
+
   const columns = [
     {
       name: "หัวข้อประกาศงานที่จ้างมา",
@@ -52,25 +115,25 @@ const HirecontractHasAssign = () => {
         <>
           <div class="row  ">
             <div class="col text-center ">
-              <Link
-                key={row.hirecontract.id}
-                href="/hirecontracts/[hirecontractId]"
-                as={`/hirecontracts/${row.hirecontract.id}`}
+              <button
+                class="btn btn-secondary btn-sm w-100"
+                onClick={async () =>
+                  await handleAcceptwork(row.hirecontract.id)
+                }
               >
-                <button class="btn btn-secondary btn-sm w-100">รับงาน</button>
-              </Link>
+                รับงาน
+              </button>
             </div>
 
             <div class="col text-center ">
-              <Link
-                key={row.hirecontract.id}
-                href="/hirecontracts/[hirecontractId]"
-                as={`/hirecontracts/${row.hirecontract.id}`}
+              <button
+                class="btn btn-secondary btn-sm w-100"
+                onClick={async () =>
+                  await handleDeniedwork(row.hirecontract.id)
+                }
               >
-                <button class="btn btn-secondary btn-sm w-100">
-                  ปฎิเสธงาน
-                </button>
-              </Link>
+                ปฎิเสธงาน
+              </button>
             </div>
 
             <div class="col text-center ">
@@ -105,12 +168,7 @@ const HirecontractHasAssign = () => {
 
       <div class="card-body">
         <DataTableExtensions columns={columns} data={hirecontractData}>
-          <DataTable
-            pagination
-            // selectableRows
-            // selectableRowsHighlight
-            highlightOnHover
-          />
+          <DataTable pagination highlightOnHover />
         </DataTableExtensions>
       </div>
     </div>

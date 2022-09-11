@@ -283,22 +283,6 @@ export const DELETE_HIRECONTRACT = gql`
   }
 `;
 
-export const ASSIGN_HIRECONTRACT = gql`
-  mutation ASSIGN_HIRECONTRACT(
-    $id: ID!
-    $subcontractAcceptHirecontractId: ID!
-    $subcontractCreatorId: ID!
-  ) {
-    assignsubtohire(
-      id: $id
-      subcontractAcceptHirecontractId: $subcontractAcceptHirecontractId
-      subcontractCreatorId: $subcontractCreatorId
-    ) {
-      id
-    }
-  }
-`;
-
 export const SUBCONTRACT_ACCEPTHIRECONTRACT = gql`
   mutation SUBCONTRACT_ACCEPTHIRECONTRACT($id: ID!) {
     subcontractacceptwork(id: $id) {

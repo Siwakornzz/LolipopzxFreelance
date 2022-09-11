@@ -451,15 +451,8 @@ export const Mutation = {
 
     await hirecontract.save();
 
-    const assignStatus = await Hirecontract.findById(id)
-      .populate({
-        path: "hirecontractCreatorId",
-        populate: { path: "hirecontracts" },
-      })
-      .populate({
-        path: "subcontractAcceptHirecontractId",
-        populate: { path: "subcontracts" },
-      });
+    const assignStatus = await Hirecontract.findById(id);
+
     return assignStatus;
   },
 
@@ -471,15 +464,8 @@ export const Mutation = {
 
     await hirecontract.save();
 
-    const assignStatus = await Hirecontract.findById(id)
-      .populate({
-        path: "hirecontractCreatorId",
-        populate: { path: "hirecontracts" },
-      })
-      .populate({
-        path: "subcontractAcceptHirecontractId",
-        populate: { path: "subcontracts" },
-      });
+    const assignStatus = await Hirecontract.findById(id);
+
     return assignStatus;
   },
 };
