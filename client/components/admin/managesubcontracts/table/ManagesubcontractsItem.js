@@ -3,15 +3,15 @@ import DataTableExtensions from "react-data-table-component-extensions";
 import Link from "next/link";
 import DataTable from "react-data-table-component";
 import { useQuery } from "@apollo/client";
-import { QUERY_SUBCONTRACTS } from "../../../../apollo/queries";
+import { QUERY_SUBCONTRACTSALL } from "../../../../apollo/queries";
 import moment from "moment";
 
 const ManagesubcontractsItem = () => {
   const [subcontractData, setSubcontractData] = useState([]);
-  const { data } = useQuery(QUERY_SUBCONTRACTS, {
+  const { data } = useQuery(QUERY_SUBCONTRACTSALL, {
     fetchPolicy: "no-cache",
     onCompleted: (data) => {
-      setSubcontractData(data.subcontracts);
+      setSubcontractData(data.subcontractsall);
     },
   });
 

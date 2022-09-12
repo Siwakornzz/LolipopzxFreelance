@@ -21,10 +21,10 @@ const SubcontractDetail = (subcontract) => {
         <label for="detail" className="form-label" style={{ color: "#0d6efd" }}>
           <i class="bi bi-info-circle-fill"></i> รายละเอียดงาน
         </label>
-        <pre style={{ fontFamily: "Athiti, sans-serif" }}>
+        <p class="ms-4" style={{ fontFamily: "Athiti, sans-serif" }}>
           {" "}
           {subcontract.subcontract.subcontract.detail}
-        </pre>
+        </p>
       </div>
 
       {/* ระยะเวลาในการทำงาน */}
@@ -36,9 +36,9 @@ const SubcontractDetail = (subcontract) => {
         >
           <i class="bi bi-calendar-check-fill"></i> ระยะเวลาในการทำงาน (วัน)
         </label>
-        <pre class="ms-4" style={{ fontFamily: "Athiti, sans-serif" }}>
+        <p class="ms-4" style={{ fontFamily: "Athiti, sans-serif" }}>
           {subcontract.subcontract.subcontract.duration} วัน
-        </pre>
+        </p>
       </div>
 
       {/* งบประมาณเริ่มต้น */}
@@ -50,13 +50,13 @@ const SubcontractDetail = (subcontract) => {
         >
           <i class="bi bi-cash-coin"></i> ค่าจ้างเริ่มต้น (บาท)
         </label>
-        <pre class="ms-4" style={{ fontFamily: "Athiti, sans-serif" }}>
+        <p class="ms-4" style={{ fontFamily: "Athiti, sans-serif" }}>
           {" "}
           {Number(
             subcontract.subcontract.subcontract.startbudget
           ).toLocaleString("en")}{" "}
           บาท
-        </pre>
+        </p>
       </div>
 
       {/* จังหวัด */}
@@ -68,11 +68,24 @@ const SubcontractDetail = (subcontract) => {
         >
           <i class="bi bi-house-fill"></i> จังหวัด
         </label>
-        <pre class="ms-4" style={{ fontFamily: "Athiti, sans-serif" }}>
+        <p class="ms-4" style={{ fontFamily: "Athiti, sans-serif" }}>
           {subcontract.subcontract.subcontract.province}
-        </pre>
+        </p>
 
-        <footer class="text-center" style={{backgroundColor:"#333", color:"#fff",borderRadius:"10px"}}> สร้างเมื่อ :  {moment(subcontract.subcontract.subcontract.createdAt).locale("th").format("LLLL")}</footer>
+        <footer
+          class="text-center"
+          style={{
+            backgroundColor: "#333",
+            color: "#fff",
+            borderRadius: "10px",
+          }}
+        >
+          {" "}
+          สร้างเมื่อ :{" "}
+          {moment(subcontract.subcontract.subcontract.createdAt)
+            .locale("th")
+            .format("LLLL")}
+        </footer>
       </div>
     </>
   );

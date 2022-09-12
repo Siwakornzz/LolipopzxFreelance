@@ -279,10 +279,12 @@ export const ASSIGN_HIRECONTRACT = gql`
   mutation ASSIGN_HIRECONTRACT(
     $id: ID!
     $subcontractAcceptHirecontractId: ID!
+    $subcontractCreatorId: ID!
   ) {
     assignsubtohire(
       id: $id
       subcontractAcceptHirecontractId: $subcontractAcceptHirecontractId
+      subcontractCreatorId: $subcontractCreatorId
     ) {
       id
     }
@@ -324,6 +326,14 @@ export const ADMIN_ACCEPTSUBCONTRACT = gql`
 export const ADMIN_DENIEDSUBCONTRACT = gql`
   mutation ADMIN_DENIEDSUBCONTRACT($id: ID!) {
     admindeniedsubcontract(id: $id) {
+      id
+    }
+  }
+`;
+
+export const DELETE_SUBCONTRACT2 = gql`
+  mutation DELETE_SUBCONTRACT2($id: ID!) {
+    deletesubcontract2(id: $id) {
       id
     }
   }

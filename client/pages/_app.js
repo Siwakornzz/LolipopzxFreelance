@@ -5,7 +5,7 @@ import fetch from "isomorphic-unfetch";
 import cookie from "cookie";
 import { QUERY_USER } from "../apollo/queries";
 import "../styles/globals.css";
-import "bootstrap/dist/css/bootstrap.css";
+import 'bootstrap/dist/css/bootstrap.css';
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "react-data-table-component-extensions/dist/index.css";
 import Layout from "../components/layout/Layout";

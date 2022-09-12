@@ -189,11 +189,11 @@ const Nav = () => {
                           </li>
                         </Link>
 
-                        <Link href="/task/taskaccept">
+                        {/* <Link href="/task/taskaccept">
                           <li style={{ cursor: "pointer" }}>
                             <a className="dropdown-item"> รายการงานที่ทำอยู่</a>
                           </li>
-                        </Link>
+                        </Link> */}
                       </>
                     )}
                     <hr className="dropdown-divider" />

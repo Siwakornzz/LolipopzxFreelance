@@ -232,6 +232,27 @@ export const QUERY_SUBCONTRACTS = gql`
   }
 `;
 
+export const QUERY_SUBCONTRACTSALL = gql`
+  query {
+    subcontractsall {
+      id
+      topic
+      typeofwork
+      detail
+      duration
+      startbudget
+      province
+      status
+      createdAt
+      subcontractCreatorId {
+        id
+        username
+        email
+      }
+    }
+  }
+`;
+
 export const QUERTY_SUBCONTRACTSWAITING = gql`
   query {
     subcontractswaiting {
@@ -300,6 +321,10 @@ export const QUERY_SUBCONTRACTSWEBDEVELOPMENT = gql`
   query {
     subcontractswebdevelopment {
       id
+      topic
+      detail
+      startbudget
+      duration
       status
       createdAt
       subcontractCreatorId {
@@ -315,6 +340,29 @@ export const QUERY_SUBCONTRACTWORDPRESS = gql`
   query {
     subcontractswordpress {
       id
+      topic
+      detail
+      startbudget
+      duration
+      status
+      createdAt
+      subcontractCreatorId {
+        id
+        username
+        email
+      }
+    }
+  }
+`;
+
+export const QUERY_SUBCONTRACTSMOBILE = gql`
+  query {
+    subcontractsmobile {
+      id
+      topic
+      detail
+      startbudget
+      duration
       status
       createdAt
       subcontractCreatorId {
@@ -432,6 +480,56 @@ export const QUERY_HIRECONTRACTSDENIED = gql`
         username
         email
       }
+    }
+  }
+`;
+
+export const QUERY_TASKALL = gql`
+  query {
+    taskall {
+      id
+      subcontract {
+        topic
+        subcontractCreatorId {
+          username
+        }
+      }
+      hirecontract {
+        topic
+        detail
+        typeofwork
+        duration
+        status
+        budget
+        hirecontractCreatorId {
+          username
+        }
+      }
+    }
+  }
+`;
+
+export const QUERY_TASKACCEPT = gql`
+  query {
+    taskaccept {
+      id
+      status
+    }
+  }
+`;
+
+export const QUERY_TASKDENIED = gql`
+  query {
+    taskdenied {
+      id
+    }
+  }
+`;
+
+export const QUERY_TASKSUCCESS = gql`
+  query {
+    tasksuccess {
+      id
     }
   }
 `;

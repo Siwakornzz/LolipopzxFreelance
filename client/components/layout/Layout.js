@@ -12,11 +12,7 @@ const Layout = ({ children }) => {
           rel="icon"
           href="https://icons-for-free.com/download-icon-lollipop-1319971785387025556_512.png"
         />
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css"
-        />
+
         {/* <link
           href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.3.0/mdb.min.css"
           rel="stylesheet"

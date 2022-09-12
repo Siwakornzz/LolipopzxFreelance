@@ -4,7 +4,8 @@ type Query {
   user: User
   users: [User]!
   subcontract(id: ID!): Subcontract
-  subcontracts: [Subcontract]!
+  subcontracts: [Subcontract]
+  subcontractsall: [Subcontract]
   subcontracthasassign(id: ID): [Subcontract]
   subcontractswaiting: [Subcontract]
   subcontractsapprove: [Subcontract]
@@ -13,6 +14,7 @@ type Query {
 
   adminapprovesubcontractspendingcancel: [Subcontract]
   subcontractswebdevelopment: [Subcontract]
+  subcontractsmobile: [Subcontract]
   subcontractswordpress: [Subcontract]
 
   hirecontract(id: ID!): Hirecontract
@@ -24,6 +26,11 @@ type Query {
   hirecontractspendingcancel: [Hirecontract]
   hirecontractssubcontractpendingcancel: [Hirecontract]
   adminapprovehirecontractscancel: [Hirecontract]
+
+  taskall:[Task]
+  taskaccept:[Hirecontract]
+  taskdenied:[Hirecontract]
+  tasksuccess:[Hirecontract]
 
   requestmatching(
     id: ID!
@@ -78,7 +85,8 @@ type Mutation {
   ): Subcontract!
 
   deletesubcontract(id: ID!): Subcontract!
-
+  deletehirecontract2(id: ID!): Hirecontract!
+  deletesubcontract2(id: ID!): Subcontract!
   adminacceptsubcontract(id: ID!): Subcontract!
   admindeniedsubcontract(id: ID!): Subcontract!
 
