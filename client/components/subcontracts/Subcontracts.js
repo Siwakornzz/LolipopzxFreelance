@@ -7,14 +7,13 @@ import SubcontractsTable from "./TableSubcontract/SubcontractsTable";
 
 const Subcontracts = () => {
   const [subconData, setSubconData] = useState({});
-  const { data} = useQuery(QUERY_SUBCONTRACTS, {
+  const { data } = useQuery(QUERY_SUBCONTRACTS, {
     onCompleted: (data) => {
       setSubconData(data.subcontracts);
     },
   });
-  console.log(data);
+  console.log("data", data);
 
-  
   return (
     <>
       <CarouselSubcontract />

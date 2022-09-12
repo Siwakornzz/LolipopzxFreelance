@@ -16,7 +16,10 @@ const Category = () => {
           <span class="border border-primary border-0">
             {" "}
             <div class="text-start mb-3">
-              <h3 class="border-start-1 border border-4 border-end-0 border-top-0 border-bottom-0  border-primary"> &nbsp; หมวดหมู่งาน</h3>
+              <h3 class="border-start-1 border border-4 border-end-0 border-top-0 border-bottom-0  border-primary">
+                {" "}
+                &nbsp; หมวดหมู่งาน
+              </h3>
               <label>
                 ค้นหางานตามหมวดหมู่งานยอดนิยม หรือค้นหาตามสายงานของคุณ ได้ที่นี่
               </label>
@@ -63,7 +66,10 @@ const Category = () => {
             <h5>Mobile Application</h5>
             <p>สร้าง Application บน iOS และ Android</p>
             <p>
-              <a className="btn btn-secondary" href="category/mobileapplication">
+              <a
+                className="btn btn-secondary"
+                href="category/mobileapplication"
+              >
                 ดูรายละเอียด &raquo;
               </a>
             </p>
@@ -78,7 +84,7 @@ const Category = () => {
             <h5>UX/UI Design for Web & App </h5>
             <p>ออกแบบหน้าตาเว็บไซต์</p>
             <p>
-              <a className="btn btn-secondary" href="#">
+              <a className="btn btn-secondary" href="/category/uxdesign">
                 ดูรายละเอียด &raquo;
               </a>
             </p>
@@ -93,7 +99,7 @@ const Category = () => {
             <h5>IT Solution และ Support</h5>
             <p>แก้ไขปัญหา ติดตั้งและวางระบบเซิฟเวอร์</p>
             <p>
-              <a className="btn btn-secondary" href="#">
+              <a className="btn btn-secondary" href="/category/itsolution">
                 ดูรายละเอียด &raquo;
               </a>
             </p>
@@ -108,7 +114,7 @@ const Category = () => {
             <h5>Desktop Application</h5>
             <p>เขียนโปรแกรมบน Windows</p>
             <p>
-              <a className="btn btn-secondary" href="#">
+              <a className="btn btn-secondary" href="/category/desktop">
                 ดูรายละเอียด &raquo;
               </a>
             </p>
@@ -123,7 +129,7 @@ const Category = () => {
             <h5>Chatbot </h5>
             <p>โปรแกรมคอมพิวเตอร์ที่จำลอง</p>
             <p>
-              <a className="btn btn-secondary" href="#">
+              <a className="btn btn-secondary" href="/category/chatbot">
                 ดูรายละเอียด &raquo;
               </a>
             </p>
@@ -139,7 +145,7 @@ const Category = () => {
             <h5>Website Scraping </h5>
             <p>ดูดข้อมูลต่าง ๆ จากหน้าเว็บ</p>
             <p>
-              <a className="btn btn-secondary" href="#">
+              <a className="btn btn-secondary" href="/category/scraping">
                 ดูรายละเอียด &raquo;
               </a>
             </p>
@@ -148,6 +154,16 @@ const Category = () => {
           {/* <!-- /.col-sm-3 --> */}
         </div>
         {/* <!-- /.row --> */}
+      </div>
+      <div
+        class="footer p-3 mt-5"
+        style={{ backgroundColor: "#000", height: "50px", color: "#fff" }}
+      >
+        <footer class="text-center ">
+          {" "}
+          Copyright © LOLIPOPZ Online. Trademarks belong to their respective
+          owners. All rights reserved.
+        </footer>
       </div>
     </>
   );
