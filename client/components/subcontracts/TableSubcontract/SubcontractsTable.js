@@ -62,7 +62,7 @@ const SubcontractsTable = ({categorydata}) => {
                     >
                       <div class="card-header text-center ">{v.topic}</div>
                       <img
-                        src="https://c.tenor.com/hwjqo-O16cUAAAAM/vaporwave.gif"
+                        src="https://media.bitdegree.org/storage/media/images/2018/08/what-is-a-web-developer.jpg"
                         class="card-img-top "
                         alt={v.topic}
                         style={{

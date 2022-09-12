@@ -101,7 +101,7 @@ const ManagesubcontractsItem = () => {
               href="/subcontracts/[subcontractId]"
               as={`/subcontracts/${row.id}`}
             >
-              <button class="btn btn-secondary btn-sm ">ดูรายละเอียด</button>
+              <button class="btn btn-primary btn-sm "><i class="bi bi-eye-fill"></i></button>
             </Link>
           </div>
         </>
