@@ -13,7 +13,7 @@ const profileDetail = () => {
       <div class="">
         <div class="card-body">
           <img
-            src="https://i.gifer.com/1F4J.gif"
+            src="https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png"
             class="rounded-circle"
             alt="Avatar"
             style={{

@@ -121,7 +121,7 @@ const Category = () => {
             />
 
             <h5>Chatbot </h5>
-
+            <p>โปรแกรมคอมพิวเตอร์ที่จำลอง</p>
             <p>
               <a className="btn btn-secondary" href="#">
                 ดูรายละเอียด &raquo;
@@ -137,23 +137,7 @@ const Category = () => {
             />
 
             <h5>Website Scraping </h5>
-
-            <p>
-              <a className="btn btn-secondary" href="#">
-                ดูรายละเอียด &raquo;
-              </a>
-            </p>
-          </div>
-          {/* <!-- /.col-sm-3 --> */}
-          <div className="col-sm-3">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/6212/6212609.png"
-              width="80"
-              height="80"
-            />
-
-            <h5>ทำโปรเจค IoT</h5>
-
+            <p>ดูดข้อมูลต่าง ๆ จากหน้าเว็บ</p>
             <p>
               <a className="btn btn-secondary" href="#">
                 ดูรายละเอียด &raquo;

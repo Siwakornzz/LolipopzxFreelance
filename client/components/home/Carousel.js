@@ -8,8 +8,8 @@ const Carousel = () => {
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img
-              src="https://wallpaperaccess.com/full/2747472.jpg"
-              style={{ width: "100%", height: "460px", objectFit: "none" }}
+              src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80"
+              style={{ width: "100%", height: "600px", objectFit: "full  " }}
             />
           </div>
 
