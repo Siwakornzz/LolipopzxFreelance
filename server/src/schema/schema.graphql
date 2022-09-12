@@ -16,6 +16,11 @@ type Query {
   subcontractswebdevelopment: [Subcontract]
   subcontractsmobile: [Subcontract]
   subcontractswordpress: [Subcontract]
+  subcontractsux: [Subcontract]
+  subcontractsit: [Subcontract]
+  subcontractsdesktopapp:[Subcontract]
+  subcontractsdesktopchatbot:[Subcontract]
+  subcontractsdesktopwebsite:[Subcontract]
 
   hirecontract(id: ID!): Hirecontract
   hirecontracts: [Hirecontract]
@@ -27,10 +32,10 @@ type Query {
   hirecontractssubcontractpendingcancel: [Hirecontract]
   adminapprovehirecontractscancel: [Hirecontract]
 
-  taskall:[Task]
-  taskaccept:[Hirecontract]
-  taskdenied:[Hirecontract]
-  tasksuccess:[Hirecontract]
+  taskall: [Task]
+  taskaccept: [Hirecontract]
+  taskdenied: [Hirecontract]
+  tasksuccess: [Hirecontract]
 
   requestmatching(
     id: ID!

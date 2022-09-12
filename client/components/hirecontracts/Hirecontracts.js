@@ -6,7 +6,7 @@ import HirecontractTable from "./hirecontractsTable/hirecontractTable";
 
 const Hirecontracts = () => {
   const [subconData, setSubconData] = useState({});
-  const { data} = useQuery(QUERY_HIRECONTRACTS, {
+  const { data } = useQuery(QUERY_HIRECONTRACTS, {
     onCompleted: (data) => {
       setSubconData(data.hirecontracts);
     },

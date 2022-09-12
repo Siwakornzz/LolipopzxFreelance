@@ -11,7 +11,7 @@ const HirecontrctTable = ({ categorydata }) => {
   const [currentItem, setCurrentItem] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 1;
+  const itemsPerPage = 6;
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -27,17 +27,16 @@ const HirecontrctTable = ({ categorydata }) => {
   };
   return (
     <>
-      <div class="container">
-        <div class="row g-3">
+
           {currentItem.map((v) => {
             return (
               <>
                 <style>
                   {`
-      #subcontract{
+      #hirecontract{
         transform: scale(0.8);
       }
-      #subcontract:hover{
+      #hirecontract:hover{
       
         transform: scale(0.9);
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -72,6 +71,43 @@ const HirecontrctTable = ({ categorydata }) => {
                           }}
                         />
                         <br />
+                        <div class="card-body mt-1 ms-1 me-1 mb-1">
+                          <b>
+                            {" "}
+                            <p> รายละเอียด :</p>
+                          </b>
+                          <p
+                            style={{
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}
+                          >
+                            {v.detail}
+                          </p>
+                          <div class="text-end mt-1">
+                            <span class="badge text-bg-primary ">
+                              {v.typeofwork}
+                            </span>
+                          </div>
+                        </div>
+                        <div class="card-footer text-center text-muted">
+                          <div class="row">
+                            <div class="col">
+                              <small>
+                                {" "}
+                                ผู้สร้าง : {v.hirecontractCreatorId.username}
+                              </small>
+                            </div>
+                            <div class="col">
+                              <small>
+                                {" "}
+                                งบประมาณ :{" "}
+                                {Number(v.budget).toLocaleString("en")} บาท
+                              </small>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </Link>
                   </div>
@@ -97,8 +133,7 @@ const HirecontrctTable = ({ categorydata }) => {
               ></ReactPaginate>
             </div>
           </div>
-        </div>
-      </div>
+   
     </>
   );
 };

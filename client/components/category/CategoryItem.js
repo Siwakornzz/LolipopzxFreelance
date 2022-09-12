@@ -6,7 +6,7 @@ const CategoryItem = ({ categorydata }) => {
   const [currentItem, setCurrentItem] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 1;
+  const itemsPerPage = 5;
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;

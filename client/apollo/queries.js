@@ -374,6 +374,103 @@ export const QUERY_SUBCONTRACTSMOBILE = gql`
   }
 `;
 
+export const QUERY_SUBCONTRACTSUX = gql`
+  query {
+    subcontractsux{
+      id
+      topic
+      detail
+      startbudget
+      duration
+      status
+      createdAt
+      subcontractCreatorId {
+        id
+        username
+        email
+      }
+    }
+  }
+`;
+
+export const QUERY_SUBCONTRACTSIT = gql`
+  query {
+    subcontractsit{
+      id
+      topic
+      detail
+      startbudget
+      duration
+      status
+      createdAt
+      subcontractCreatorId {
+        id
+        username
+        email
+      }
+    }
+  }
+`;
+
+export const QUERY_SUBCONTRACTSDESKTOPAPP = gql`
+  query {
+    subcontractsdesktopapp{
+      id
+      topic
+      detail
+      startbudget
+      duration
+      status
+      createdAt
+      subcontractCreatorId {
+        id
+        username
+        email
+      }
+    }
+  }
+`;
+
+export const QUERY_SUBCONTRACTSCHATBOT = gql`
+  query {
+    subcontractschatbot{
+      id
+      topic
+      detail
+      startbudget
+      duration
+      status
+      createdAt
+      subcontractCreatorId {
+        id
+        username
+        email
+      }
+    }
+  }
+`;
+
+export const QUERY_SUBCONTRACTSWEBSITE = gql`
+  query {
+    subcontractsdesktopwebsite{
+      id
+      topic
+      detail
+      startbudget
+      duration
+      status
+      createdAt
+      subcontractCreatorId {
+        id
+        username
+        email
+      }
+    }
+  }
+`;
+
+
+
 // hirecontract
 
 // query one by one

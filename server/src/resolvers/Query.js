@@ -180,6 +180,58 @@ export const Query = {
       })
       .sort({ createdAt: "asc" }),
 
+  subcontractsux: (parent, args, context, info) =>
+    Subcontract.find({
+      $and: [
+        { status: "APPROVE" },
+        { typeofwork: "UX/UI Design for Web & App" },
+      ],
+    })
+      .populate({
+        path: "subcontractCreatorId",
+        populate: { path: "subcontracts" },
+      })
+      .sort({ createdAt: "asc" }),
+
+  subcontractsit: (parent, args, context, info) =>
+    Subcontract.find({
+      $and: [{ status: "APPROVE" }, { typeofwork: "IT Solution" }],
+    })
+      .populate({
+        path: "subcontractCreatorId",
+        populate: { path: "subcontracts" },
+      })
+      .sort({ createdAt: "asc" }),
+
+  subcontractsdesktopapp: (parent, args, context, info) =>
+    Subcontract.find({
+      $and: [{ status: "APPROVE" }, { typeofwork: "Desktop Application" }],
+    })
+      .populate({
+        path: "subcontractCreatorId",
+        populate: { path: "subcontracts" },
+      })
+      .sort({ createdAt: "asc" }),
+
+  subcontractsdesktopchatbot: (parent, args, context, info) =>
+    Subcontract.find({
+      $and: [{ status: "APPROVE" }, { typeofwork: "Chatbot" }],
+    })
+      .populate({
+        path: "subcontractCreatorId",
+        populate: { path: "subcontracts" },
+      })
+      .sort({ createdAt: "asc" }),
+
+  subcontractsdesktopwebsite: (parent, args, context, info) =>
+    Subcontract.find({
+      $and: [{ status: "APPROVE" }, { typeofwork: "Website Scraping" }],
+    })
+      .populate({
+        path: "subcontractCreatorId",
+        populate: { path: "subcontracts" },
+      })
+      .sort({ createdAt: "asc" }),
   // Hirecontract
   hirecontract: (parent, args, context, info) =>
     Hirecontract.findById(args.id)
