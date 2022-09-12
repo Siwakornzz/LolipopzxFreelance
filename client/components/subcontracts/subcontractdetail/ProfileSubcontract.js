@@ -9,7 +9,7 @@ const ProfileSubcontract = (subcontract) => {
         <div class="">
           <div class="card-body mt-5">
             <img
-              src="https://i.gifer.com/1F4J.gif"
+              src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/9d2cdf40760693.578c9a46bcad6.gif"
               class="rounded-circle"
               alt="Avatar"
               style={{

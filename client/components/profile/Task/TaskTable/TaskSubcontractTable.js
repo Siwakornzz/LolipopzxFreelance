@@ -94,8 +94,7 @@ const TaskAddTable = () => {
               href="/subcontracts/[subcontractId]"
               as={`/subcontracts/${row.id}`}
             >
-              <button class="btn btn-secondary btn-sm w-100 ms -2 me-2 ">
-                ดูรายละเอียด
+              <button class="btn btn-primary btn-sm"><i class="bi bi-eye-fill"></i>
               </button>
             </Link>
           </div>
@@ -107,9 +106,9 @@ const TaskAddTable = () => {
                 href="/managesubcontract/subcontractItemId"
                 as={`/managesubcontract/${row.id}`}
               >
-                <button class="btn btn-warning btn-sm w-100 ms-2">
+                <button class="btn btn-warning btn-sm">
                   {" "}
-                  แก้ไข{" "}
+                  <i class="bi bi-pencil-square"></i>{" "}
                 </button>
               </Link>
             )}
@@ -118,11 +117,11 @@ const TaskAddTable = () => {
           <div class="col">
             {row.status !== "ผู้ว่าจ้างลบข้อมูล" && (
               <button
-                class="btn btn-danger btn-sm w-100  ms-4 "
+                class="btn btn-danger btn-sm "
                 onClick={async () => await handleDelete(row.id)}
               >
                 {" "}
-                ลบ{" "}
+                <i class="bi bi-trash-fill"></i>{" "}
               </button>
             )}
           </div>

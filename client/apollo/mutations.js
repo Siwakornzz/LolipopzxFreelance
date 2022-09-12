@@ -339,6 +339,15 @@ export const DELETE_SUBCONTRACT2 = gql`
   }
 `;
 
+export const DELETE_HIRECONTRACT2 = gql`
+  mutation DELETE_HIRECONTRACT2($id: ID!) {
+    deletehirecontract2(id: $id) {
+      id
+    }
+  }
+`;
+
+
 export const SUCCESS_JOB = gql`
   mutation SUCCESS_JOB($id: ID!) {
     subcontractfinishjob(id: $id) {

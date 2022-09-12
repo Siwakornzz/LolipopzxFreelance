@@ -16,10 +16,21 @@ const Hirecontracts = () => {
     <>
       <CarouselHirecontract />
       <div class="container">
-        <div class="row">
-          <HirecontractTable categorydata={subconData} />
+        <div class="row g-3">
+          {subconData.length > 0 ? (
+            <>
+              <HirecontractTable categorydata={subconData} />
+            </>
+          ) : (
+            <>
+              <p class="text-center mt-5">
+                {" "}
+                ไม่พบรายการที่ต้องการโปรดลองใหม่อีกครั้ง ในภายหลัง !{" "}
+              </p>
+            </>
+          )}
         </div>
-      </div>
+      </div>  
     </>
   );
 };
