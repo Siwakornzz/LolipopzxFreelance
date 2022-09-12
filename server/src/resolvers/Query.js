@@ -1,6 +1,7 @@
 import Hirecontract from "../models/hirecontract";
 
 import Subcontract from "../models/subcontract";
+import Task from "../models/task";
 import User from "../models/User";
 const ObjectId = require("mongoose").Types.ObjectId;
 
@@ -54,6 +55,18 @@ export const Query = {
     }),
 
   subcontracts: (parent, args, context, info) =>
+    Subcontract.find({ status: "APPROVE" })
+      .populate({
+        path: "subcontractCreatorId",
+        populate: { path: "subcontracts" },
+      })
+      .sort({ createdAt: "asc" })
+      .populate({
+        path: "hirecontractWorkId",
+        populate: { path: "hirecontracts" },
+      }),
+
+  subcontractsall: (parent, args, context, info) =>
     Subcontract.find({})
       .populate({
         path: "subcontractCreatorId",
@@ -149,7 +162,17 @@ export const Query = {
 
   subcontractswordpress: (parent, args, context, info) =>
     Subcontract.find({
-      $and: [{ status: "ตรวจสอบแล้ว" }, { typeofwork: "Wordpress" }],
+      $and: [{ status: "APPROVE" }, { typeofwork: "WORDPRESS" }],
+    })
+      .populate({
+        path: "subcontractCreatorId",
+        populate: { path: "subcontracts" },
+      })
+      .sort({ createdAt: "asc" }),
+
+  subcontractsmobile: (parent, args, context, info) =>
+    Subcontract.find({
+      $and: [{ status: "APPROVE" }, { typeofwork: "Mobile Application" }],
     })
       .populate({
         path: "subcontractCreatorId",
@@ -273,5 +296,63 @@ export const Query = {
       path: "subcontractCreatorId",
       populate: { path: "users" },
     });
+  },
+
+  taskall: (parent, args, context, info) => {
+    return Task.find({})
+      .populate({
+        path: "task",
+        options: { sort: { createdAt: "asc" } },
+      })
+      .populate({
+        path: "subcontract",
+        populate: { path: "subcontractCreatorId" },
+      })
+      .populate({
+        path: "hirecontract",
+        populate: { path: "hirecontractCreatorId" },
+      });
+  },
+
+  taskaccept: (parent, args, context, info) => {
+    return Hirecontract.find({
+      status: "ผู้รับเหมาช่วงยืนยันรับงานแล้วกำลังทำงาน",
+    })
+      .populate({
+        path: "hirecontractCreatorId",
+        populate: { path: "hirecontracts" },
+      })
+      .populate({
+        path: "subcontractAcceptHirecontractId",
+        populate: { path: "subcontracts" },
+      });
+  },
+
+  taskdenied: (parent, args, context, info) => {
+    return Hirecontract.find({
+      status: "ผู้รับเหมาช่วงปฎิเสธการรับงาน",
+    })
+      .populate({
+        path: "hirecontractCreatorId",
+        populate: { path: "hirecontracts" },
+      })
+      .populate({
+        path: "subcontractAcceptHirecontractId",
+        populate: { path: "subcontracts" },
+      });
+  },
+
+  tasksuccess: (parent, args, context, info) => {
+    return Hirecontract.find({
+      status: "ผู้รับเหมาช่วงทำงานสำเร็จแล้ว",
+    })
+      .populate({
+        path: "hirecontractCreatorId",
+        populate: { path: "hirecontracts" },
+      })
+      .populate({
+        path: "subcontractAcceptHirecontractId",
+        populate: { path: "subcontracts" },
+      });
   },
 };

@@ -168,36 +168,39 @@ const SubcontractWaitingTable = () => {
       name: "เมนู",
       cell: (row) => (
         <>
-          <div className="row g-3 mt-2">
-            <div className="col-md-4">
+          <div class="row mt-2 mb-2">
+           
+            <div className="mt-1 mb-1">
               <button
-                className="btn btn-primary btn-sm w-100 "
+                className="btn btn-primary btn-sm  "
                 onClick={async () => await handleAccept(row.id)}
               >
                 อนุมัติ
               </button>
             </div>
 
-            <div className="col-md-4">
+            <div className="mt-1 mb-1">
               <button
-                className="btn btn-danger btn-sm w-100"
+                className="btn btn-danger btn-sm"
                 onClick={async () => await handleDenied(row.id)}
               >
                 {" "}
                 ปฎิเสธ{" "}
               </button>
             </div>
-            <div className="col-md-4">
+
+            <div className="mt-1 mb-1">
               <Link
                 key={row.id}
                 href="/subcontracts/[subcontractId]"
                 as={`/subcontracts/${row.id}`}
               >
-                <button className="btn btn-secondary btn-sm w-100">
+                <button className="btn btn-secondary btn-sm">
                   ดูรายละเอียด
                 </button>
               </Link>
             </div>
+            
           </div>
         </>
       ),
@@ -213,19 +216,24 @@ const SubcontractWaitingTable = () => {
   }
   return (
     <>
-      <div class="card">
-        <div class="card-header text-center mt-3">
-          จัดการข้อมูลผู้ว่าจ้างที่ร้องขอ
+      <div class="row ">
+        <div class="mt-5">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="text-center">จัดการข้อมูลผู้ว่าจ้างที่ร้องขอ </h4>
+            </div>
+            <div>
+              <DataTableExtensions columns={columns} data={subcontractData}>
+                <DataTable
+                  pagination
+                  // selectableRows
+                  // selectableRowsHighlight
+                  highlightOnHover
+                />
+              </DataTableExtensions>
+            </div>
+          </div>
         </div>
-
-        <DataTableExtensions columns={columns} data={subcontractData}>
-          <DataTable
-            pagination
-            // selectableRows
-            // selectableRowsHighlight
-            highlightOnHover
-          />
-        </DataTableExtensions>
       </div>
     </>
   );

@@ -111,6 +111,7 @@ const Managehirecontractstable = () => {
         highlightOnHover
       />
     </DataTableExtensions>
+
     // <></>
   );
 };

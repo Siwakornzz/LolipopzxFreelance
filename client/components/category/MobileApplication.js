@@ -1,14 +1,14 @@
 import { useQuery } from "@apollo/client";
-import React,{ useState }  from "react";
-import { QUERY_SUBCONTRACTSWEBDEVELOPMENT } from "../../apollo/queries";
+import React, { useState } from "react";
+import { QUERY_SUBCONTRACTSMOBILE } from "../../apollo/queries";
 import CategoryItem from "./CategoryItem";
 
-const Webdevelopment = () => {
+const MobileApplication = () => {
   const [webDevelopment, setWebdevelopment] = useState({});
-  const { data } = useQuery(QUERY_SUBCONTRACTSWEBDEVELOPMENT, {
+  const { data } = useQuery(QUERY_SUBCONTRACTSMOBILE, {
     fetchPolicy: "no-cache",
     onCompleted: (data) => {
-      setWebdevelopment(data.subcontractswebdevelopment);
+      setWebdevelopment(data.subcontractsmobile);
     },
   });
 
@@ -16,7 +16,7 @@ const Webdevelopment = () => {
     <>
       <div className="card">
         <div className="card-header text-center ">
-          ข้อมูลผู้รับเหมาช่วง (WebDevelopment)
+          ข้อมูลผู้รับเหมาช่วง (Mobile Application)
         </div>
       </div>
 
@@ -36,4 +36,4 @@ const Webdevelopment = () => {
   );
 };
 
-export default Webdevelopment;
+export default MobileApplication;

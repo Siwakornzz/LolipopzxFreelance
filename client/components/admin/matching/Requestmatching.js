@@ -122,7 +122,7 @@ const Requestmatching = () => {
                 <p>
                   {" "}
                   <span style={{ color: "red" }}> งบประมาณ : </span>
-                  {data?.hirecontract.budget} บาท
+                  {Number(data?.hirecontract.budget).toLocaleString("en")} บาท
                 </p>
 
                 <p>
@@ -176,7 +176,10 @@ const Requestmatching = () => {
                         <div class="card-body"></div>
                         <p>SUBCONTRACT ID : {v.id} </p>
                         <p> ประเภทของงานที่รับทำ : {v.typeofwork} </p>
-                        <p>งบประมาณ : {v.startbudget} บาท </p>
+                        <p>
+                          งบประมาณ :{" "}
+                          {Number(v.startbudget).toLocaleString("en")} บาท
+                        </p>
 
                         <button
                           class="btn btn-outline-primary w-50 m-auto p-auto  mb-2  "
@@ -199,13 +202,7 @@ const Requestmatching = () => {
                         </Link>
                       </div>
                     ) : (
-                      <>
-                        <h5>
-                          {" "}
-                          ไม่พบผู้ประกาศงานที่รับงาน
-                          โปรดลองใหม่อีกครั้งในภายหลัง !{" "}
-                        </h5>
-                      </>
+                      <></>
                     )}
 
                     <hr />

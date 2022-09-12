@@ -647,4 +647,30 @@ export const Mutation = {
 
     return assignStatus;
   },
+
+  deletesubcontract2: async (parent, args, context, info) => {
+    const id = args.id;
+    const subcontract = await Subcontract.findById(id);
+
+    subcontract.status = "ผู้ว่าจ้างลบข้อมูล";
+
+    await subcontract.save();
+
+    const deletesubcontract = await Subcontract.findById(id);
+
+    return deletesubcontract;
+  },
+
+  deletehirecontract2: async (parent, args, context, info) => {
+    const id = args.id;
+    const hirecontract = await Hirecontract.findById(id);
+
+    hirecontract.status = "ผู้ว่าจ้างลบข้อมูล";
+
+    await hirecontract.save();
+
+    const assignStatus = await Hirecontract.findById(id);
+
+    return assignStatus;
+  },
 };

@@ -1,125 +1,135 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import ReactPaginate from "react-paginate";
 
-const CategoryItem = ({ categorydata, num }) => {
+const CategoryItem = ({ categorydata }) => {
+  const [currentItem, setCurrentItem] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 1;
+
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    setCurrentItem(categorydata.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(categorydata.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage]);
+
+  console.log(currentItem);
+
+  const handlePageClick = (e) => {
+    const newOffset = (e.selected * itemsPerPage) % categorydata.length;
+    setItemOffset(newOffset);
+  };
   return (
     <>
-      <div class="card-header text-center">
-        ข้อมูลผู้รับเหมาช่วง ID : {num}{" "}
-      </div>
-      <div class="me-2 ms-2 mt-2 mb-2 ">
-        <img
-          src="http://www.parzlogic.com/wp-content/uploads/2017/10/web-dev.jpg"
-          style={{
-            maxWidth: "100%",
-            height: "220px",
-            objectFit: "cover",
-            borderRadius: "5px",
-          }}
-          class="card-img-top"
-          alt={categorydata.id}
-        />
-      </div>
-      <div class="card-body">
-        <fieldset disabled>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">
-                @
-              </span>
+      <div class="container">
+        <div class="row g-3">
+          {currentItem.map((v) => {
+            return (
+              <>
+                <style>
+                  {`
+        #subcontract{
+          transform: scale(0.8);
+        }
+        #subcontract:hover{
+        
+          transform: scale(0.9);
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+    `}
+                </style>
+                <>
+                  <div
+                    class="col-md-3 mt-2 "
+                    id="subcontract"
+                    key={v.id}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <Link
+                      key={v.id}
+                      href="/subcontracts/[subcontractId]"
+                      as={`/subcontracts/${v.id}`}
+                    >
+                      <div
+                        class="card "
+                        style={{ width: "22rem", height: "auto" }}
+                      >
+                        <div class="card-header text-center ">{v.topic}</div>
+                        <img
+                          src="https://c.tenor.com/hwjqo-O16cUAAAAM/vaporwave.gif"
+                          class="card-img-top "
+                          alt={v.topic}
+                          style={{
+                            objectFit: "cover",
+                            width: "100%",
+                            height: "200px",
+                          }}
+                        />
+                        <br />
+                        <div class="card-body mt-1 ms-1 me-1 mb-1">
+                          <b>
+                            {" "}
+                            <p> รายละเอียด :</p>
+                          </b>
+                          <p
+                            style={{
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}
+                          >
+                            {v.detail}
+                          </p>
+                          <div class="text-end mt-1">
+                            <span class="badge text-bg-primary ">
+                              {v.typeofwork}
+                            </span>
+                          </div>
+                        </div>
+                        <div class="card-footer text-center text-muted">
+                          <div class="row">
+                            <div class="col">
+                              <small>
+                                {" "}
+                                ผู้สร้าง : {v.subcontractCreatorId.username}
+                              </small>
+                            </div>
+                            <div class="col">
+                              <small>
+                                {" "}
+                                งบประมาณ :{" "}
+                                {Number(v.startbudget).toLocaleString("en")} บาท
+                              </small>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                </>
+              </>
+            );
+          })}
+          <div class="container mt-5 mb-5 ">
+            <div class="text-center">
+              <ReactPaginate
+                breakLabel="..."
+                nextLabel="ถัดไป"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={5}
+                pageCount={pageCount}
+                previousLabel=" ย้อนกลับ"
+                renderOnZeroPageChange={null}
+                containerClassName="pagination justify-content-center"
+                pageLinkClassName="page-link"
+                previousLinkClassName="page-link"
+                nextLinkClassName="page-link"
+                activeLinkClassName="active"
+              ></ReactPaginate>
             </div>
-            <input
-              type="text"
-              class="form-control"
-              defaultValue={categorydata.name}
-            />
           </div>
-        </fieldset>
-
-        <fieldset disabled>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">
-                @
-              </span>
-            </div>
-            <input
-              type="email"
-              class="form-control"
-              defaultValue={categorydata.email}
-            />
-          </div>
-        </fieldset>
-
-        <fieldset disabled>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">
-                @
-              </span>
-            </div>
-            <input
-              type="text"
-              class="form-control"
-              defaultValue={categorydata.skill}
-            />
-          </div>
-        </fieldset>
-
-        <fieldset disabled>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">
-                @
-              </span>
-            </div>
-            <input
-              type="text"
-              class="form-control"
-              defaultValue={categorydata.natureofwork}
-            />
-          </div>
-        </fieldset>
-
-        <fieldset disabled>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">
-                @
-              </span>
-            </div>
-            <input
-              type="number"
-              class="form-control"
-              defaultValue={categorydata.yearskill}
-            />
-          </div>
-        </fieldset>
-
-        <fieldset disabled>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">
-                @
-              </span>
-            </div>
-            <input
-              type="text"
-              class="form-control"
-              defaultValue={categorydata.tel}
-            />
-          </div>
-        </fieldset>
-
-        <Link
-          key={categorydata.id}
-          href="/subcontracts/[subcontractId]"
-          as={`/subcontracts/${categorydata.id}`}
-        >
-          <div class="text-center">
-          <button class="btn btn-primary "> <i class="bi bi-eye"></i> ดูข้อมูล </button>
-          </div>
-        </Link>
+        </div>
       </div>
     </>
   );

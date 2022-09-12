@@ -63,7 +63,7 @@ const Category = () => {
             <h5>Mobile Application</h5>
             <p>สร้าง Application บน iOS และ Android</p>
             <p>
-              <a className="btn btn-secondary" href="#">
+              <a className="btn btn-secondary" href="category/mobileapplication">
                 ดูรายละเอียด &raquo;
               </a>
             </p>

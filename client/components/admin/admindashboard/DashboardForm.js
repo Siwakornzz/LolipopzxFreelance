@@ -2,6 +2,7 @@ import React from "react";
 import Subcontract from "./subcontract/Subcontract";
 import Hirecontract from "./hirecontract/Hirecontract";
 import User from "./user/User";
+import Task from "./task/Task";
 
 const DashboardForm = () => {
   return (
@@ -30,6 +31,14 @@ const DashboardForm = () => {
           <div class="col">
             {" "}
             <Hirecontract />
+          </div>
+        </div>
+
+        <div class="row mt-1 ms-1 me-1 mb-1">
+          <div class="col-md-3 "></div>
+          <div class="col">
+            {" "}
+            <Task />  
           </div>
         </div>
       </div>

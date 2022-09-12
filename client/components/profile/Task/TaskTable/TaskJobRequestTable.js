@@ -33,6 +33,10 @@ const TaskJobRequestTable = () => {
       selector: "hirecontract.status",
       cell: (row) => (
         <>
+          {row.hirecontract.status ===
+            "ผู้รับเหมาช่วงยืนยันรับงานแล้วกำลังทำงาน" && (
+            <span class="badge text-bg-info">{row.hirecontract.status}</span>
+          )}
           {row.hirecontract.status === "WAITING" && (
             <span class="badge text-bg-warning">
               {" "}
