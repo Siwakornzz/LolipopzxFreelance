@@ -118,6 +118,7 @@ type Mutation {
   ): Task!
   subcontractdeniedwork(id: ID!): Hirecontract!
   subcontractacceptwork(id: ID!): Hirecontract!
+  subcontractfinishjob(id: ID!): Hirecontract!
 }
 type User {
   id: ID!

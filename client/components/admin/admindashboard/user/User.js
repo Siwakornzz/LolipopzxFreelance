@@ -12,7 +12,7 @@ const User = () => {
           <div class="row text-center">
             <div class="text-center mt-2">
               <img
-                src="https://i.pinimg.com/originals/8b/f3/db/8bf3db3f2eb386e95ab8a63c1ea3d956.gif"
+                src="https://c1.alamy.com/thumbs/tcxt95/admin-icon-vector-male-user-person-profile-avatar-with-gear-cogwheel-for-settings-and-configuration-in-flat-color-glyph-pictogram-illustration-tcxt95.jpg "
                 class="rounded-circle"
                 width="140px"
                 height="140px"

@@ -338,3 +338,11 @@ export const DELETE_SUBCONTRACT2 = gql`
     }
   }
 `;
+
+export const SUCCESS_JOB = gql`
+  mutation SUCCESS_JOB($id: ID!) {
+    subcontractfinishjob(id: $id) {
+      id
+    }
+  }
+`;

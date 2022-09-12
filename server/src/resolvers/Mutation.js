@@ -673,4 +673,17 @@ export const Mutation = {
 
     return assignStatus;
   },
+
+  subcontractfinishjob: async (parent, args, context, info) => {
+    const id = args.id;
+    const hirecontract = await Hirecontract.findById(id);
+
+    hirecontract.status = "งานที่จ้างเข้ามาทำเสร็จเรียบร้อยแล้ว";
+
+    await hirecontract.save();
+
+    const assignStatus = await Hirecontract.findById(id);
+
+    return assignStatus;
+  },
 };

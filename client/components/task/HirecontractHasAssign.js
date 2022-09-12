@@ -7,11 +7,40 @@ import Link from "next/link";
 import {
   SUBCONTRACT_ACCEPTHIRECONTRACT,
   SUBCONTRACT_DENIEDTHIRECONTRACT,
+  SUCCESS_JOB,
 } from "../../apollo/mutations";
 import Swal from "sweetalert2";
 
 const HirecontractHasAssign = () => {
   const [hirecontractData, setHirecontractData] = useState([]);
+
+  const handleFinish = async (id) => {
+    Swal.fire({
+      title: "LOLIPOPZ",
+      text: "คุณจะสำเร็จงานใช่หรือไม่ ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "ใช่",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await finishWork({
+            variables: {
+              id: id,
+            },
+          })
+            .then(() => {
+              Swal.fire("LOLIPOPZ", "ทำงานสำเร็จ !", "success");
+            })
+            .then(() => Router.push("/task"));
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    });
+  };
   const handleAcceptwork = async (id) => {
     Swal.fire({
       title: "LOLIPOPZ",
@@ -70,6 +99,7 @@ const HirecontractHasAssign = () => {
 
   const [acceptHirecontract] = useMutation(SUBCONTRACT_ACCEPTHIRECONTRACT, {});
   const [deniedHirecontract] = useMutation(SUBCONTRACT_DENIEDTHIRECONTRACT, {});
+  const [finishWork] = useMutation(SUCCESS_JOB, {});
 
   const columns = [
     {
@@ -95,11 +125,13 @@ const HirecontractHasAssign = () => {
       selector: "hirecontract.status",
       cell: (row) => (
         <>
-          {row.hirecontract.status === "ผู้รับเหมาช่วงยืนยันรับงานแล้วกำลังทำงาน" && (
-            <span class="badge text-bg-info">
-
-              {row.hirecontract.status}
-            </span>
+          {row.hirecontract.status ===
+            "งานที่จ้างเข้ามาทำเสร็จเรียบร้อยแล้ว" && (
+            <span class="badge text-bg-success">{row.hirecontract.status}</span>
+          )}
+          {row.hirecontract.status ===
+            "ผู้รับเหมาช่วงยืนยันรับงานแล้วกำลังทำงาน" && (
+            <span class="badge text-bg-info">{row.hirecontract.status}</span>
           )}
           {row.hirecontract.status === "กำลังรอการตอบรับจากผู้รับเหมาช่วง" && (
             <span class="badge text-bg-info"> {row.hirecontract.status}</span>
@@ -123,41 +155,40 @@ const HirecontractHasAssign = () => {
               <div class="col text-center mt-2">
                 <button
                   class="btn btn-success btn-sm w-100"
-                  // onClick={async () =>
-                  //   await handleAcceptwork(row.hirecontract.id)
-                  // }
+                  onClick={async () => await handleFinish(row.hirecontract.id)}
                 >
                   ทำงานสำเร็จ
                 </button>
               </div>
             )}
-
             {row.hirecontract.status !==
-              "ผู้รับเหมาช่วงยืนยันรับงานแล้วกำลังทำงาน" && (
-              <>
-                <div class="col text-center ">
-                  <button
-                    class="btn btn-secondary btn-sm w-100"
-                    onClick={async () =>
-                      await handleAcceptwork(row.hirecontract.id)
-                    }
-                  >
-                    รับงาน
-                  </button>
-                </div>
+              "ผู้รับเหมาช่วงยืนยันรับงานแล้วกำลังทำงาน" &&
+              row.hirecontract.status !==
+                "งานที่จ้างเข้ามาทำเสร็จเรียบร้อยแล้ว" && (
+                <>
+                  <div class="col text-center ">
+                    <button
+                      class="btn btn-secondary btn-sm w-100"
+                      onClick={async () =>
+                        await handleAcceptwork(row.hirecontract.id)
+                      }
+                    >
+                      รับงาน
+                    </button>
+                  </div>
 
-                <div class="col text-center ">
-                  <button
-                    class="btn btn-secondary btn-sm w-100"
-                    onClick={async () =>
-                      await handleDeniedwork(row.hirecontract.id)
-                    }
-                  >
-                    ปฎิเสธงาน
-                  </button>
-                </div>
-              </>
-            )}
+                  <div class="col text-center ">
+                    <button
+                      class="btn btn-secondary btn-sm w-100"
+                      onClick={async () =>
+                        await handleDeniedwork(row.hirecontract.id)
+                      }
+                    >
+                      ปฎิเสธงาน
+                    </button>
+                  </div>
+                </>
+              )}
 
             <div class="col text-center ">
               <Link
