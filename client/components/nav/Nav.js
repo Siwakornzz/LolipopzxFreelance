@@ -95,13 +95,13 @@ const Nav = () => {
 
                         <Link href="/admin">
                           <li style={{ cursor: "pointer" }}>
-                            <a className="dropdown-item"> DASHBOARD</a>
+                            <a className="dropdown-item"> แผงควบคุม</a>
                           </li>
                         </Link>
 
                         <Link href="/admin/matching">
                           <li style={{ cursor: "pointer" }}>
-                            <a className="dropdown-item"> Matching</a>
+                            <a className="dropdown-item"> จับคู่งาน</a>
                           </li>
                         </Link>
 
@@ -109,14 +109,14 @@ const Nav = () => {
                           <li style={{ cursor: "pointer" }}>
                             <a className="dropdown-item">
                               {" "}
-                              Managehirecontracts
+                              จัดการข้อมูลผู้ว่าจ้าง
                             </a>
                           </li>
                         </Link>
 
                         <Link href="/admin/managesubcontract">
                           <li style={{ cursor: "pointer" }}>
-                            <a className="dropdown-item"> Managesubcontracts</a>
+                            <a className="dropdown-item"> จัดการข้อมูลผู้รับเหมาช่วง</a>
                           </li>
                         </Link>
 
