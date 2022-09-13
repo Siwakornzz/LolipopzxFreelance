@@ -168,35 +168,35 @@ const SubcontractWaitingTable = () => {
       name: "เมนู",
       cell: (row) => (
         <>
-          <div class="row mt-2 mb-2">
+          <div class="row ">
            
-            <div className="mt-1 mb-1">
+            <div className="col-md-4">
               <button
-                className="btn btn-primary btn-sm  "
+                className="btn btn-success btn-sm  "
                 onClick={async () => await handleAccept(row.id)}
               >
-                อนุมัติ
+                <i class="bi bi-clipboard-check-fill"></i>
               </button>
             </div>
 
-            <div className="mt-1 mb-1">
+            <div className="col-md-4">
               <button
                 className="btn btn-danger btn-sm"
                 onClick={async () => await handleDenied(row.id)}
               >
                 {" "}
-                ปฎิเสธ{" "}
+                <i class="bi bi-clipboard-x-fill"></i>{" "}
               </button>
             </div>
 
-            <div className="mt-1 mb-1">
+            <div className="col-md-4">
               <Link
                 key={row.id}
                 href="/subcontracts/[subcontractId]"
                 as={`/subcontracts/${row.id}`}
               >
                 <button className="btn btn-secondary btn-sm">
-                  ดูรายละเอียด
+                <i class="bi bi-eye-fill"></i>
                 </button>
               </Link>
             </div>

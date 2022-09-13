@@ -56,6 +56,26 @@ const SubcontractsTable = ({ categorydata }) => {
                       href="/subcontracts/[subcontractId]"
                       as={`/subcontracts/${v.id}`}
                     >
+<<<<<<< HEAD
+                      <div class="card-header text-center ">{v.topic}</div>
+                      <img
+                        src="https://media.bitdegree.org/storage/media/images/2018/08/what-is-a-web-developer.jpg"
+                        class="card-img-top "
+                        alt={v.topic}
+                        style={{
+                          objectFit: "cover",
+                          width: "100%",
+                          height: "200px",
+                        }}
+                      />
+                      <br />
+                      <div class="card-body mt-1 ms-1 me-1 mb-1">
+                        <b>
+                          {" "}
+                          <p> รายละเอียด :</p>
+                        </b>
+                        <p
+=======
                       <div
                         class="card "
                         style={{ width: "22rem", height: "auto" }}
@@ -65,6 +85,7 @@ const SubcontractsTable = ({ categorydata }) => {
                           src="https://media.bitdegree.org/storage/media/images/2018/08/what-is-a-web-developer.jpg"
                           class="card-img-top "
                           alt={v.topic}
+>>>>>>> 3fb949fe5416c371742aa7c61502367675be9f80
                           style={{
                             objectFit: "cover",
                             width: "100%",

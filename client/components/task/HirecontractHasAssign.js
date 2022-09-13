@@ -149,10 +149,10 @@ const HirecontractHasAssign = () => {
       name: "เมนู",
       cell: (row) => (
         <>
-          <div class="row  ">
+          <div class="row">
             {row.hirecontract.status ===
               "ผู้รับเหมาช่วงยืนยันรับงานแล้วกำลังทำงาน" && (
-              <div class="col text-center mt-2">
+              <div class="col-md-4">
                 <button
                   class="btn btn-success btn-sm w-100"
                   onClick={async () => await handleFinish(row.hirecontract.id)}
@@ -166,7 +166,7 @@ const HirecontractHasAssign = () => {
               row.hirecontract.status !==
                 "งานที่จ้างเข้ามาทำเสร็จเรียบร้อยแล้ว" && (
                 <>
-                  <div class="col text-center ">
+                     <div class="col-md-4">
                     <button
                       class="btn btn-secondary btn-sm w-100"
                       onClick={async () =>
@@ -177,7 +177,7 @@ const HirecontractHasAssign = () => {
                     </button>
                   </div>
 
-                  <div class="col text-center ">
+                  <div class="col-md-4">
                     <button
                       class="btn btn-secondary btn-sm w-100"
                       onClick={async () =>
