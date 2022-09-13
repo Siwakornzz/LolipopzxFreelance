@@ -67,6 +67,9 @@ const ManagesubcontractsItem = () => {
       selector: "status",
       cell: (row) => (
         <>
+          {row.status === "ผู้ว่าจ้างลบข้อมูล" && (
+            <span class="badge text-bg-danger"> {row.status}</span>
+          )}
           {row.status === "WAITING" && (
             <span class="badge text-bg-warning"> {row.status}</span>
           )}
@@ -101,7 +104,9 @@ const ManagesubcontractsItem = () => {
               href="/subcontracts/[subcontractId]"
               as={`/subcontracts/${row.id}`}
             >
-              <button class="btn btn-primary btn-sm "><i class="bi bi-eye-fill"></i></button>
+              <button class="btn btn-primary btn-sm ">
+                <i class="bi bi-eye-fill"></i>
+              </button>
             </Link>
           </div>
         </>
