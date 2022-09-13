@@ -94,14 +94,9 @@ const TaskAddTable = () => {
               href="/subcontracts/[subcontractId]"
               as={`/subcontracts/${row.id}`}
             >
-<<<<<<< HEAD
-              <button class="btn btn-primary btn-sm"><i class="bi bi-eye-fill"></i>
-              </button>
-=======
               <button className="btn btn-primary btn-sm">
                 <i class="bi bi-eye-fill"></i>
                 </button>
->>>>>>> 671b2ce4073d7444679fc2d5e3d254e6964df20f
             </Link>
           </div>
 
@@ -123,11 +118,7 @@ const TaskAddTable = () => {
           <div class="col">
             {row.status !== "ผู้ว่าจ้างลบข้อมูล" && (
               <button
-<<<<<<< HEAD
-                class="btn btn-danger btn-sm "
-=======
                 class="btn btn-danger btn-sm"
->>>>>>> 671b2ce4073d7444679fc2d5e3d254e6964df20f
                 onClick={async () => await handleDelete(row.id)}
               >
                 {" "}

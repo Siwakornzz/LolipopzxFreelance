@@ -12,11 +12,7 @@ const User = () => {
           <div class="row text-center">
             <div class="text-center mt-2">
               <img
-<<<<<<< HEAD
-                src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/14cb6b84808917.5d68451d7d126.gif"
-=======
                 src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/14cb6b84808917.5d68451d7d126.gif "
->>>>>>> 671b2ce4073d7444679fc2d5e3d254e6964df20f
                 class="rounded-circle"
                 width="140px"
                 height="140px"
